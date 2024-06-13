@@ -25,7 +25,9 @@ CREATE TABLE `art` (
                        `still_up` bool,
                        `verifier_by` varchar(20),
                        `graffiti_date` date,
-                       `zone` int
+                       `zone` int,
+                       FOREIGN KEY (`hood_id`) REFERENCES `hood` (`id`),
+                       FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 );
 
 CREATE TABLE `hood` (
@@ -45,12 +47,18 @@ CREATE TABLE `badge` (
 
 CREATE TABLE `user_badge` (
                               `user_id` int,
-                              `badge_id` int
+                              `badge_id` int,
+                              FOREIGN KEY (`badge_id`) REFERENCES `badge` (`id`),
+                                FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+                                PRIMARY KEY (`user_id, badge_id`)
 );
 
 CREATE TABLE `art_style` (
                              `art_id` int,
-                             `style_id` int
+                             `style_id` int,
+                             FOREIGN KEY (`style_id`) REFERENCES `style` (`id`),
+                                FOREIGN KEY (`art_id`) REFERENCES `art` (`id`),
+                                PRIMARY KEY (`art_id`, `style_id`)
 );
 
 CREATE TABLE `style` (
@@ -59,14 +67,8 @@ CREATE TABLE `style` (
                          `style_tag` varchar(150) NOT NULL
 );
 
-ALTER TABLE `art` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
-ALTER TABLE `art` ADD FOREIGN KEY (`hood_id`) REFERENCES `hood` (`id`);
 
-ALTER TABLE `user_badge` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
-ALTER TABLE `user_badge` ADD FOREIGN KEY (`badge_id`) REFERENCES `badge` (`id`);
 
-ALTER TABLE `art_style` ADD FOREIGN KEY (`style_id`) REFERENCES `style` (`id`);
 
-ALTER TABLE `art_style` ADD FOREIGN KEY (`art_id`) REFERENCES `art` (`id`);
