@@ -1,17 +1,20 @@
 // Load environment variables from .env file
 require("dotenv").config();
 
+
 const fs = require("node:fs");
 const path = require("node:path");
 
 // Import database client
 const database = require("../database/client");
 
+
 const fixtures = path.join(__dirname, "..", "database", "fixtures");
 
 const seed = async () => {
   try {
     const dependencyMap = {};
+
 
     // Construct each seeder
     fs.readdirSync(fixtures)
