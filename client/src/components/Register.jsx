@@ -1,9 +1,6 @@
 function Register() {
-    return (
-        <>
-
-        </>
-    );
+  return <>
+  </>;
 }
 
 export default Register;
