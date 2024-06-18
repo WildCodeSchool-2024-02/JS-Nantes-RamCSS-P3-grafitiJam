@@ -24,7 +24,7 @@ class HoodSeeder extends AbstractSeeder {
                 hood_name: 'Olivettes',
                 city: true,
                 suburbs: false,
-            },
+            }
         ];
 
         // eslint-disable-next-line no-shadow
