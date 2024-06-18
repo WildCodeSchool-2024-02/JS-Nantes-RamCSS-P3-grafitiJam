@@ -7,37 +7,34 @@ import App from "./App";
 import Home from "./pages/Home";
 import Error from "./pages/Error";
 import Auth from "./pages/Auth";
-import Profile from "./pages/Profile"
+import Profile from "./pages/Profile";
 import Terms from "./pages/Terms";
 
-const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: <App />,
-      errorElement: <Error />,
-      children: [
-        {
-          path: "",
-          element: <Home />
-        },
-        {
-          path: "/auth",
-          element: <Auth />,
-        },
-        {
-          path: "/profile",
-          element: <Profile />,
-        },
-        {
-          path: "/terms",
-          element: <Terms />
-        }
-      ]
-
-    }
-  ]
-);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "/auth",
+        element: <Auth />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/terms",
+        element: <Terms />,
+      },
+    ],
+  },
+]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(

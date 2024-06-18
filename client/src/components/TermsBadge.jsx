@@ -1,9 +1,6 @@
 function TermsBadge() {
-    return (
-        <>
-
-        </>
-    );
+  return <>
+  </>;
 }
 
 export default TermsBadge;

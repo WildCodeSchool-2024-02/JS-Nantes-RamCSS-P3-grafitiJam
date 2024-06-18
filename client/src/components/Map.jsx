@@ -1,9 +1,6 @@
 function Map() {
-    return (
-        <>
-
-        </>
-    );
+  return <>
+  </>;
 }
 
 export default Map;

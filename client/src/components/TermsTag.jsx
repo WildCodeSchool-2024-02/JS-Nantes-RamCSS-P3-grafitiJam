@@ -1,9 +1,6 @@
 function TermsTag() {
-    return (
-        <>
-
-        </>
-    );
+  return <>
+  </>;
 }
 
 export default TermsTag;
