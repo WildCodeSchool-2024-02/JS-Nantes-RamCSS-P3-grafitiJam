@@ -1,12 +1,6 @@
-import { useState } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  useMapEvents,
-  Circle,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import LocationMarker from "./LocationMarker";
+import GraffitiMarker from "./GraffitiMarker";
 
 const art = [
   {
@@ -25,9 +19,8 @@ const art = [
     still_up: true,
     verifier_by: "John Doe",
     graffiti_date: "2020-07-01",
-    zone: 1,
+    zone: 150,
   },
-
   {
     id: 2,
     is_verify: true,
@@ -44,9 +37,8 @@ const art = [
     still_up: true,
     verifier_by: "John Doe",
     graffiti_date: "2020-07-01",
-    zone: 1,
+    zone: 75,
   },
-
   {
     id: 3,
     is_verify: true,
@@ -63,9 +55,8 @@ const art = [
     still_up: true,
     verifier_by: "John Doe",
     graffiti_date: "2020-07-01",
-    zone: 1,
+    zone: 100,
   },
-
   {
     id: 4,
     is_verify: true,
@@ -82,28 +73,9 @@ const art = [
     still_up: true,
     verifier_by: "John Doe",
     graffiti_date: "2020-07-01",
-    zone: 1,
+    zone: 50,
   },
 ];
-
-function LocationMarker() {
-  const [position, setPosition] = useState(null);
-  const map = useMapEvents({
-    click() {
-      map.locate();
-    },
-    locationfound(e) {
-      setPosition(e.latlng);
-      map.flyTo(e.latlng, map.getZoom());
-    },
-  });
-
-  return position === null ? null : (
-    <Marker position={position}>
-      <Popup>You are here</Popup>
-    </Marker>
-  );
-}
 
 function GraffitiMap() {
   return (
@@ -118,29 +90,11 @@ function GraffitiMap() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <LocationMarker />
-      <Circle
-        center={[47.241, -1.544]}
-        color="red"
-        fillColor="#f03"
-        fillOpacity={0.5}
-        radius={50}
-      />
       <Marker position={[47.21151635589489, -1.5475728604681398]}>
         <Popup>Wild Code School - you can customize this popup</Popup>
       </Marker>
-      {art.map((graffiti, id) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <Marker key={id} position={[graffiti.gps_lat, graffiti.gps_long]}>
-          <Popup>
-            <img
-              src={graffiti.image}
-              alt={graffiti.image_alt}
-              style={{ width: "100px" }}
-            />
-            <br />
-            {graffiti.artiste} - {graffiti.style}
-          </Popup>
-        </Marker>
+      {art.map((graffiti) => (
+        <GraffitiMarker key={graffiti.id} graffiti={graffiti} />
       ))}
     </MapContainer>
   );
