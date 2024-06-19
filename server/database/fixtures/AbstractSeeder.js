@@ -1,7 +1,3 @@
-/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
-
-// Import Faker library for generating fake data
-const { faker } = require("@faker-js/faker");
 
 // Import database client
 const database = require("../client");
@@ -12,7 +8,6 @@ const refs = {};
 // Provide faker access through AbstractSeed class
 class AbstractSeeder {
   constructor({ table, truncate = true, dependencies = [] }) {
-    // thx https://www.codeheroes.fr/2017/11/08/js-classes-abstraites-et-interfaces/
     if (this.constructor === AbstractSeeder) {
       throw new TypeError(
         "Abstract class 'AbstractSeed' cannot be instantiated directly"
@@ -27,7 +22,6 @@ class AbstractSeeder {
 
     this.promises = [];
 
-    this.faker = faker;
     this.refs = refs;
   }
 
@@ -51,6 +45,7 @@ class AbstractSeeder {
 
       refs[refName] = { ...values, insertId };
     }
+
   }
 
   insert(data) {
@@ -68,5 +63,5 @@ class AbstractSeeder {
   }
 }
 
-// Ready to export
+
 module.exports = AbstractSeeder;

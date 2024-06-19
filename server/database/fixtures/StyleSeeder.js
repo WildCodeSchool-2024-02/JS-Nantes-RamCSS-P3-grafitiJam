@@ -7,7 +7,7 @@ class StyleSeeder extends AbstractSeeder {
     }
 
     run() {
-        const style = [
+        const styles = [
             {
                 name: 'Buble',
                 style_tag: 'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/tags/Buble.png'
@@ -31,8 +31,7 @@ class StyleSeeder extends AbstractSeeder {
         ];
 
 
-        // eslint-disable-next-line no-shadow
-        style.forEach((style) => {
+        styles.forEach((style) => {
             this.insert(style);
         });
 

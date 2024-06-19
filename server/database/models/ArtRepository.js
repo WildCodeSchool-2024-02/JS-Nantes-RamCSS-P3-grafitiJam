@@ -2,71 +2,25 @@ const AbstractRepository = require("./AbstractRepository");
 
 class ArtRepository extends AbstractRepository {
     constructor() {
-        // Call the constructor of the parent class (AbstractRepository)
-        // and pass the table name "item" as configuration
         super({ table: "art" });
     }
 
-    // The C of CRUD - Create operation
-
     async create(art) {
-        // Execute the SQL INSERT query to add a new item to the "item" table
         const [result] = await this.database.query(
-            `insert into ${this.table} (title, user_id) values (?, ?)`,
-            [art.title, art.user_id]
+            `insert into ${this.table} (user_id, is_verify, img_date, artiste, style, image, image_alt, gps_lat, gps_long, hood_id, size, still_up, verifier_by, graffiti_date, zone) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [art.user_id, art.is_verify, art.img_date, art.artiste, art.style, art.image, art.image_alt, art.gps_lat, art.gps_long, art.hood_id, art.size, art.still_up, art.verifier_by, art.graffiti_date, art.zone]
         );
 
-        // Return the ID of the newly inserted item
         return result.insertId;
     }
 
-    // The Rs of CRUD - Read operations
-
-    async read(id) {
-        // Execute the SQL SELECT query to retrieve a specific item by its ID
-        const [rows] = await this.database.query(
-            `select * from ${this.table} where id = ?`,
-            [id]
-        );
-
-        // Return the first row of the result, which represents the item
-        return rows[0];
-    }
-
-    async readAll() {
-        // Execute the SQL SELECT query to retrieve all items from the "item" table
-        const [rows] = await this.database.query(`select * from ${this.table}`);
-
-        // Return the array of items
-        return rows;
-    }
-
-
     async update(art) {
-        // Execute the SQL UPDATE query to modify an existing item in the "item" table
         const [result] = await this.database.query(
-            `update ${this.table} set title = ?, user_id = ? where id = ?`,
-            [art.title, art.user_id, art.id]
+            `update ${this.table} set user_id = ?, is_verify = ?, img_date = ?, artiste = ?, style = ?, image = ?, image_alt = ?, gps_lat = ?, gps_long = ?, hood_id = ?, size = ?, still_up = ?, verifier_by = ?, graffiti_date = ?, zone = ? where id = ?`,
+            [art.user_id, art.is_verify, art.img_date, art.artiste, art.style, art.image, art.image_alt, art.gps_lat, art.gps_long, art.hood_id, art.size, art.still_up, art.verifier_by, art.graffiti_date, art.zone, art.id]
         );
 
-        // Return the number of affected rows
         return result.affectedRows;
     }
-
-
-
-
-    async delete(id) {
-        // Execute the SQL DELETE query to remove an item from the "item" table
-        const [result] = await this.database.query(
-            `delete from ${this.table} where id = ?`,
-            [id]
-        );
-
-        // Return the number of affected rows
-        return result.affectedRows;
-    }
-
 }
-
 module.exports = ArtRepository;
