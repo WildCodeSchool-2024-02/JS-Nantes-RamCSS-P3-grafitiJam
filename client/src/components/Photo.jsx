@@ -9,7 +9,6 @@ export function Photo() {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
-  const selectedImageSize = useState(100); // Default size
 
 
   const capture = () => {
@@ -67,7 +66,7 @@ export function Photo() {
         {selectedImage ? (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
             <div className="reçu" onClick={() => selectImage(null)}>
-              <img className="prise" src={selectedImage.src} alt="Captured" style={{width: `${selectedImageSize}px`}} />
+              <img className="prise" src={selectedImage.src} alt="Captured"  />
               <div className="mapOuter">
                 <p>Latitude: {selectedImage.latitude}</p>
                 <p>Longitude: {selectedImage.longitude}</p>
