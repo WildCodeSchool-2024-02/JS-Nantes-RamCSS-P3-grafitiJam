@@ -13,6 +13,8 @@ function Home() {
 
 
 
+
+
       {/* <div id="map" style={{ height: "180px" }} /> */}
 
       <GraffitiMap />
