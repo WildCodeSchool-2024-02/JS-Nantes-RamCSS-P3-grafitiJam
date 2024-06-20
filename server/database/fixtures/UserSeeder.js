@@ -2,28 +2,28 @@ const AbstractSeeder = require('./AbstractSeeder');
 
 class UserSeeder extends AbstractSeeder {
   constructor() {
-    super({ table: 'users', truncate: true });
+    super({ table: 'user', truncate: true });
   }
 
   run() {
     const users = [
       {
-        name: 'John Doe',
+        alias: 'John Doe',
         email: 'john.doe@example.com',
         password: 'password',
       },
       {
-        name: 'Jane Doe',
+        alias: 'Jane Doe',
         email: 'jane.doe@example.com',
         password: 'password',
       },
       {
-        name: 'Jin Doe',
+        alias: 'Jin Doe',
         email: 'jin.doe@example.com',
         password: 'password',
       },
       {
-        name: 'Jong Doe',
+        alias: 'Jong Doe',
         email: 'jong.doe@example.com',
         password: 'password',
       }

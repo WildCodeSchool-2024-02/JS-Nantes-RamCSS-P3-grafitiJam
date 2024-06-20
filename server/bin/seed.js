@@ -1,31 +1,45 @@
-// Load environment variables from .env file
 require("dotenv").config();
 
-const fs = require("node:fs");
-const path = require("node:path");
+const { DB_NAME } = process.env;
 
-// Import database client
+const path = require('path');
+const fs = require('fs');
 const database = require("../database/client");
+// const UserSeeder = require('../database/fixtures/UserSeeder');
+// const HoodSeeder = require('../database/fixtures/HoodSeeder');
+// const StyleSeeder = require('../database/fixtures/StyleSeeder');
+// const ArtSeeder = require('../database/fixtures/ArtSeeder');
+// const BadgeSeeder = require('../database/fixtures/BadgeSeeder');
 
-const fixtures = path.join(__dirname, "..", "database", "fixtures");
+// const fixturesDirectory = [UserSeeder, HoodSeeder, StyleSeeder, ArtSeeder, BadgeSeeder];
+
+const fixturesDirectory = path.join(__dirname, '../database/fixtures');
+
+fs.readdirSync(fixturesDirectory).forEach(file => {
+  // Skip .DS_Store files
+  if (file === '.DS_Store') {
+    return null;
+  }
+  // Rest of your code...
+  return undefined; // Add return statement to avoid ESLint error
+});
 
 const seed = async () => {
   try {
     const dependencyMap = {};
 
     // Construct each seeder
-    fs.readdirSync(fixtures)
+    fs.readdirSync(fixturesDirectory)
         .filter((filePath) => !filePath.startsWith("Abstract"))
         .forEach((filePath) => {
           // eslint-disable-next-line import/no-dynamic-require, global-require
-          const SeederClass = require(path.join(fixtures, filePath));
+          const SeederClass = require(path.join(fixturesDirectory, filePath));
 
           const seeder = new SeederClass();
 
           dependencyMap[SeederClass] = seeder;
         });
 
-    // Sort seeders according to their dependencies
     const sortedSeeders = [];
 
     // The recursive solver
@@ -93,13 +107,13 @@ const seed = async () => {
     // Close the database connection
     database.end();
 
-    console.info(
-        `${database.databaseName} filled from '${path.normalize(fixtures)}' 🌱`
-    );
+    console.info(`${DB_NAME} updated from '${path.normalize(fixturesDirectory)}' 🆙`);
   } catch (err) {
     console.error("Error filling the database:", err.message, err.stack);
   }
 };
+
+
 
 // Run the seed function
 seed();

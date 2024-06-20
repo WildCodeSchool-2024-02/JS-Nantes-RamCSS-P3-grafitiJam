@@ -1,13 +1,21 @@
 const AbstractSeeder = require('./AbstractSeeder');
+const HoodSeeder = require('./HoodSeeder');
 
 
 class ArtSeeder extends AbstractSeeder {
-  constructor() {
-    super({ table: 'art', truncate: true });
-  }
+    constructor() {
+        super({ table: 'art', truncate: true });
+    }
 
-  run() {
-      const art = [
+    async run() {
+        const hoodSeeder = new HoodSeeder();
+        const hoodIds = await hoodSeeder.run();
+
+        if (!Array.isArray(hoodIds) || hoodIds.length === 0) {
+            console.error('hoodSeeder.run() did not return any ids');
+            return;
+        }
+      const arts = [
           {
               is_verify: true,
               img_date: '2020-07-01',
@@ -17,7 +25,6 @@ class ArtSeeder extends AbstractSeeder {
               image_alt: 'Banksy',
               gps_lat: 48.8566,
               gps_long: 2.3522,
-              hood_id: 1,
               size: 'M',
               still_up: true,
               verifier_by: 'John Doe',
@@ -34,7 +41,6 @@ class ArtSeeder extends AbstractSeeder {
               image_alt: 'Banksy',
               gps_lat: 48.8566,
               gps_long: 2.3522,
-              hood_id: 1,
               size: 'M',
               still_up: true,
               verifier_by: 'John Doe',
@@ -51,7 +57,6 @@ class ArtSeeder extends AbstractSeeder {
               image_alt: 'Banksy',
               gps_lat: 48.8566,
               gps_long: 2.3522,
-              hood_id: 1,
               size: 'M',
               still_up: true,
               verifier_by: 'John Doe',
@@ -68,7 +73,6 @@ class ArtSeeder extends AbstractSeeder {
               image_alt: 'Banksy',
               gps_lat: 48.8566,
               gps_long: 2.3522,
-              hood_id: 1,
               size: 'M',
               still_up: true,
               verifier_by: 'John Doe',
@@ -78,11 +82,11 @@ class ArtSeeder extends AbstractSeeder {
 
       ];
 
-      // eslint-disable-next-line no-shadow
-      art.forEach((art) => {
-          this.insert(art);
-      });
 
-    }
+        arts.forEach((art) => {
+            this.insert(art);
+        });
   }
-    module.exports = ArtSeeder;
+}
+
+module.exports = ArtSeeder;

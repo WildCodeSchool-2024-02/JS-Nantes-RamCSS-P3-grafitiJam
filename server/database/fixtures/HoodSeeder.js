@@ -1,37 +1,35 @@
 const AbstractSeeder = require('./AbstractSeeder');
 
 
+
 class HoodSeeder extends AbstractSeeder {
     constructor() {
         super({ table: 'hood', truncate: true });
     }
 
     run() {
-        const hood = [
+        const hoods = [
             {
-                hood_name: 'Rezé',
-                city: false,
-                suburbs: true,
-            },
-
-            {
-                hood_name: 'Doulon',
+                hood_name: 'Reze',
                 city: true,
-                suburbs: false,
+                suburbs: false
             },
-
             {
                 hood_name: 'Olivettes',
+                city: false,
+                suburbs: false
+            },
+            {
+                hood_name: 'Republique',
                 city: true,
-                suburbs: false,
-            }
+                suburbs: false
+            },
         ];
 
-        // eslint-disable-next-line no-shadow
-        hood.forEach((hood) => {
+        hoods.forEach((hood) => {
             this.insert(hood);
         });
-
     }
 }
+
 module.exports = HoodSeeder;

@@ -7,7 +7,7 @@ class BadgeSeeder extends AbstractSeeder {
     }
 
     run() {
-        const badge = [
+        const badges = [
             {
                 name: 'Gold',
                 img: 'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/badges/golden.png',
@@ -30,9 +30,7 @@ class BadgeSeeder extends AbstractSeeder {
             }
         ];
 
-
-        // eslint-disable-next-line no-shadow
-        badge.forEach((badge) => {
+        badges.forEach((badge) => {
             this.insert(badge);
         });
 
