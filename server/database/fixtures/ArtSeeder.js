@@ -1,22 +1,18 @@
 const AbstractSeeder = require('./AbstractSeeder');
 const HoodSeeder = require('./HoodSeeder');
+const UserSeeder = require("./UserSeeder");
 
 
 class ArtSeeder extends AbstractSeeder {
     constructor() {
-        super({ table: 'art', truncate: true });
+        super({ table: 'art', truncate: true, dependencies: [HoodSeeder, UserSeeder]});
     }
 
     async run() {
-        const hoodSeeder = new HoodSeeder();
-        const hoodIds = await hoodSeeder.run();
 
-        if (!Array.isArray(hoodIds) || hoodIds.length === 0) {
-            console.error('hoodSeeder.run() did not return any ids');
-            return;
-        }
       const arts = [
           {
+
               is_verify: true,
               img_date: '2020-07-01',
               artiste: 'Banksy',
@@ -25,6 +21,7 @@ class ArtSeeder extends AbstractSeeder {
               image_alt: 'Banksy',
               gps_lat: 48.8566,
               gps_long: 2.3522,
+              hood_id: 1,
               size: 'M',
               still_up: true,
               verifier_by: 'John Doe',
@@ -33,6 +30,7 @@ class ArtSeeder extends AbstractSeeder {
           },
 
           {
+
               is_verify: true,
               img_date: '2020-07-01',
               artiste: 'Banksy',
@@ -41,6 +39,7 @@ class ArtSeeder extends AbstractSeeder {
               image_alt: 'Banksy',
               gps_lat: 48.8566,
               gps_long: 2.3522,
+              hood_id: 1,
               size: 'M',
               still_up: true,
               verifier_by: 'John Doe',
@@ -49,6 +48,7 @@ class ArtSeeder extends AbstractSeeder {
           },
 
           {
+
               is_verify: true,
               img_date: '2020-07-01',
               artiste: 'Banksy',
@@ -57,6 +57,7 @@ class ArtSeeder extends AbstractSeeder {
               image_alt: 'Banksy',
               gps_lat: 48.8566,
               gps_long: 2.3522,
+              hood_id: 2,
               size: 'M',
               still_up: true,
               verifier_by: 'John Doe',
@@ -65,6 +66,7 @@ class ArtSeeder extends AbstractSeeder {
           },
 
           {
+
               is_verify: true,
               img_date: '2020-07-01',
               artiste: 'Banksy',
@@ -73,6 +75,7 @@ class ArtSeeder extends AbstractSeeder {
               image_alt: 'Banksy',
               gps_lat: 48.8566,
               gps_long: 2.3522,
+              hood_id: 3,
               size: 'M',
               still_up: true,
               verifier_by: 'John Doe',
