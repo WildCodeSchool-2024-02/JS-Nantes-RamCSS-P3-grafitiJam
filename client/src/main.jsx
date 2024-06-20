@@ -9,6 +9,7 @@ import Error from "./pages/Error";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Terms from "./pages/Terms";
+import Map from "./pages/Map";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/terms",
         element: <Terms />,
+      },
+      {
+        path: "/map",
+        element: <Map />,
       },
     ],
   },

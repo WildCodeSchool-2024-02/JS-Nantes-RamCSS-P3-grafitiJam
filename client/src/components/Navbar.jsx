@@ -16,6 +16,9 @@ function Navbar() {
         <li>
           <Link to="/terms">Terms</Link>
         </li>
+        <li>
+          <Link to="/map">Map</Link>
+        </li>
       </ul>
     </nav>
   );
