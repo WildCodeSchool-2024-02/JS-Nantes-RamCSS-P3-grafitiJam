@@ -22,6 +22,17 @@ class UserRepository extends AbstractRepository {
 
         return result.affectedRows;
     }
+
+     async readAll() {
+        const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
+        return rows;
+    }
+
+
+      async read(id) {
+        const [rows] = await this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [id]);
+        return rows.length ? rows[0] : null;
+    }
 }
 
 module.exports = UserRepository;

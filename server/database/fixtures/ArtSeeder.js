@@ -12,10 +12,10 @@ class ArtSeeder extends AbstractSeeder {
 
       const arts = [
           {
-
+              user_id: 1,
               is_verify: true,
               img_date: '2020-07-01',
-              artiste: 'Banksy',
+              artist: 'Banksy',
               style: 'Stencil',
               image: 'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/images/graff1.JPG',
               image_alt: 'Banksy',
@@ -30,10 +30,10 @@ class ArtSeeder extends AbstractSeeder {
           },
 
           {
-
+              user_id: 2,
               is_verify: true,
               img_date: '2020-07-01',
-              artiste: 'Banksy',
+              artist: 'Banksy',
               style: 'Stencil',
               image: 'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/images/graff2.png',
               image_alt: 'Banksy',
@@ -48,10 +48,10 @@ class ArtSeeder extends AbstractSeeder {
           },
 
           {
-
+              user_id: 3,
               is_verify: true,
               img_date: '2020-07-01',
-              artiste: 'Banksy',
+              artist: 'Banksy',
               style: 'Stencil',
               image: 'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/images/graff3.jpg',
               image_alt: 'Banksy',
@@ -66,10 +66,10 @@ class ArtSeeder extends AbstractSeeder {
           },
 
           {
-
+              user_id: 2,
               is_verify: true,
               img_date: '2020-07-01',
-              artiste: 'Banksy',
+              artist: 'Banksy',
               style: 'Stencil',
               image: 'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/images/graff4.jpg',
               image_alt: 'Banksy',
