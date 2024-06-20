@@ -1,10 +1,11 @@
 
 // Import the repository modules responsible for handling data operations on the tables
 const HoodRepository = require("./models/HoodRepository");
+const UserRepository = require("./models/UserRepository");
 const ArtRepository = require("./models/ArtRepository");
 const BadgeRepository = require("./models/BadgeRepository");
 const StyleRepository = require("./models/StyleRepository");
-const UserRepository = require("./models/UserRepository");
+
 
 
 
@@ -18,10 +19,11 @@ const tables = {};
 // Register each repository as data access point for its table
 
 tables.hood = new HoodRepository();
+tables.user = new  UserRepository();
 tables.art = new ArtRepository();
 tables.badge = new BadgeRepository();
 tables.style = new StyleRepository();
-tables.user = new  UserRepository();
+
 /* ************************************************************************* */
 
 // Use a Proxy to customize error messages when trying to access a non-existing table
