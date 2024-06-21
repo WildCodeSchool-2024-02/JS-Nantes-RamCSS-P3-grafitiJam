@@ -1,5 +1,6 @@
 function Register() {
-  return <>
+  return<>
+
   </>;
 }
 

@@ -1,4 +1,4 @@
-import GraffitiMap from "../components/GraffitiMap";
+import GraffitiMap from "../components/map/GraffitiMap";
 
 function Map() {
   return (

@@ -13,6 +13,7 @@ card {
   align-items: center;
   background-color: #121111;
   border-radius: 10px;
+  max-width: 400px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin: 20px;
