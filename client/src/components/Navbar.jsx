@@ -19,6 +19,12 @@ function Navbar() {
         <li>
           <Link to="/map">Map</Link>
         </li>
+        <li>
+          <Link to="/photo">Photo</Link>
+        </li>
+        <li>
+          <Link to="/galerie">Galerie</Link>
+        </li>
       </ul>
     </nav>
   );
