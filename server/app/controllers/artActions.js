@@ -2,13 +2,16 @@ const tables = require("../../database/tables");
 
 const browse = async (req, res, next) => {
   try {
-    // Fetch all items from the database
-    const art = await tables.art.readAll();
+    let isVerify;
+    if (req.query.verify === "true") {
+      isVerify = 1;
+    } else if (req.query.verify === "false") {
+      isVerify = 0;
+    }
+    const art = await tables.art.readAll(isVerify);
 
-    // Respond with the items in JSON format
     res.json(art);
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     next(err);
   }
 };
@@ -41,6 +44,15 @@ const readByUserId = (req, res, next) => {
   handleRead(req, res, next, (params) =>
     tables.art.readByUserId(params.user_id)
   );
+};
+
+const readByArtist = (req, res, next) => {
+  handleRead(req, res, next, (params) =>
+    tables.art.readByArtist(params.artist)
+  );
+};
+const readByStyle = (req, res, next) => {
+  handleRead(req, res, next, (params) => tables.art.readByStyle(params.style));
 };
 
 const edit = async (req, res, next) => {
@@ -96,4 +108,6 @@ module.exports = {
   destroy,
   readByHoodId,
   readByUserId,
+  readByArtist,
+  readByStyle,
 };
