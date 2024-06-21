@@ -56,9 +56,13 @@ class ArtRepository extends AbstractRepository {
     return result.affectedRows;
   }
 
-  async readAll() {
+  async readAll(isVerify) {
+    let sqlVerify = "";
+    if (isVerify !== undefined) {
+      sqlVerify = ` WHERE is_verify = ${isVerify}`;
+    }
     const [rows] = await this.database.query(
-      `SELECT id, user_id AS userId, is_verify AS isVerify, img_date AS imgDate, artist, style, image, image_alt AS imgAlt, gps_lat AS gpsLat, gps_long AS gpsLong, hood_id AS hoodId, size, still_up AS stillUp, verifier_by AS verifierBy, graffiti_date AS graffitiDate, zone  FROM ${this.table}`
+      `SELECT id, user_id AS userId, is_verify AS isVerify, img_date AS imgDate, artist, style, image, image_alt AS imgAlt, gps_lat AS gpsLat, gps_long AS gpsLong, hood_id AS hoodId, size, still_up AS stillUp, verifier_by AS verifierBy, graffiti_date AS graffitiDate, zone FROM ${this.table}${sqlVerify}`
     );
     return rows;
   }
@@ -91,6 +95,14 @@ class ArtRepository extends AbstractRepository {
     const [rows] = await this.database.query(
       `SELECT id, user_id AS userId, is_verify AS isVerify, img_date AS imgDate, artist, style, image, image_alt AS imgAlt, gps_lat AS gpsLat, gps_long AS gpsLong, hood_id AS hoodId, size, still_up AS stillUp, verifier_by AS verifierBy, graffiti_date AS graffitiDate, zone FROM ${this.table} WHERE artist = ?`,
       [artist]
+    );
+    return rows;
+  }
+
+  async readByStyle(style) {
+    const [rows] = await this.database.query(
+      `SELECT id, user_id AS userId, is_verify AS isVerify, img_date AS imgDate, artist, style, image, image_alt AS imgAlt, gps_lat AS gpsLat, gps_long AS gpsLong, hood_id AS hoodId, size, still_up AS stillUp, verifier_by AS verifierBy, graffiti_date AS graffitiDate, zone FROM ${this.table} WHERE style = ?`,
+      [style]
     );
     return rows;
   }

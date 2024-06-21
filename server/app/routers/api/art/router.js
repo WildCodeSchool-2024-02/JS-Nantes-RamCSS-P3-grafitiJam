@@ -14,6 +14,7 @@ const {
   readByHoodId,
   readByUserId,
   readByArtist,
+  readByStyle,
 } = require("../../../controllers/artActions");
 
 // Route to get a list of items
@@ -24,6 +25,7 @@ router.get("/:id", read);
 router.get("/hood/:hood_id", readByHoodId);
 router.get("/user/:user_id", readByUserId);
 router.get("/artist/:artist", readByArtist);
+router.get("/style/:style", readByStyle);
 
 // Route to add a new item
 router.post("/", add);
