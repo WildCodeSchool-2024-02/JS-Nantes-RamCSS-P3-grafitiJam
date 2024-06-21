@@ -43,6 +43,12 @@ const readByUserId = (req, res, next) => {
   );
 };
 
+const readByArtist = (req, res, next) => {
+  handleRead(req, res, next, (params) =>
+    tables.art.readByArtist(params.artist)
+  );
+};
+
 const edit = async (req, res, next) => {
   // Extract the item data from the request body
   const art = req.body;
@@ -96,4 +102,5 @@ module.exports = {
   destroy,
   readByHoodId,
   readByUserId,
+  readByArtist,
 };

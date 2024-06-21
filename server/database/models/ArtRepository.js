@@ -86,5 +86,13 @@ class ArtRepository extends AbstractRepository {
     );
     return rows;
   }
+
+  async readByArtist(artist) {
+    const [rows] = await this.database.query(
+      `SELECT id, user_id AS userId, is_verify AS isVerify, img_date AS imgDate, artist, style, image, image_alt AS imgAlt, gps_lat AS gpsLat, gps_long AS gpsLong, hood_id AS hoodId, size, still_up AS stillUp, verifier_by AS verifierBy, graffiti_date AS graffitiDate, zone FROM ${this.table} WHERE artist = ?`,
+      [artist]
+    );
+    return rows;
+  }
 }
 module.exports = ArtRepository;
