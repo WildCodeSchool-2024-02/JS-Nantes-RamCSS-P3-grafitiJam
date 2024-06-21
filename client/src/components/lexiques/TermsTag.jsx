@@ -1,5 +1,6 @@
 function TermsTag() {
-  return <>
+  return<>
+
   </>;
 }
 

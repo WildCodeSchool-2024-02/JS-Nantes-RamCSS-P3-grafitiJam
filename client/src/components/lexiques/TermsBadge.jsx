@@ -1,5 +1,6 @@
 function TermsBadge() {
   return <>
+
   </>;
 }
 

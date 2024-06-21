@@ -1,12 +1,3 @@
-/* Body styles (optional) */
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-
 /* Form container */
 #loginForm {
   background-color: #fefefe;

@@ -10,6 +10,8 @@ import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Terms from "./pages/Terms";
 import Map from "./pages/Map";
+import Photo from "./pages/Photo";
+import Galerie from "./pages/Galerie";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
       {
         path: "/map",
         element: <Map />,
+      },
+      {
+        path: "/photo",
+        element: <Photo />,
+      },
+      {
+        path: "/galerie",
+        element: <Galerie />,
       },
     ],
   },
