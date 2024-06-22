@@ -58,7 +58,7 @@ function Photographie() {
         videoConstraints={videoConstraints}
       />
       {/* eslint-disable-next-line react/button-has-type */}
-      <button onClick={capture}>Capture photo</button>
+      <button className="capture" onClick={capture}>CLICK !</button>
 
       {selectedImage ? (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
