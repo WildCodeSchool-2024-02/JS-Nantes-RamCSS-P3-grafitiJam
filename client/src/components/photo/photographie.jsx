@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import "./styles/Photo.css";
 
-
 function Photographie() {
   const webcamRef = useRef(null);
   const [capturedImages, setCapturedImages] = useState([]);
@@ -58,7 +57,9 @@ function Photographie() {
         videoConstraints={videoConstraints}
       />
       {/* eslint-disable-next-line react/button-has-type */}
-      <button className="capture" onClick={capture}>CLICK !</button>
+      <button className="capture" onClick={capture}>
+        CLICK !
+      </button>
 
       {selectedImage ? (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions

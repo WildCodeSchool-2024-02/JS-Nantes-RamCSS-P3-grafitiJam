@@ -66,3 +66,5 @@ CREATE TABLE `art_style` (
     FOREIGN KEY (`art_id`) REFERENCES `art` (`id`),
     PRIMARY KEY (`art_id`, `style_id`)
 );
+
+
