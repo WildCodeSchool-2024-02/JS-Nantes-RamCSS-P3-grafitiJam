@@ -60,6 +60,18 @@ class UserRepository extends AbstractRepository {
     );
     return rows.length ? rows[0] : null;
   }
-}
+
+  async readByUserId(user) {
+    const [rows] = await this.database.query(
+      ` SELECT b.id, b.name, b.img, b.scenario, b.level, u.alias
+    FROM user_badge ub
+    JOIN badge b ON ub.badge_id = b.id
+    JOIN user u ON ub.user_id = u.id
+    WHERE ub.user_id = ?`,
+      [user]
+    );
+    return rows;
+  }
+} // async readByUserId(userId) {
 
 module.exports = UserRepository;

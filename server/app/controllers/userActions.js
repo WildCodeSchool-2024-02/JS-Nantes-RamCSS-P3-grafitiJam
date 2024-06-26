@@ -17,22 +17,28 @@ const browse = async (req, res, next) => {
 };
 // http://localhost:3310/api/user?verify=true//
 // The R of BREAD - Read operation
-const read = async (req, res, next) => {
+const handleRead = async (req, res, next, fetchFunction) => {
   try {
-    // Fetch a specific item from the database based on the provided ID
-    const user = await tables.user.read(req.params.id);
+    const result = await fetchFunction(req.params);
 
-    // If the item is not found, respond with HTTP 404 (Not Found)
-    // Otherwise, respond with the item in JSON format
-    if (user == null) {
+    if (!result || (Array.isArray(result) && result.length === 0)) {
       res.sendStatus(404);
     } else {
-      res.json(user);
+      res.json(result);
     }
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     next(err);
   }
+};
+
+const read = (req, res, next) => {
+  handleRead(req, res, next, (params) => tables.user.read(params.id));
+};
+
+const readByUserId = (req, res, next) => {
+  handleRead(req, res, next, (params) =>
+    tables.user.readByUserId(params.user_id)
+  );
 };
 
 const edit = async (req, res, next) => {
@@ -86,4 +92,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  readByUserId,
 };
