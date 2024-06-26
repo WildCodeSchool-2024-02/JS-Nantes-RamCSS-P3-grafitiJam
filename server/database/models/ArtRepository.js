@@ -66,6 +66,7 @@ class ArtRepository extends AbstractRepository {
     );
     return rows;
   }
+  // lists all art, then true = verified art, false =  non verified art. //
 
   async read(id) {
     const [rows] = await this.database.query(
@@ -74,6 +75,7 @@ class ArtRepository extends AbstractRepository {
     );
     return rows.length ? rows[0] : null;
   }
+  // lists art by id
 
   async readByHoodId(hood) {
     const [rows] = await this.database.query(
@@ -82,6 +84,7 @@ class ArtRepository extends AbstractRepository {
     );
     return rows;
   }
+  // lists art by hood id
 
   async readByUserId(user) {
     const [rows] = await this.database.query(
@@ -91,6 +94,8 @@ class ArtRepository extends AbstractRepository {
     return rows;
   }
 
+  // lists art by user id
+
   async readByArtist(artist) {
     const [rows] = await this.database.query(
       `SELECT id, user_id AS userId, is_verify AS isVerify, img_date AS imgDate, artist, style, image, image_alt AS imgAlt, gps_lat AS gpsLat, gps_long AS gpsLong, hood_id AS hoodId, size, still_up AS stillUp, verifier_by AS verifierBy, graffiti_date AS graffitiDate, zone FROM ${this.table} WHERE artist = ?`,
@@ -98,6 +103,7 @@ class ArtRepository extends AbstractRepository {
     );
     return rows;
   }
+  // lists art by srtist name
 
   async readByStyle(style) {
     const [rows] = await this.database.query(
@@ -107,4 +113,6 @@ class ArtRepository extends AbstractRepository {
     return rows;
   }
 }
+
+// lists art by style
 module.exports = ArtRepository;
