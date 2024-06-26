@@ -16,6 +16,8 @@ const browse = async (req, res, next) => {
   }
 };
 
+// http://localhost:3310/api/art?verify=true//
+
 // The R of BREAD - Read operation
 const handleRead = async (req, res, next, fetchFunction) => {
   try {
