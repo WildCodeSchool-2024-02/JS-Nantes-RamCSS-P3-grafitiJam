@@ -9,7 +9,7 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-    // eslint-disable-next-line no-shadow
+  // eslint-disable-next-line no-shadow
   const validatePassword = (password) => {
     const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
     return regex.test(password);
@@ -17,7 +17,7 @@ function Register() {
 
   const handleRegister = () => {
     if (!validatePassword(password)) {
-        // eslint-disable-next-line no-alert
+      // eslint-disable-next-line no-alert
       alert(
         "Password must contain at least 8 characters, 1 uppercase letter, 1 number, and 1 special character"
       );
@@ -25,7 +25,7 @@ function Register() {
     }
 
     if (password !== confirmPassword) {
-        // eslint-disable-next-line no-alert
+      // eslint-disable-next-line no-alert
       alert("Passwords do not match");
       return;
     }
