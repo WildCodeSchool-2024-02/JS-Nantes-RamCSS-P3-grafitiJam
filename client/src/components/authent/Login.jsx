@@ -1,16 +1,18 @@
 import "./styles/Login.css";
 
-function Login() {
+// eslint-disable-next-line react/prop-types
+function Login({ showRegister }) {
   const handleLogin = () => {
     // Add login logic here
   };
 
   const handleSignUp = () => {
-    // Add sign up logic here
+    showRegister();
   };
 
   return (
     <form id="loginForm">
+      <h2>Login</h2>
       <div className="form-group">
         {/* Placeholder text instead of label */}
         <input

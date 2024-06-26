@@ -5,8 +5,8 @@ function Terms() {
   return (
     <main>
       <h1>Terms Page</h1>
-        <TermsBadge/>
-        <TermsTag/>
+      <TermsBadge />
+      <TermsTag />
     </main>
   );
 }
