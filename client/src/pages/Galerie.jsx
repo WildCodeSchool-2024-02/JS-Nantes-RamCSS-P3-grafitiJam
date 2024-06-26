@@ -1,9 +1,5 @@
 function Galerie() {
-  return (
-
-      <h1>WELCOME GALERIE</h1>
-
-  );
+  return <h1>WELCOME GALERIE</h1>;
 }
 
 export default Galerie;
