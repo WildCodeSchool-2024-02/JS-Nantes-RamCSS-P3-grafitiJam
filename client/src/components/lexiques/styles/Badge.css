@@ -7,6 +7,11 @@
   border-radius: 10px;
 }
 
+.scrollable-div {
+  height: 200px;
+  overflow: auto;
+}
+
 .title-image {
   display: flex;
   flex-direction: row;
@@ -21,11 +26,11 @@
 }
 
 .terms-badge-container img {
-  width: 100px;
+  width: 40px;
   height: auto;
 }
 
 .terms-badge-container p {
-  color: #c12626;
+  color: #ffffff;
   font-size: 16px;
 }

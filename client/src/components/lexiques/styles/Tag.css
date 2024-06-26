@@ -16,6 +16,11 @@
   padding: 0;
 }
 
+.scrollable-div {
+  height: 200px;
+  overflow: auto;
+}
+
 .terms-badge-container title {
   font-size: 16px;
 }
@@ -26,6 +31,6 @@
 }
 
 .terms-badge-container p {
-  color: #c12626;
+  color: #dedddd;
   font-size: 16px;
 }
