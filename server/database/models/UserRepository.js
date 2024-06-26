@@ -63,7 +63,7 @@ class UserRepository extends AbstractRepository {
 
   async readByUserId(user) {
     const [rows] = await this.database.query(
-      ` SELECT b.id, b.name, b.img, b.scenario, b.level, u.alias
+      ` SELECT b.name, b.img, b.scenario, b.level, u.alias
     FROM user_badge ub
     JOIN badge b ON ub.badge_id = b.id
     JOIN user u ON ub.user_id = u.id
