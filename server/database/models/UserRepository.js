@@ -51,6 +51,8 @@ class UserRepository extends AbstractRepository {
     return rows;
   }
 
+  // lists users by verification - true = verified, false  = not verified
+
   async read(id) {
     const [rows] = await this.database.query(
       `SELECT * FROM ${this.table} WHERE id = ?`,
