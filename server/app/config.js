@@ -1,8 +1,12 @@
 // Load the express module to create a web application
 
+const cors = require("cors");
+
 const express = require("express");
 
 const app = express();
+
+
 
 // Configure it
 
@@ -12,8 +16,8 @@ const app = express();
 
 // CORS (Cross-Origin Resource Sharing) is a security mechanism in web browsers that blocks requests from a different domain than the server.
 // You may find the following magic line in forums:
-// eslint-disable-next-line import/no-extraneous-dependencies
-const cors = require("cors");
+
+
 
 app.use(cors());
 
