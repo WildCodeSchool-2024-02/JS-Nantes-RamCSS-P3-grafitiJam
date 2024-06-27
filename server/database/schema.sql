@@ -68,10 +68,5 @@ CREATE TABLE `art_style` (
 );
 
 
-INSERT INTO user_badge (user_id, badge_id) VALUES
-        (1, 1);
 
-
-INSERT INTO art_style (art_id, style_id) VALUES
-        (1, 2);
 
