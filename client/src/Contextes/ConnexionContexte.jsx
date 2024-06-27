@@ -41,7 +41,7 @@ export function ConnexionProvider({ children }) {
       });
 
   return (
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ConnexionContext.Provider value={{ isConnected, handleLogin, username }}>
       {children}
     </ConnexionContext.Provider>
