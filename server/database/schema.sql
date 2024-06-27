@@ -2,7 +2,7 @@ CREATE TABLE `user` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `alias` VARCHAR(30),
     `email` VARCHAR(30),
-    `hashed_password` VARCHAR(255),
+    `hashed_password` varchar(255) not null,
     `profile_picture` VARCHAR(255),
     `is_admin` BOOL,
     `is_verify` BOOL,
@@ -66,12 +66,4 @@ CREATE TABLE `art_style` (
     FOREIGN KEY (`art_id`) REFERENCES `art` (`id`),
     PRIMARY KEY (`art_id`, `style_id`)
 );
-
-
-INSERT INTO user_badge (user_id, badge_id) VALUES
-        (1, 1);
-
-
-INSERT INTO art_style (art_id, style_id) VALUES
-        (1, 2);
 

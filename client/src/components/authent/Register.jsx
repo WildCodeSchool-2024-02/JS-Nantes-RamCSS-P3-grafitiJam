@@ -10,9 +10,6 @@ function Register() {
   const navigate = useNavigate();
     const emailRef = useRef();
 
-
-
-
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
@@ -32,6 +29,7 @@ function Register() {
                     method: "post",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
+                        alias,
                         email: emailRef.current.value,
                         password,
                     }),
@@ -89,6 +87,7 @@ function Register() {
           onChange={handlePasswordChange}
           required
         />
+
       </div>
       <div className="form-group">
         <input
@@ -103,9 +102,10 @@ function Register() {
           {password === confirmPassword ? "✅" : "❌"}
       </div>
       <div className="form-buttons">
-        <button type="button" id="registerButton">
-          Register
-        </button>
+          <button type="submit" id="registerButton">
+
+              Register
+          </button>
       </div>
     </form>
   );

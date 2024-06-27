@@ -46,7 +46,7 @@ class UserRepository extends AbstractRepository {
       sqlVerify = ` WHERE is_verify = ${isVerify}`;
     }
     const [rows] = await this.database.query(
-      `SELECT alias, email, hashed_password, profile_picture AS profilePicture, is_admin AS isAdmin,is_verify AS isVerify, graffiti_geek_level AS graffitiGeekLevel, id FROM ${this.table}${sqlVerify}`
+      `SELECT alias, email, hashed_password AS hashedPassword, profile_picture AS profilePicture, is_admin AS isAdmin,is_verify AS isVerify, graffiti_geek_level AS graffitiGeekLevel, id FROM ${this.table}${sqlVerify}`
     );
     return rows;
   }
@@ -72,6 +72,6 @@ class UserRepository extends AbstractRepository {
     );
     return rows;
   }
-} // async readByUserId(userId) {
+}
 
 module.exports = UserRepository;

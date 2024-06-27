@@ -27,7 +27,7 @@ router.get("/", browse);
 router.get("/badge/:user_id", readByUserId);
 // Route to get a specific item by ID
 router.get("/:id", read);
-router.post("/users", hashPassword, userActions.add);
+router.post("/", hashPassword, userActions.add);
 
 
 // Route to add a new item
