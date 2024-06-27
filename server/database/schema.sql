@@ -2,7 +2,7 @@ CREATE TABLE `user` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `alias` VARCHAR(30),
     `email` VARCHAR(30),
-    `password` VARCHAR(255),
+    `hashed_password` VARCHAR(255),
     `profile_picture` VARCHAR(255),
     `is_admin` BOOL,
     `is_verify` BOOL,
