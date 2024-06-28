@@ -11,7 +11,7 @@ class UserRepository extends AbstractRepository {
       [
         user.alias,
         user.email,
-        user.hashed_password,
+        user.hashedPassword,
         user.profile_picture,
         user.graffiti_geek_level,
       ]
@@ -22,11 +22,11 @@ class UserRepository extends AbstractRepository {
 
   async update(user) {
     const [result] = await this.database.query(
-      `update ${this.table} set alias = ?, email = ?, hashed_password = ?, profile_picture = ?, is_admin = ?, is_verify = ?, graffiti_geek_level = ? where id = ?`,
+      `update ${this.table} set alias = ?, email = ?, hashed_password = ?, profile_picture = ?, graffiti_geek_level = ? where id = ?`,
       [
         user.alias,
         user.email,
-        user.hashed_password,
+        user.hashedPassword,
         user.profile_picture,
         user.is_admin,
         user.is_verify,
