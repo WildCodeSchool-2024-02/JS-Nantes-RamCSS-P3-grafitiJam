@@ -1,0 +1,19 @@
+nav {
+  display: flex;
+  background-color: lightgrey;
+  justify-content: flex-end;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+}
+
+li img {
+  width: 10vw;
+  height: 10vw;
+}
+
+li.left-item {
+  margin-right: auto;
+}
