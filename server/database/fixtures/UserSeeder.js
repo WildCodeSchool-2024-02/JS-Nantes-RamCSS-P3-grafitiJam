@@ -10,7 +10,7 @@ class UserSeeder extends AbstractSeeder {
       {
         alias: "John Doe",
         email: "john.doe@example.com",
-        password: "password",
+        hashed_password: "password",
         profile_picture: "",
         is_admin: 0,
         is_verify: 0,
@@ -19,7 +19,7 @@ class UserSeeder extends AbstractSeeder {
       {
         alias: "Jane Doe",
         email: "jane.doe@example.com",
-        password: "password",
+        hashed_password: "password",
         profile_picture: "",
         is_admin: 0,
         is_verify: 1,
@@ -28,7 +28,7 @@ class UserSeeder extends AbstractSeeder {
       {
         alias: "Jin Doe",
         email: "jin.doe@example.com",
-        password: "password",
+        hashed_password: "password",
         profile_picture: "",
         is_admin: 1,
         is_verify: 1,
@@ -37,7 +37,7 @@ class UserSeeder extends AbstractSeeder {
       {
         alias: "Jong Doe",
         email: "jong.doe@example.com",
-        password: "password",
+        hashed_password: "password",
         profile_picture: "",
         is_admin: 1,
         is_verify: 1,

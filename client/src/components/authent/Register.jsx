@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles/Register.css";
 
@@ -8,38 +8,51 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+    const emailRef = useRef();
 
-  // eslint-disable-next-line no-shadow
-  const validatePassword = (password) => {
-    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
-    return regex.test(password);
-  };
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    };
 
-  const handleRegister = () => {
-    if (!validatePassword(password)) {
-      // eslint-disable-next-line no-alert
-      alert(
-        "Password must contain at least 8 characters, 1 uppercase letter, 1 number, and 1 special character"
-      );
-      return;
-    }
+    const handleConfirmPasswordChange = (event) => {
+        setConfirmPassword(event.target.value);
+    };
 
-    if (password !== confirmPassword) {
-      // eslint-disable-next-line no-alert
-      alert("Passwords do not match");
-      return;
-    }
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-    // Add register logic here
+        try {
+            // Appel à l'API pour créer un nouvel utilisateur
+            const response = await fetch(
+                `http://localhost:3310/api/user`,
+                {
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        alias,
+                        email: emailRef.current.value,
+                        password,
+                    }),
+                }
+            );
 
-    // Redirect to home page after successful registration
-    navigate("/");
-  };
+            // Redirection vers la page de connexion si la création réussit
+            if (response.status === 201) {
+                navigate("/login");
+            } else {
+                // Log des détails de la réponse en cas d'échec
+                console.info(response);
+            }
+        } catch (err) {
+            // Log des erreurs possibles
+            console.error(err);
+        }
+    };
 
   // Rest of the code remains the same
 
   return (
-    <form id="registerForm">
+    <form id="registerForm" onSubmit={handleSubmit}>
       <h2>Register</h2>
       <div className="form-group">
         <input
@@ -54,6 +67,7 @@ function Register() {
       </div>
       <div className="form-group">
         <input
+            ref={emailRef}
           type="email"
           id="email"
           name="email"
@@ -64,31 +78,33 @@ function Register() {
         />
       </div>
       <div className="form-group">
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
+          <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+              autoComplete="new-password"
+          />
+
+          <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              required
+          />
+          {password === confirmPassword ? "✅" : "❌"}
       </div>
       <div className="form-buttons">
-        <button type="button" id="registerButton" onClick={handleRegister}>
-          Register
-        </button>
+          <button type="submit" id="registerButton">
+
+              Register
+          </button>
       </div>
     </form>
   );

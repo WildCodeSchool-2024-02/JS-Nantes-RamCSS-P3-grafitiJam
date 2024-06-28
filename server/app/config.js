@@ -1,9 +1,13 @@
 // Load the express module to create a web application
 
+const cors = require("cors");
+
 const express = require("express");
-const path = require("path");
+
 
 const app = express();
+
+
 
 // Configure it
 
@@ -14,7 +18,7 @@ const app = express();
 // CORS (Cross-Origin Resource Sharing) is a security mechanism in web browsers that blocks requests from a different domain than the server.
 // You may find the following magic line in forums:
 
-const cors = require("cors");
+
 
 app.use(cors());
 
@@ -29,7 +33,7 @@ app.use(cors());
 // For example: ["http://mysite.com", "http://another-domain.com"]
 
 /*
-const cors = require("cors");
+
 
 app.use(
   cors({
@@ -110,6 +114,9 @@ app.use("/api", apiRouter);
 // 1. Uncomment the lines related to serving static files and redirecting unhandled requests.
 // 2. Ensure that the `reactBuildPath` points to the correct directory where your client's build artifacts are located.
 
+/*
+const path = require("path");
+
 const reactBuildPath = path.join(__dirname, "/../../client/dist");
 const publicFolderPath = path.join(__dirname, "/../public");
 
@@ -126,6 +133,7 @@ app.get("*.*", express.static(publicFolderPath, { maxAge: "1y" }));
 app.get("*", (_, res) => {
   res.sendFile(path.join(reactBuildPath, "/index.html"));
 });
+*/
 
 /* ************************************************************************* */
 
