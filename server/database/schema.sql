@@ -67,3 +67,6 @@ CREATE TABLE `art_style` (
     PRIMARY KEY (`art_id`, `style_id`)
 );
 
+
+
+
