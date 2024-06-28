@@ -12,11 +12,12 @@ const hashingOptions = {
 
 const hashPassword = async (req, res, next) => {
   try {
-    // Extraction du mot de passe de la requête
-    const { password } = req.body;
+
+
+
 
     // Hachage du mot de passe avec les options spécifiées
-    const hashedPassword = await argon2.hash(password, hashingOptions);
+    const hashedPassword = await argon2.hash(req.body.hashed_password, hashingOptions);
 
     // Remplacement du mot de passe non haché par le mot de passe haché dans la requête
     req.body.hashedPassword = hashedPassword;

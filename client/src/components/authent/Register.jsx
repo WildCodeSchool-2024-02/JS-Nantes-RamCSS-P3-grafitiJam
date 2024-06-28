@@ -24,7 +24,7 @@ function Register() {
         try {
             // Appel à l'API pour créer un nouvel utilisateur
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/user`,
+                `http://localhost:3310/api/user`,
                 {
                     method: "post",
                     headers: { "Content-Type": "application/json" },
@@ -78,27 +78,26 @@ function Register() {
         />
       </div>
       <div className="form-group">
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-          required
-        />
+          <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+              autoComplete="new-password"
+          />
 
-      </div>
-      <div className="form-group">
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-          required
-        />
+          <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              required
+          />
           {password === confirmPassword ? "✅" : "❌"}
       </div>
       <div className="form-buttons">

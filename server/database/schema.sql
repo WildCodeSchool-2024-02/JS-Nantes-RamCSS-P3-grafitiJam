@@ -1,29 +1,29 @@
 CREATE TABLE `user` (
-    `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `alias` VARCHAR(30),
-    `email` VARCHAR(30),
-    `hashed_password` varchar(255) not null,
+    `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    `alias` VARCHAR(30) NOT NULL,
+    `email` VARCHAR(30) NOT NULL,
+    `hashed_password` varchar(255) NOT NULL,
     `profile_picture` VARCHAR(255),
-    `is_admin` BOOL,
-    `is_verify` BOOL,
+    `is_admin` BOOL DEFAULT FALSE NOT NULL,
+    `is_verify` BOOL DEFAULT FALSE NOT NULL,
     `graffiti_geek_level` INT
 );
 
 CREATE TABLE `hood` (
-    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `hood_name` VARCHAR(20),
     `city` BOOL,
     `suburbs` BOOL
 );
 
 CREATE TABLE `style` (
-    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(20) NOT NULL,
     `style_tag` VARCHAR(150) NOT NULL
 );
 
 CREATE TABLE `art` (
-    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `user_id` INT,
     `is_verify` BOOL,
     `img_date` DATE NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE `art` (
 );
 
 CREATE TABLE `badge` (
-    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(20) NOT NULL,
     `img` VARCHAR(255) NOT NULL,
     `scenario` VARCHAR(100),
