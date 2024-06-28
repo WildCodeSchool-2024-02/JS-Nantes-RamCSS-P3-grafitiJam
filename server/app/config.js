@@ -4,10 +4,7 @@ const cors = require("cors");
 
 const express = require("express");
 
-
 const app = express();
-
-
 
 // Configure it
 
@@ -17,8 +14,6 @@ const app = express();
 
 // CORS (Cross-Origin Resource Sharing) is a security mechanism in web browsers that blocks requests from a different domain than the server.
 // You may find the following magic line in forums:
-
-
 
 app.use(cors());
 
@@ -61,7 +56,7 @@ app.use(
 
 // Uncomment one or more of these options depending on the format of the data sent by your client:
 
-// app.use(express.json());
+app.use(express.json());
 // app.use(express.urlencoded());
 // app.use(express.text());
 // app.use(express.raw());
