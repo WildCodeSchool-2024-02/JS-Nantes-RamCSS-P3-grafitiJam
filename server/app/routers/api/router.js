@@ -12,9 +12,13 @@ const artRouter = require("./art/router");
 
 router.use("/art", artRouter);
 
+
+
 const userRouter = require("./user/router");
 
 router.use("/user", userRouter);
+
+
 
 /* ************************************************************************* */
 
