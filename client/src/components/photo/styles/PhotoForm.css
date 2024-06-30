@@ -1,0 +1,42 @@
+.Vignette {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(37, 36, 36, 0);
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+form label {
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #7f7f7f;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="date"],
+form input[type="checkbox"] {
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+form button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: grey;
+}

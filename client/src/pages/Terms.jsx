@@ -6,12 +6,9 @@ import "./styles/terms.css";
 function Terms() {
   const [showBadge, setShowBadge] = useState(true);
 
-
   const toggleDisplay = () => {
     setShowBadge(!showBadge);
   };
-
-
 
   return (
     <main>
@@ -28,7 +25,7 @@ function Terms() {
               checked={showBadge}
               onChange={toggleDisplay}
             />
-              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="slideOne" />
           </div>
         </section>

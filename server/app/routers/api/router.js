@@ -19,6 +19,11 @@ const userRouter = require("./user/router");
 router.use("/user", userRouter);
 
 
+const styleRouter = require("./style/router");
+
+// Use style router
+router.use("/style", styleRouter);
+
 
 /* ************************************************************************* */
 
