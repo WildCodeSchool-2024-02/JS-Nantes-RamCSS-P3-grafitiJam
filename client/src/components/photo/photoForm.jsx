@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 
+import tags from "../tagsData";
+import sizeData from "../sizeData";
+
 import "./styles/PhotoForm.css";
 
 // eslint-disable-next-line react/prop-types
@@ -13,13 +16,7 @@ function PhotoForm({ selectedImage, onSubmit }) {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
-  const [styles, setStyles] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:3310/api/style") // replace with your API endpoint
-      .then((response) => response.json())
-      .then((data) => setStyles(data));
-  }, []);
 
   useEffect(() => {
     if (selectedImage) {
@@ -75,33 +72,35 @@ function PhotoForm({ selectedImage, onSubmit }) {
             onChange={(e) => setArtist(e.target.value)}
           />
         </label>
-        <label>
-          Style:
-          <select value={style} onChange={(e) => setStyle(e.target.value)}>
-            {styles.map((styleOption) => (
-              <option key={styleOption.id} value={styleOption.name}>
-                {styleOption.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Size:
-          <input
-            type="text"
-            value={size}
-            onChange={(e) => setSize(e.target.value)}
-          />
-        </label>
-        <label>
-          Still Up:
-          <input
-            type="checkbox"
-            checked={stillUp}
-            onChange={(e) => setStillUp(e.target.checked)}
-          />
-        </label>
-        <label>
+          <label>
+              Style:
+              <select value={style} onChange={(e) => setStyle(e.target.value)}>
+                  {tags.map((tag) => (
+                      <option key={tag.title} value={tag.title}>
+                          <img src={tag.image} alt={tag.alt}/> {tag.title}
+                      </option>
+                  ))}
+              </select>
+          </label>
+          <label>
+                Size:
+                <select value={size} onChange={(e) => setSize(e.target.value)}>
+                  {sizeData.map((sizeOption) => (
+                      <option key={sizeOption.title} value={sizeOption.title}>
+                        <img src={sizeOption.image} alt={sizeOption.alt}/> {sizeOption.title}
+                      </option>
+                    ))}
+                </select>
+          </label>
+          <label>
+              Still Up:
+              <input
+                  type="checkbox"
+                  checked={stillUp}
+                  onChange={(e) => setStillUp(e.target.checked)}
+              />
+          </label>
+          <label>
           Zone:
           <input
             type="number"
