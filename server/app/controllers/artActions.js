@@ -112,7 +112,6 @@ const post = async (req, res) => {
   }
 };
 
-// In your tables.art module
 
 
 
