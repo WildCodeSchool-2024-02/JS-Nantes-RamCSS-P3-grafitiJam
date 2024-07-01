@@ -1,0 +1,22 @@
+.homepage {
+  background-color: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.background {
+  width: 60vh;
+  height: 60vh;
+}
+
+ul li {
+  display: inline-block;
+  margin-right: 5vh;
+}
+
+ul li a {
+  color: white;
+}
