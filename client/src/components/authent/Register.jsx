@@ -8,48 +8,63 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-    const emailRef = useRef();
+  const emailRef = useRef();
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-    };
+  const [hasLowerCase, setHasLowerCase] = useState(false);
+  const [hasUpperCase, setHasUpperCase] = useState(false);
+  const [hasNumber, setHasNumber] = useState(false);
+  const [hasSpecialChar, setHasSpecialChar] = useState(false);
 
-    const handleConfirmPasswordChange = (event) => {
-        setConfirmPassword(event.target.value);
-    };
+  const [errorMessage, setErrorMessage] = useState("");
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+  const handlePasswordChange = (event) => {
+    // eslint-disable-next-line no-shadow
+    const password = event.target.value;
+    setPassword(password);
 
-        try {
-            // Appel à l'API pour créer un nouvel utilisateur
-            const response = await fetch(
-                `http://localhost:3310/api/user`,
-                {
-                    method: "post",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        alias,
-                        email: emailRef.current.value,
-                        password,
-                    }),
-                }
-            );
+    // Mettez à jour les états de validation du mot de passe
+    setHasLowerCase(/[a-z]/.test(password));
+    setHasUpperCase(/[A-Z]/.test(password));
+    setHasNumber(/\d/.test(password));
+    setHasSpecialChar(/[\W_]/.test(password));
+  };
 
-            // Redirection vers la page de connexion si la création réussit
-            if (response.status === 201) {
-                navigate("/login");
-            } else {
-                // Log des détails de la réponse en cas d'échec
-                console.info(response);
-            }
-        } catch (err) {
-            // Log des erreurs possibles
-            console.error(err);
-        }
-    };
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
+  };
 
-  // Rest of the code remains the same
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      // Prepare the data to be sent
+      const data = {
+        alias,
+        email: emailRef.current.value,
+        hashed_password: password,
+      };
+
+      const response = await fetch(`http://localhost:3310/api/user`, {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.status !== 201) {
+        const errorData = await response.json();
+        setErrorMessage(errorData.message);
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    if (!acceptedTerms) {
+      setErrorMessage("You must accept the terms of service.");
+    }
+  };
 
   return (
     <form id="registerForm" onSubmit={handleSubmit}>
@@ -67,7 +82,7 @@ function Register() {
       </div>
       <div className="form-group">
         <input
-            ref={emailRef}
+          ref={emailRef}
           type="email"
           id="email"
           name="email"
@@ -78,34 +93,67 @@ function Register() {
         />
       </div>
       <div className="form-group">
-          <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={handlePasswordChange}
-              required
-              autoComplete="new-password"
-          />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+          value={password}
+          onChange={handlePasswordChange}
+          required
+          autoComplete="new-password"
+        />
+        <div id="passwordCriteria">
+          <p>
+            Le mot de passe doit contenir :
+            <span style={{ color: hasLowerCase ? "green" : "red" }}>
+              {" "}
+              une lettre minuscule,
+            </span>
+            <span style={{ color: hasUpperCase ? "green" : "red" }}>
+              {" "}
+              une lettre majuscule,
+            </span>
+            <span style={{ color: hasNumber ? "green" : "red" }}>
+              {" "}
+              un chiffre,
+            </span>
+            <span style={{ color: hasSpecialChar ? "green" : "red" }}>
+              {" "}
+              un caractère spécial.
+            </span>
+          </p>
+        </div>
+      </div>
+      <input
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        placeholder="Confirm Password"
+        value={confirmPassword}
+        onChange={handleConfirmPasswordChange}
+        required
+      />
+      {/* Affichez une indication de progression de validation du mot de passe */}
 
-          <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-              required
-          />
-          {password === confirmPassword ? "✅" : "❌"}
+      {password === confirmPassword ? "✅" : "❌"}
+      <div className="form-group">
+        <input
+          type="checkbox"
+          id="terms"
+          name="terms"
+          onChange={(e) => setAcceptedTerms(e.target.checked)}
+        />
+        <label htmlFor="terms">
+          J'accepte les <a href="/terms-of-service">conditions d'utilisation</a>
+        </label>
       </div>
       <div className="form-buttons">
-          <button type="submit" id="registerButton">
-
-              Register
-          </button>
+        <button type="submit" id="registerButton">
+          Register
+        </button>
       </div>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </form>
   );
 }

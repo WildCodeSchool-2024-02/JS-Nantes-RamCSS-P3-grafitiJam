@@ -1,14 +1,17 @@
-import "./styles/Login.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 function Login({ showRegister }) {
-  // eslint-disable-next-line no-undef
-  const [isEmail, setIsEmail] = useState(true);
-  // eslint-disable-next-line no-undef
-  const [isPassword, setIsPassword] = useState(true);
+  const [alias, setAlias] = useState(""); // Ajout de l'état pour alias
+  const [password, setPassword] = useState(""); // Ajout de l'état pour password
+  const navigate = useNavigate();
+
+  const handleAliasChange = (event) => setAlias(event.target.value); // Ajout de la fonction pour gérer le changement de alias
+  const handlePasswordChange = (event) => setPassword(event.target.value); // Ajout de la fonction pour gérer le changement de password
 
   const handleFetch = async (data) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
+    const response = await fetch("http://localhost:3310/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,36 +20,20 @@ function Login({ showRegister }) {
     });
 
     if (!response.ok) {
-      setIsEmail(() => false);
-      setIsPassword(() => false);
+      console.error("Login failed");
     } else {
       const res = await response.json();
+      console.warn(res);
       localStorage.setItem("token", res.token);
       console.info("Logged", res);
+      navigate("/");
     }
   };
 
   const handleLogin = async (event) => {
-    try {
-      event.preventDefault();
+    event.preventDefault();
 
-      const email = event.target.email.value;
-      // eslint-disable-next-line no-undef
-      const isEmailValid = emailValidation(email);
-
-      const password = event.target.password.value;
-      // eslint-disable-next-line no-undef
-      const isPasswordValid = passwordValidation(password);
-
-      setIsEmail(() => isEmailValid);
-      setIsPassword(() => isPasswordValid);
-
-      if (isEmailValid && isPasswordValid) {
-        await handleFetch({ email, password });
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
+    await handleFetch({ alias, password }); // Utilisation des nouvelles valeurs d'état
   };
 
   const handleSignUp = () => {
@@ -54,34 +41,36 @@ function Login({ showRegister }) {
   };
 
   return (
-    <form id="loginForm">
+    <form id="loginForm" onSubmit={handleLogin}>
+      {" "}
+      {/* Ajout de onSubmit à la balise form */}
       <h2>Login</h2>
       <div className="form-group">
-        {/* Placeholder text instead of label */}
         <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Email"
+          type="text"
+          id="alias"
+          name="alias"
+          placeholder="Alias"
+          value={alias} // Utilisation de la nouvelle valeur d'état
+          onChange={handleAliasChange} // Utilisation de la nouvelle fonction de gestion du changement
           required
           autoComplete="off"
-          onFocus={() => !isEmail && setIsEmail(true)}
         />
       </div>
       <div className="form-group">
-        {/* Placeholder text instead of label */}
         <input
           type="password"
           id="password"
           name="password"
           placeholder="password"
+          value={password} // Utilisation de la nouvelle valeur d'état
+          onChange={handlePasswordChange} // Utilisation de la nouvelle fonction de gestion du changement
           required
           autoComplete="off"
-          onFocus={() => !isPassword && setIsPassword(true)}
         />
       </div>
       <div className="form-buttons">
-        <button type="submit" id="loginButton" onSubmit={handleLogin}>
+        <button type="submit" id="loginButton">
           Login
         </button>
         <button type="button" id="signUpButton" onClick={handleSignUp}>

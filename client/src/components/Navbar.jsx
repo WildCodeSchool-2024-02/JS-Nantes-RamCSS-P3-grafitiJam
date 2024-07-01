@@ -1,14 +1,17 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ConnexionContext } from "../Contextes/ConnexionContexte";
 
 import "../pages/styles/navbar.css";
 
 function Navbar() {
+  const { alias } = useContext(ConnexionContext);
+
+  console.warn(alias);
+
   return (
     <nav>
       <ul>
-        <li className="left-item">
-          <Link to="/profile">Profil</Link>
-        </li>
         <li>
           <Link to="/">
             {" "}
@@ -19,10 +22,19 @@ function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/galerie">
+          <Link to="/auth">Auth</Link>
+        </li>
+        <li>
+          <Link to="/profile">Profile</Link>
+        </li>
+        <li>
+          <Link to="/terms">Terms</Link>
+        </li>
+        <li>
+          <Link to="/map">
             <img
-              src="http://localhost:3310/assets/icones/Gallerie.svg"
-              alt="Gallerie des oeuvres de street art"
+              src="http://localhost:3310/assets/icones/Map.svg"
+              alt="Carte des oeuvres de street art"
             />
           </Link>
         </li>
@@ -35,13 +47,14 @@ function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/map">
+          <Link to="/galerie">
             <img
-              src="http://localhost:3310/assets/icones/Map.svg"
-              alt="Carte des oeuvres de street art"
+              src="http://localhost:3310/assets/icones/Gallerie.svg"
+              alt="Gallerie des oeuvres de street art"
             />
           </Link>
         </li>
+        {alias && <li>Bonjour, {alias}</li>}
       </ul>
     </nav>
   );

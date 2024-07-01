@@ -57,7 +57,7 @@ const edit = async (req, res, next) => {
   }
 };
 
-const add = async (req, res, next) => {
+const add = async (req, res) => {
   // Extract the item data from the request body
   const user = req.body;
 
@@ -65,14 +65,18 @@ const add = async (req, res, next) => {
     // Insert the item into the database
     const insertId = await tables.user.create(user);
 
+    const response = { insertId };
+    console.warn(response);
+
     // Respond with HTTP 201 (Created) and the ID of the newly inserted item
     res.status(201).json({ insertId });
   } catch (error) {
     console.error('Erreur lors de l\'ajout d\'un utilisateur :', error);
-    next(error);
+    const errorMessage = { message: error.message };
+    console.warn(errorMessage); // Log the error message
+    res.status(500).send(errorMessage); // Send the error message to the client
   }
 };
-
 const destroy = async (req, res, next) => {
   try {
     // Delete the item from the database
@@ -95,4 +99,9 @@ module.exports = {
   add,
   destroy,
   readByUserId,
+
 };
+
+
+
+

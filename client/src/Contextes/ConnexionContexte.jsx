@@ -7,7 +7,7 @@ export const ConnexionContext = createContext();
 // eslint-disable-next-line react/prop-types
 export function ConnexionProvider({ children }) {
   const [isConnected, setIsConnected] = useState(false);
-  const [username, setUsername] = useState(null);
+  const [alias, setAlias] = useState(null);
 
   const handleLogin = (password) =>
     fetch(`${apiUrl}/api/auth`, {
@@ -16,7 +16,7 @@ export function ConnexionProvider({ children }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username,
+        alias,
         password,
       }),
     })
@@ -27,10 +27,12 @@ export function ConnexionProvider({ children }) {
         return response.json();
       })
       .then((data) => {
+        console.warn(alias);
+
         if (data.token) {
           localStorage.setItem("token", data.token);
           setIsConnected(true);
-          setUsername(username);
+          setAlias(alias);
         } else {
           throw new Error("Authentication failed");
         }
@@ -42,7 +44,7 @@ export function ConnexionProvider({ children }) {
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <ConnexionContext.Provider value={{ isConnected, handleLogin, username }}>
+    <ConnexionContext.Provider value={{ isConnected, handleLogin, alias }}>
       {children}
     </ConnexionContext.Provider>
   );

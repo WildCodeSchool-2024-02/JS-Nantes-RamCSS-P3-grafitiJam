@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import "./styles/Photo.css";
 
-function Photographie() {
+function Photographie(props) {
   const webcamRef = useRef(null);
   const [capturedImages, setCapturedImages] = useState([]);
   const [latitude, setLatitude] = useState(0);
@@ -45,6 +45,8 @@ function Photographie() {
 
   const selectImage = (image) => {
     setSelectedImage(image);
+    // eslint-disable-next-line react/prop-types,react/destructuring-assignment
+    props.onImageSelect(image);
   };
 
   return (
