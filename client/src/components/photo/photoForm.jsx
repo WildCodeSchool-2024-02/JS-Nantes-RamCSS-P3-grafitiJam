@@ -6,7 +6,7 @@ import sizeData from "../sizeData";
 import "./styles/PhotoForm.css";
 
 // eslint-disable-next-line react/prop-types
-function PhotoForm({ selectedImage, onSubmit }) {
+function PhotoForm({ selectedImage }) {
   const [artist, setArtist] = useState("");
   const [style, setStyle] = useState("");
   const [size, setSize] = useState("");
@@ -16,7 +16,21 @@ function PhotoForm({ selectedImage, onSubmit }) {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
+  const postData = async (data) => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/art`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  };
 
   useEffect(() => {
     if (selectedImage) {
@@ -25,26 +39,39 @@ function PhotoForm({ selectedImage, onSubmit }) {
       // eslint-disable-next-line react/prop-types
       setLongitude(selectedImage.longitude);
       // eslint-disable-next-line react/prop-types
-      setGraffitiDate(selectedImage.timestamp.toISOString().split("T")[0]);
+      const timestamp = selectedImage.timestamp instanceof Date ? selectedImage.timestamp : new Date(selectedImage.timestamp);
+      setGraffitiDate(timestamp.toISOString().split("T")[0]);
     }
   }, [selectedImage]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    onSubmit({
-      // eslint-disable-next-line react/prop-types
-      image: selectedImage.src,
-      image_alt: "Graffiti Art",
-      gps_lat: latitude,
-      gps_long: longitude,
+    const formData = {
+      userId: 2,
+      isVerify: 1,
+      imgDate: graffitiDate,
       artist,
       style,
+      // image: selectedImage.src,
+      imgAlt: "Banksy",
+      gpsLat: latitude,
+      gpsLong: longitude,
+      hoodId: 1,
       size,
-      still_up: stillUp,
-      graffiti_date: graffitiDate,
-      zone,
-    });
+      stillUp: stillUp ? 1 : 0,
+      verifierBy: "John Doe",
+      graffitiDate,
+      zone: parseInt(zone, 10),
+    };
+
+    postData(formData)
+        .then(data => {
+          console.warn(data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
   };
 
   return (
@@ -62,7 +89,7 @@ function PhotoForm({ selectedImage, onSubmit }) {
         </label>
         <label>
           Graffiti Date:
-          <input type="date" value={graffitiDate} readOnly />
+          <input type="date" value={graffitiDate} readOnly/>
         </label>
         <label>
           Artist:
