@@ -11,22 +11,26 @@ function Login({ showRegister }) {
   const handlePasswordChange = (event) => setPassword(event.target.value); // Ajout de la fonction pour gérer le changement de password
 
   const handleFetch = async (data) => {
-    const response = await fetch("http://localhost:3310/api/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await fetch("http://localhost:3310/api/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    if (!response.ok) {
-      console.error("Login failed");
-    } else {
-      const res = await response.json();
-      console.warn(res);
-      localStorage.setItem("token", res.token);
-      console.info("Logged", res);
-      navigate("/");
+      if (!response.ok) {
+        console.error("Login failed", await response.text());
+      } else {
+        const res = await response.json();
+        console.warn(res);
+        localStorage.setItem("token", res.token);
+        console.info("Logged", res);
+        navigate("/profile");
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
     }
   };
 

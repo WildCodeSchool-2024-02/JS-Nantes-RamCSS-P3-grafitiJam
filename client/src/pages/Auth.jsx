@@ -9,10 +9,18 @@ function Auth() {
     setIsRegister(true);
   };
 
+  const showLogin = () => {
+    setIsRegister(false);
+  };
+
   return (
     <main>
       <h1>Connect you</h1>
-      {isRegister ? <Register /> : <Login showRegister={showRegister} />}
+      {isRegister ? (
+        <Register showLogin={showLogin} />
+      ) : (
+        <Login showRegister={showRegister} />
+      )}
     </main>
   );
 }

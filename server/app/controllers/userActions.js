@@ -40,6 +40,9 @@ const readByUserId = (req, res, next) => {
     tables.user.readByUserId(params.user_id)
   );
 };
+const readByAlias = (req, res, next) => {
+  handleRead(req, res, next, (params) => tables.user.readByAlias(params.alias));
+};
 
 const edit = async (req, res, next) => {
   // Extract the item data from the request body
@@ -71,7 +74,7 @@ const add = async (req, res) => {
     // Respond with HTTP 201 (Created) and the ID of the newly inserted item
     res.status(201).json({ insertId });
   } catch (error) {
-    console.error('Erreur lors de l\'ajout d\'un utilisateur :', error);
+    console.error("Erreur lors de l'ajout d'un utilisateur :", error);
     const errorMessage = { message: error.message };
     console.warn(errorMessage); // Log the error message
     res.status(500).send(errorMessage); // Send the error message to the client
@@ -90,8 +93,6 @@ const destroy = async (req, res, next) => {
   }
 };
 
-
-
 module.exports = {
   browse,
   read,
@@ -99,9 +100,5 @@ module.exports = {
   add,
   destroy,
   readByUserId,
-
+  readByAlias,
 };
-
-
-
-

@@ -1,13 +1,12 @@
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./styles/Register.css";
 
-function Register() {
+// eslint-disable-next-line react/prop-types
+function Register({ showLogin }) {
   const [alias, setAlias] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate();
   const emailRef = useRef();
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
@@ -55,7 +54,7 @@ function Register() {
         const errorData = await response.json();
         setErrorMessage(errorData.message);
       } else {
-        navigate("/");
+        showLogin();
       }
     } catch (err) {
       console.error(err);
