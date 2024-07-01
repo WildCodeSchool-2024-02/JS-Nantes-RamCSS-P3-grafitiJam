@@ -70,6 +70,14 @@ class UserRepository extends AbstractRepository {
     );
     return rows;
   }
+
+  async readByAlias(alias) {
+    const [rows] = await this.database.query(
+      `SELECT alias, email, hashed_password AS hashedPassword, profile_picture, is_admin AS isAdmin, is_verify AS isVerify, graffiti_geek_level AS graffitiGeekLevel, id FROM ${this.table} WHERE alias = ?`,
+      [alias]
+    );
+    return rows.length ? rows[0] : null;
+  }
 }
 
 module.exports = UserRepository;
