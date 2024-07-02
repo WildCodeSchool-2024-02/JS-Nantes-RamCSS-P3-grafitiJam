@@ -14,7 +14,9 @@ const hashingOptions = {
 const hashPassword = async (req, res, next) => {
   try {
     if (!req.body.hashed_password) {
-      return res.status(400).send({ message: 'The hashed_password field is required.' });
+      return res
+        .status(400)
+        .send({ message: "The hashed_password field is required." });
     }
     // Hachage du mot de passe avec les options spécifiées
     const hashedPassword = await argon2.hash(
@@ -34,7 +36,7 @@ const hashPassword = async (req, res, next) => {
 
 // eslint-disable-next-line consistent-return
 const verifyToken = (req, res, next) => {
-  if (req.path === '/api/user/login') {
+  if (req.path === "/api/user/login") {
     return next();
   }
 
@@ -71,27 +73,29 @@ const tables = require("../../database/tables");
 const login = async (req, res, next) => {
   const { alias, password } = req.body;
 
-  // eslint-disable-next-line func-names,no-shadow,no-unused-vars,no-empty-function
-  tables.user.readByAlias = async function (alias) {
-
-  };
   try {
     const user = await tables.user.readByAlias(alias);
 
     if (!user) {
-      return res.status(400).json({ message: 'Invalid alias or password' });
+      return res.status(400).json({ message: "Invalid alias or password" });
+    }
+
+    if (!user.hashedPassword) {
+      console.error("Hashed password is empty or undefined", user);
+      return res.status(500).json({ message: "Server error" });
     }
 
     const isPasswordMatch = await argon2.verify(user.hashedPassword, password);
 
     if (!isPasswordMatch) {
-      return res.status(400).json({ message: 'Invalid alias or password' });
+      return res.status(400).json({ message: "Invalid alias or password" });
     }
 
     const token = jwt.sign({ id: user.id }, process.env.APP_SECRET);
 
     res.json({ token });
   } catch (err) {
+    console.error(`Error during login: ${err.message}`);
     next(err);
   }
 };
