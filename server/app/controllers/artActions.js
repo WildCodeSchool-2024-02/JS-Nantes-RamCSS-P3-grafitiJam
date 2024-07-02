@@ -102,6 +102,19 @@ const destroy = async (req, res, next) => {
   }
 };
 
+const post = async (req, res) => {
+  try {
+    const result = await tables.art.create(req.body);
+    res.status(201).json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('An error occurred');
+  }
+};
+
+
+
+
 module.exports = {
   browse,
   read,
@@ -112,4 +125,6 @@ module.exports = {
   readByUserId,
   readByArtist,
   readByStyle,
+    post,
+
 };

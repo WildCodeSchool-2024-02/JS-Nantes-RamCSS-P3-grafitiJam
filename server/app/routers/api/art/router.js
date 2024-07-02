@@ -2,15 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
-
 // Import item-related actions
 const {
   browse,
   read,
-  add,
+  post,
   readByHoodId,
   readByUserId,
   readByArtist,
@@ -28,8 +24,6 @@ router.get("/artist/:artist", readByArtist);
 router.get("/style/:style", readByStyle);
 
 // Route to add a new item
-router.post("/", add);
-
-/* ************************************************************************* */
+router.post("/", post);
 
 module.exports = router;
