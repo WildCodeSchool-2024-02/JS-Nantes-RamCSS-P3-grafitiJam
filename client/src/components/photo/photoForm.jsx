@@ -16,6 +16,7 @@ function PhotoForm({ selectedImage }) {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
+
   const postData = async (data) => {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/art`, {
       method: 'POST',
@@ -53,8 +54,7 @@ function PhotoForm({ selectedImage }) {
       imgDate: graffitiDate,
       artist,
       style,
-      // image: selectedImage.src,
-      imgAlt: "Banksy",
+      imgAlt: "photo",
       gpsLat: latitude,
       gpsLong: longitude,
       hoodId: 1,
@@ -72,20 +72,38 @@ function PhotoForm({ selectedImage }) {
         .catch((error) => {
           console.error('Error:', error);
         });
+
+    const photoData = new FormData();
+    console.warn(selectedImage);
+    // eslint-disable-next-line react/prop-types
+    photoData.append('image', selectedImage, selectedImage.name);
+    fetch(`${import.meta.env.VITE_API_URL}/api/upload`, {
+      method: 'POST',
+      body: photoData,
+    })
+        .then(response => response.json())
+        .then(data => {
+          console.warn(data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
   };
+
 
   return (
     <card>
       <form className="Vignette" onSubmit={handleSubmit}>
         {/* eslint-disable-next-line react/prop-types */}
-        {selectedImage && <img src={selectedImage.src} alt="Selected" />}
+        {selectedImage && <img src={selectedImage.src} alt="Selected"/>}
+
         <label>
           Latitude:
-          <input type="text" value={latitude} readOnly />
+          <input type="text" value={latitude} readOnly/>
         </label>
         <label>
           Longitude:
-          <input type="text" value={longitude} readOnly />
+          <input type="text" value={longitude} readOnly/>
         </label>
         <label>
           Graffiti Date:
@@ -94,45 +112,45 @@ function PhotoForm({ selectedImage }) {
         <label>
           Artist:
           <input
-            type="text"
-            value={artist}
-            onChange={(e) => setArtist(e.target.value)}
+              type="text"
+              value={artist}
+              onChange={(e) => setArtist(e.target.value)}
           />
         </label>
-          <label>
-              Style:
-              <select value={style} onChange={(e) => setStyle(e.target.value)}>
-                  {tags.map((tag) => (
-                      <option key={tag.title} value={tag.title}>
-                          <img src={tag.image} alt={tag.alt}/> {tag.title}
-                      </option>
-                  ))}
-              </select>
-          </label>
-          <label>
-                Size:
-                <select value={size} onChange={(e) => setSize(e.target.value)}>
-                  {sizeData.map((sizeOption) => (
-                      <option key={sizeOption.title} value={sizeOption.title}>
-                        <img src={sizeOption.image} alt={sizeOption.alt}/> {sizeOption.title}
-                      </option>
-                    ))}
-                </select>
-          </label>
-          <label>
-              Still Up:
-              <input
-                  type="checkbox"
-                  checked={stillUp}
-                  onChange={(e) => setStillUp(e.target.checked)}
-              />
-          </label>
-          <label>
+        <label>
+          Style:
+          <select value={style} onChange={(e) => setStyle(e.target.value)}>
+            {tags.map((tag) => (
+                <option key={tag.title} value={tag.title}>
+                  <img src={tag.image} alt={tag.alt}/> {tag.title}
+                </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Size:
+          <select value={size} onChange={(e) => setSize(e.target.value)}>
+            {sizeData.map((sizeOption) => (
+                <option key={sizeOption.title} value={sizeOption.title}>
+                  <img src={sizeOption.image} alt={sizeOption.alt}/> {sizeOption.title}
+                </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Still Up:
+          <input
+              type="checkbox"
+              checked={stillUp}
+              onChange={(e) => setStillUp(e.target.checked)}
+          />
+        </label>
+        <label>
           Zone:
           <input
-            type="number"
-            value={zone}
-            onChange={(e) => setZone(e.target.value)}
+              type="number"
+              value={zone}
+              onChange={(e) => setZone(e.target.value)}
           />
         </label>
         <button type="submit">Submit</button>
