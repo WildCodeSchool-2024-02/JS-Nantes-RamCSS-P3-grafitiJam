@@ -22,7 +22,8 @@ function PhotoForm({ selectedImage }) {
     const metadata = {
       type: 'image/jpeg'
     };
-    const file = new File([data], "image_nom_unique.jpg", metadata);
+
+    const file = new File([data], "Photo.jpg", metadata);
 
     const formData = new FormData();
     formData.append('file', file, file.name);
@@ -41,8 +42,6 @@ function PhotoForm({ selectedImage }) {
 
     return data.filename;
   };
-
-
 
   const postData = async (data) => {
 
@@ -97,8 +96,9 @@ function PhotoForm({ selectedImage }) {
         verifierBy: "John Doe",
         graffitiDate,
         zone: parseInt(zone, 10),
-        image: `${import.meta.env.VITE_API_URL}/api/upload/${uploadedImageUrl}`,
+        image: `${import.meta.env.VITE_API_URL}/uploadsPhotos/${uploadedImageUrl}`,
       };
+
 
 
       await postData(formData);
@@ -106,8 +106,6 @@ function PhotoForm({ selectedImage }) {
       console.error('Error:', error);
     }
   };
-
-
 
   return (
       <card>
