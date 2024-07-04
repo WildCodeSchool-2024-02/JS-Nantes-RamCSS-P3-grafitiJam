@@ -1,46 +1,32 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { ConnexionContext } from "../../Contextes/ConnexionContexte";
 
 // eslint-disable-next-line react/prop-types
 function Login({ showRegister }) {
   const [alias, setAlias] = useState("");
   const [password, setPassword] = useState("");
+  const { handleLogin } = useContext(ConnexionContext); // Import and use the context
   const navigate = useNavigate();
 
   const handleAliasChange = (event) => {
-    setAlias(event.target.value);
+    const { value } = event.target;
+    setAlias(value);
   };
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+    const { value } = event.target;
+    setPassword(value);
   };
 
-  const handleFetch = async (data) => {
-    try {
-      const response = await fetch("http://localhost:3310/api/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Login failed", errorText);
-      } else {
-        const res = await response.json();
-        localStorage.setItem("token", res.token);
-        navigate("/profile");
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    }
-  };
-
-  const handleLogin = async (event) => {
+  const handleLoginClick = async (event) => {
     event.preventDefault();
-    await handleFetch({ alias, password });
+    try {
+      await handleLogin(alias, password);
+      navigate("/profile");
+    } catch (error) {
+      console.error("Login failed", error);
+    }
   };
 
   const handleSignUp = () => {
@@ -48,7 +34,7 @@ function Login({ showRegister }) {
   };
 
   return (
-    <form id="loginForm" onSubmit={handleLogin}>
+    <form id="loginForm" onSubmit={handleLoginClick}>
       <h2>Login</h2>
       <div className="form-group">
         <input

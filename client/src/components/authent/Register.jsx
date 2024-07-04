@@ -22,7 +22,7 @@ function Register({ showLogin }) {
     const password = event.target.value;
     setPassword(password);
 
-    // Mettez à jour les états de validation du mot de passe
+    // Update password validation states
     setHasLowerCase(/[a-z]/.test(password));
     setHasUpperCase(/[A-Z]/.test(password));
     setHasNumber(/\d/.test(password));
@@ -37,27 +37,33 @@ function Register({ showLogin }) {
     event.preventDefault();
 
     try {
+      if (password !== confirmPassword) {
+        setErrorMessage("Passwords do not match.");
+        return;
+      }
+
       // Prepare the data to be sent
       const data = {
         alias,
         email: emailRef.current.value,
         hashed_password: password,
       };
-
       const response = await fetch(`http://localhost:3310/api/user`, {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
-      if (response.status !== 201) {
+      if (!response.ok) {
         const errorData = await response.json();
+        console.error("Registration error:", errorData);
         setErrorMessage(errorData.message);
       } else {
         showLogin();
       }
     } catch (err) {
-      console.error(err);
+      console.error("Registration failed:", err);
+      setErrorMessage("Failed to register. Please try again later.");
     }
 
     if (!acceptedTerms) {
@@ -104,22 +110,19 @@ function Register({ showLogin }) {
         />
         <div id="passwordCriteria">
           <p>
-            Le mot de passe doit contenir :
+            Password must contain:
             <span style={{ color: hasLowerCase ? "green" : "red" }}>
               {" "}
-              une lettre minuscule,
+              lowercase letter,
             </span>
             <span style={{ color: hasUpperCase ? "green" : "red" }}>
               {" "}
-              une lettre majuscule,
+              uppercase letter,
             </span>
-            <span style={{ color: hasNumber ? "green" : "red" }}>
-              {" "}
-              un chiffre,
-            </span>
+            <span style={{ color: hasNumber ? "green" : "red" }}> number,</span>
             <span style={{ color: hasSpecialChar ? "green" : "red" }}>
               {" "}
-              un caractère spécial.
+              special character.
             </span>
           </p>
         </div>
@@ -133,7 +136,6 @@ function Register({ showLogin }) {
         onChange={handleConfirmPasswordChange}
         required
       />
-      {/* Affichez une indication de progression de validation du mot de passe */}
 
       {password === confirmPassword ? "✅" : "❌"}
       <div className="form-group">
@@ -144,7 +146,7 @@ function Register({ showLogin }) {
           onChange={(e) => setAcceptedTerms(e.target.checked)}
         />
         <label htmlFor="terms">
-          J'accepte les <a href="/terms-of-service">conditions d'utilisation</a>
+          I accept the <a href="/terms-of-service">terms of service</a>
         </label>
       </div>
       <div className="form-buttons">

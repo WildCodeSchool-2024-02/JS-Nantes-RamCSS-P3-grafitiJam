@@ -17,3 +17,11 @@ li img {
 li.left-item {
   margin-right: auto;
 }
+li.greeting {
+  color: black;
+  margin-left: 20px;
+}
+
+.alias {
+  font-weight: bold;
+}

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useMemo } from "react";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -8,17 +8,17 @@ export const ConnexionContext = createContext();
 export function ConnexionProvider({ children }) {
   const [isConnected, setIsConnected] = useState(false);
   const [alias, setAlias] = useState(null);
+  const [isVerify, setIsVerify] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  const handleLogin = (password) =>
-    fetch(`${apiUrl}/api/auth`, {
+  // eslint-disable-next-line no-shadow
+  const handleLogin = (alias, password) =>
+    fetch(`${apiUrl}/api/user/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        alias,
-        password,
-      }),
+      body: JSON.stringify({ alias, password }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -27,12 +27,12 @@ export function ConnexionProvider({ children }) {
         return response.json();
       })
       .then((data) => {
-        console.warn(alias);
-
         if (data.token) {
           localStorage.setItem("token", data.token);
-          setIsConnected(true);
           setAlias(alias);
+          setIsConnected(true);
+          setIsVerify(data.isVerify === 1);
+          setIsAdmin(data.isAdmin === 1);
         } else {
           throw new Error("Authentication failed");
         }
@@ -42,9 +42,19 @@ export function ConnexionProvider({ children }) {
         throw error;
       });
 
+  const contextValue = useMemo(
+    () => ({
+      isConnected,
+      handleLogin,
+      alias,
+      isVerify,
+      isAdmin,
+    }),
+    [isConnected, alias, isVerify, isAdmin]
+  );
+
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <ConnexionContext.Provider value={{ isConnected, handleLogin, alias }}>
+    <ConnexionContext.Provider value={contextValue}>
       {children}
     </ConnexionContext.Provider>
   );

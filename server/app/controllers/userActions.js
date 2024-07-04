@@ -8,9 +8,9 @@ const browse = async (req, res, next) => {
     } else if (req.query.verify === "false") {
       isVerify = 0;
     }
-    const art = await tables.user.readAll(isVerify);
+    const user = await tables.user.readAll(isVerify);
 
-    res.json(art);
+    res.json(user);
   } catch (err) {
     next(err);
   }

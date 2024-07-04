@@ -5,28 +5,32 @@ import { ConnexionContext } from "../Contextes/ConnexionContexte";
 import "../pages/styles/navbar.css";
 
 function Navbar() {
-  const { alias } = useContext(ConnexionContext);
-
-  console.warn(alias);
+  const { alias, isAdmin, isConnected } = useContext(ConnexionContext);
 
   return (
     <nav>
       <ul>
         <li>
           <Link to="/">
-            {" "}
             <img
               src="http://localhost:3310/assets/icones/toHome.svg"
               alt="Retour à l'accueil"
             />
           </Link>
         </li>
+        {isAdmin && (
+          <li>
+            <Link to="/admin">Admin</Link>
+          </li>
+        )}
         <li>
           <Link to="/auth">Auth</Link>
         </li>
-        <li>
-          <Link to="/profile">Profile</Link>
-        </li>
+        {isConnected && (
+          <li>
+            <Link to="/profile">Profile</Link>
+          </li>
+        )}
         <li>
           <Link to="/terms">Terms</Link>
         </li>
@@ -54,7 +58,11 @@ function Navbar() {
             />
           </Link>
         </li>
-        {alias && <li>Bonjour, {alias}</li>}
+        {alias && (
+          <li className="greeting">
+            Bonjour, <span className="alias">{alias}</span>
+          </li>
+        )}
       </ul>
     </nav>
   );

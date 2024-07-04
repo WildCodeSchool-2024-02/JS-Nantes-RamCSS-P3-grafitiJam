@@ -12,6 +12,8 @@ import Terms from "./pages/Terms";
 import Map from "./pages/Map";
 import Photo from "./pages/Photo";
 import Galerie from "./pages/Galerie";
+import Admin from "./pages/Admin";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/admin",
+        element: <ProtectedRoute element={<Admin />} />,
       },
       {
         path: "/terms",
