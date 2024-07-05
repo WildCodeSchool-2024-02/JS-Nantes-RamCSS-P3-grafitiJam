@@ -10,6 +10,7 @@ export function ConnexionProvider({ children }) {
   const [alias, setAlias] = useState(null);
   const [isVerify, setIsVerify] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [profilePicture, setProfilePicture] = useState(null);
 
   // eslint-disable-next-line no-shadow
   const handleLogin = (alias, password) =>
@@ -33,6 +34,7 @@ export function ConnexionProvider({ children }) {
           setIsConnected(true);
           setIsVerify(data.isVerify === 1);
           setIsAdmin(data.isAdmin === 1);
+          setProfilePicture(data.profilePicture);
         } else {
           throw new Error("Authentication failed");
         }
@@ -49,8 +51,9 @@ export function ConnexionProvider({ children }) {
       alias,
       isVerify,
       isAdmin,
+      profilePicture,
     }),
-    [isConnected, alias, isVerify, isAdmin]
+    [isConnected, alias, isVerify, isAdmin, profilePicture]
   );
 
   return (

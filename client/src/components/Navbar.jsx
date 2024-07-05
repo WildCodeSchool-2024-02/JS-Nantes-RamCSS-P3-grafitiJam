@@ -5,7 +5,8 @@ import { ConnexionContext } from "../Contextes/ConnexionContexte";
 import "../pages/styles/navbar.css";
 
 function Navbar() {
-  const { alias, isAdmin, isConnected } = useContext(ConnexionContext);
+  const { alias, isAdmin, isConnected, profilePicture } =
+    useContext(ConnexionContext);
 
   return (
     <nav>
@@ -26,11 +27,7 @@ function Navbar() {
         <li>
           <Link to="/auth">Auth</Link>
         </li>
-        {isConnected && (
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-        )}
+
         <li>
           <Link to="/terms">Terms</Link>
         </li>
@@ -42,25 +39,27 @@ function Navbar() {
             />
           </Link>
         </li>
-        <li>
-          <Link to="/photo">
-            <img
-              src="http://localhost:3310/assets/icones/Photo.svg"
-              alt="Capture une oeuvre de street art"
-            />
-          </Link>
-        </li>
-        <li>
-          <Link to="/galerie">
-            <img
-              src="http://localhost:3310/assets/icones/Gallerie.svg"
-              alt="Gallerie des oeuvres de street art"
-            />
-          </Link>
-        </li>
+        {isConnected && (
+          <li>
+            <Link to="/photo">
+              <img
+                src="http://localhost:3310/assets/icones/Photo.svg"
+                alt="Capture une oeuvre de street art"
+              />
+            </Link>
+          </li>
+        )}
+
         {alias && (
           <li className="greeting">
-            Bonjour, <span className="alias">{alias}</span>
+            <Link to="/profile">
+              <img
+                src={profilePicture}
+                alt={`${alias}'s avatar`}
+                className="profile-picture"
+              />
+            </Link>
+            <span className="alias">{alias}</span>
           </li>
         )}
       </ul>

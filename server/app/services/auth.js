@@ -76,6 +76,12 @@ const login = async (req, res, next) => {
   const { alias, password } = req.body;
 
   try {
+    if (!alias || !password) {
+      return res
+        .status(400)
+        .json({ message: "Alias and password are required" });
+    }
+
     const user = await tables.user.readByAlias(alias);
     if (!user) {
       return res.status(400).json({ message: "Invalid alias or password" });
@@ -86,12 +92,24 @@ const login = async (req, res, next) => {
       return res.status(400).json({ message: "Invalid alias or password" });
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.APP_SECRET);
+    // Create JWT token with more user information
+    const tokenPayload = {
+      id: user.id,
+      alias: user.alias,
+      isAdmin: user.isAdmin,
+      isVerify: user.isVerify,
+      profilePicture: user.profilePicture,
+      // Add more fields as needed
+    };
+
+    const token = jwt.sign(tokenPayload, process.env.APP_SECRET);
+
+    // Remove sensitive data from user object before sending it in response
     delete user.hashedPassword;
+
     res.json({
       token,
-      isVerify: user.isVerify,
-      isAdmin: user.isAdmin,
+      ...tokenPayload, // Send additional user info in response
     });
   } catch (err) {
     console.error(`Error during login: ${err.message}`);

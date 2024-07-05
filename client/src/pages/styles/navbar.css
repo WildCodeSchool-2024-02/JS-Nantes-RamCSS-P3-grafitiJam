@@ -17,9 +17,16 @@ li img {
 li.left-item {
   margin-right: auto;
 }
-li.greeting {
-  color: black;
-  margin-left: 20px;
+.profile-picture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.greeting {
+  display: flex;
+  align-items: center;
 }
 
 .alias {
