@@ -2,7 +2,7 @@ const path = require("path");
 
 const uploadsFolderPath = path.join(__dirname, "../../public/uploadsPhotos");
 
-// eslint-disable-next-line import/no-extraneous-dependencies
+
 const multer = require("multer");
 
 
