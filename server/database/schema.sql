@@ -1,7 +1,7 @@
 CREATE TABLE `user` (
     `id` INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    `alias` VARCHAR(30) NOT NULL,
-    `email` VARCHAR(30) NOT NULL,
+    `alias` VARCHAR(30) NOT NULL UNIQUE,
+    `email` VARCHAR(30) NOT NULL UNIQUE,
     `hashed_password` varchar(255) NOT NULL,
     `profile_picture` VARCHAR(255),
     `is_admin` BOOL DEFAULT FALSE NOT NULL,
@@ -66,7 +66,3 @@ CREATE TABLE `art_style` (
     FOREIGN KEY (`art_id`) REFERENCES `art` (`id`),
     PRIMARY KEY (`art_id`, `style_id`)
 );
-
-
-
-
