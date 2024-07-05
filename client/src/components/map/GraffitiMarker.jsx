@@ -2,6 +2,7 @@
 import { Circle, Popup } from "react-leaflet";
 
 function GraffitiMarker({ graffiti }) {
+
   return (
     <Circle
       center={[graffiti.gps_lat, graffiti.gps_long]}
