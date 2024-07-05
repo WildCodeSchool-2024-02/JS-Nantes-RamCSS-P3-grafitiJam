@@ -1,3 +1,4 @@
+
 import './styles/profile.css'
 
 function Profile() {
@@ -27,6 +28,7 @@ function Profile() {
 </div>
 
 </div>
+
 
     </main>
   );

@@ -92,8 +92,8 @@ const login = async (req, res, next) => {
     }
 
     const token = jwt.sign({ id: user.id }, process.env.APP_SECRET);
-
-    res.json({ token });
+    delete user.hashedPassword;
+    res.json({ token, user });
   } catch (err) {
     console.error(`Error during login: ${err.message}`);
     next(err);
