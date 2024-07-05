@@ -99,6 +99,8 @@ const login = async (req, res, next) => {
       isAdmin: user.isAdmin,
       isVerify: user.isVerify,
       profilePicture: user.profilePicture,
+      graffitiGeekLevel: user.graffitiGeekLevel,
+      user: user.email,
       // Add more fields as needed
     };
 
