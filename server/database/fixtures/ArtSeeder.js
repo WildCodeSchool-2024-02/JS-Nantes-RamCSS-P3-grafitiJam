@@ -29,7 +29,7 @@ class ArtSeeder extends AbstractSeeder {
         still_up: true,
         verifier_by: "John Doe",
         graffiti_date: "2020-07-01",
-        zone: 1,
+        zone: 10,
       },
 
       {
@@ -48,7 +48,7 @@ class ArtSeeder extends AbstractSeeder {
         still_up: true,
         verifier_by: "John Doe",
         graffiti_date: "2020-07-01",
-        zone: 1,
+        zone: 50,
       },
 
       {
@@ -67,7 +67,7 @@ class ArtSeeder extends AbstractSeeder {
         still_up: true,
         verifier_by: "John Doe",
         graffiti_date: "2020-07-01",
-        zone: 1,
+        zone: 55,
       },
 
       {
@@ -86,7 +86,7 @@ class ArtSeeder extends AbstractSeeder {
         still_up: true,
         verifier_by: "John Doe",
         graffiti_date: "2020-07-01",
-        zone: 1,
+        zone: 68,
       },
     ];
 

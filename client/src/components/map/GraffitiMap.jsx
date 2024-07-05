@@ -1,6 +1,5 @@
-import { MapContainer, TileLayer} from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 import LocationMarker from "./LocationMarker";
 import GraffitiMarker from "./GraffitiMarker";
@@ -10,27 +9,51 @@ import ZonePolygon3 from "./ZonePolygon3";
 
 function GraffitiMap() {
     const [graffitis, setGraffitis] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchGraffitis = async () => {
+    console.warn("Nature de graffiti", graffitis);
+
+
+    // const [isLoading, setIsLoading] = useState(true);
+
+
+    /* const fetchGraffitis = async () => {
+        try {
             const response = await axios.get('http://localhost:3310/api/art');
+            console.log("API Response:", response.data);
 
-            console.warn(response.data);
             if (response.status === 200) {
-                const validData = response.data.filter(item => item.gps_lat && item.gps_long);
-                setGraffitis(validData);
+                response.data.forEach(item => console.log('Item avant filtrage:', item));
+
+                 const validData = response.data.filter(item => {
+                     const isValid = item.gps_lat != null &&
+                         item.gps_long != null &&
+                         item.zone != null &&
+                         item.image != null &&
+                         item.image_alt != null;
+
+                     console.log(`Filtrage pour l'item ${item.id} - valide: ${isValid}`, item);
+                     return isValid;
+                 });
+
+
+
+                setGraffitis(response.data);
                 setIsLoading(false);
             }
-        };
+        } catch (error) {
+            console.error("Erreur lors de la récupération des graffitis:", error);
+        }
+    };
 
-        fetchGraffitis();
+
+    */
+    useEffect(() => {
+       fetch('http://localhost:3310/api/art')
+           .then((res) => res.json())
+           .then((data) => setGraffitis(data));
     }, []);
 
-    if (isLoading) {
-        return <div>Loading...</div>
-    }
-        return (
+    return (
     <MapContainer
       center={{ lat: 47.2184, lng: -1.5536 }}
       zoom={13}
@@ -153,13 +176,15 @@ function GraffitiMap() {
           [47.20387, -1.52689],
         ]}
       />
-        {graffitis.map(graffiti => (
+        {graffitis.map((graffiti) => (
             <GraffitiMarker key={graffiti.id} graffiti={graffiti} />
         ))}
+
     </MapContainer>
         );
 
 }
+
 
 
 export default GraffitiMap;
