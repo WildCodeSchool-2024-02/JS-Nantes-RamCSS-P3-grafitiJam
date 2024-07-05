@@ -15,7 +15,16 @@ const app = express();
 // CORS (Cross-Origin Resource Sharing) is a security mechanism in web browsers that blocks requests from a different domain than the server.
 // You may find the following magic line in forums:
 
-app.use(cors());
+app.use(
+    cors({
+      origin: [
+        process.env.CLIENT_URL,
+      ]
+    })
+);
+
+
+
 
 // You should NOT do that: such code uses the `cors` module to allow all origins, which can pose security issues.
 // For this pedagogical template, the CORS code is commented out to show the need for defining specific allowed origins.
@@ -115,6 +124,7 @@ const path = require("path");
 
 const reactBuildPath = path.join(__dirname, "/../../client/dist");
 const publicFolderPath = path.join(__dirname, "/../public");
+const uploadsPhotosPath = path.join(__dirname, '../public/uploadsPhotos');
 
 // Serve react resources
 
@@ -123,6 +133,8 @@ app.use(express.static(reactBuildPath));
  // Serve server resources
 
 app.get("*.*", express.static(publicFolderPath, { maxAge: "1y" }));
+
+app.use('/uploadsPhotos', express.static(uploadsPhotosPath));
 
 // Redirect unhandled requests to the react index file
 

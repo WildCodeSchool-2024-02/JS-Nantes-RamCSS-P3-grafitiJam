@@ -1,87 +1,59 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
+import { useEffect, useState } from 'react';
+
 import LocationMarker from "./LocationMarker";
 import GraffitiMarker from "./GraffitiMarker";
 import ZonePolygon1 from "./ZonePolygon1";
 import ZonePolygon2 from "./ZonePolygon2";
 import ZonePolygon3 from "./ZonePolygon3";
 
-const art = [
-  {
-    id: 1,
-    is_verify: true,
-    img_date: "2020-07-01",
-    artiste: "Banksy",
-    style: "Stencil",
-    image:
-      "https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/images/graff1.JPG",
-    image_alt: "Banksy",
-    gps_lat: 47.2566,
-    gps_long: -1.5482,
-    hood_id: 1,
-    size: "M",
-    still_up: true,
-    verifier_by: "John Doe",
-    graffiti_date: "2020-07-01",
-    zone: 150,
-  },
-  {
-    id: 2,
-    is_verify: true,
-    img_date: "2020-07-01",
-    artiste: "Banksy",
-    style: "Stencil",
-    image:
-      "https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/images/graff2.png",
-    image_alt: "Banksy",
-    gps_lat: 47.2157,
-    gps_long: -1.5985,
-    hood_id: 1,
-    size: "M",
-    still_up: true,
-    verifier_by: "John Doe",
-    graffiti_date: "2020-07-01",
-    zone: 75,
-  },
-  {
-    id: 3,
-    is_verify: true,
-    img_date: "2020-07-01",
-    artiste: "Banksy",
-    style: "Stencil",
-    image:
-      "https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/images/graff3.jpg",
-    image_alt: "Banksy",
-    gps_lat: 47.2415,
-    gps_long: -1.5725,
-    hood_id: 1,
-    size: "M",
-    still_up: true,
-    verifier_by: "John Doe",
-    graffiti_date: "2020-07-01",
-    zone: 100,
-  },
-  {
-    id: 4,
-    is_verify: true,
-    img_date: "2020-07-01",
-    artiste: "Banksy",
-    style: "Stencil",
-    image:
-      "https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/images/graff4.jpg",
-    image_alt: "Banksy",
-    gps_lat: 47.2664,
-    gps_long: -1.5172,
-    hood_id: 1,
-    size: "M",
-    still_up: true,
-    verifier_by: "John Doe",
-    graffiti_date: "2020-07-01",
-    zone: 50,
-  },
-];
-
 function GraffitiMap() {
-  return (
+    const [graffitis, setGraffitis] = useState([]);
+
+    console.warn("Nature de graffiti", graffitis);
+
+
+    // const [isLoading, setIsLoading] = useState(true);
+
+
+    /* const fetchGraffitis = async () => {
+        try {
+            const response = await axios.get('http://localhost:3310/api/art');
+            console.log("API Response:", response.data);
+
+            if (response.status === 200) {
+                response.data.forEach(item => console.log('Item avant filtrage:', item));
+
+                 const validData = response.data.filter(item => {
+                     const isValid = item.gps_lat != null &&
+                         item.gps_long != null &&
+                         item.zone != null &&
+                         item.image != null &&
+                         item.image_alt != null;
+
+                     console.log(`Filtrage pour l'item ${item.id} - valide: ${isValid}`, item);
+                     return isValid;
+                 });
+
+
+
+                setGraffitis(response.data);
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error("Erreur lors de la récupération des graffitis:", error);
+        }
+    };
+
+
+    */
+    useEffect(() => {
+       fetch('http://localhost:3310/api/art')
+           .then((res) => res.json())
+           .then((data) => setGraffitis(data));
+    }, []);
+
+    return (
     <MapContainer
       center={{ lat: 47.2184, lng: -1.5536 }}
       zoom={13}
@@ -93,9 +65,7 @@ function GraffitiMap() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <LocationMarker />
-      <Marker position={[47.21151635589489, -1.5475728604681398]}>
-        <Popup>Wild Code School - you can customize this popup</Popup>
-      </Marker>
+
 
       <ZonePolygon1
         positions={[
@@ -206,11 +176,15 @@ function GraffitiMap() {
           [47.20387, -1.52689],
         ]}
       />
-      {art.map((graffiti) => (
-        <GraffitiMarker key={graffiti.id} graffiti={graffiti} />
-      ))}
+        {graffitis.map((graffiti) => (
+            <GraffitiMarker key={graffiti.id} graffiti={graffiti} />
+        ))}
+
     </MapContainer>
-  );
+        );
+
 }
+
+
 
 export default GraffitiMap;

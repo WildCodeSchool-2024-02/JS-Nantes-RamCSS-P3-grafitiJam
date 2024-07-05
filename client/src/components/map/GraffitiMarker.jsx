@@ -2,9 +2,10 @@
 import { Circle, Popup } from "react-leaflet";
 
 function GraffitiMarker({ graffiti }) {
+  console.warn("C'est quoi graffiti ?", graffiti)
   return (
     <Circle
-      center={[graffiti.gps_lat, graffiti.gps_long]}
+      center={[graffiti.gpsLat, graffiti.gpsLong]}
       color="red"
       fillColor="#f03"
       fillOpacity={0.5}
@@ -24,3 +25,5 @@ function GraffitiMarker({ graffiti }) {
 }
 
 export default GraffitiMarker;
+
+
