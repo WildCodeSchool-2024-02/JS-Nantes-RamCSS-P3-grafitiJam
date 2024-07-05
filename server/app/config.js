@@ -135,6 +135,7 @@ app.use(express.static(reactBuildPath));
 app.get("*.*", express.static(publicFolderPath, { maxAge: "1y" }));
 
 app.use('/uploadsPhotos', express.static(uploadsPhotosPath));
+
 // Redirect unhandled requests to the react index file
 
 app.get("*", (_, res) => {
