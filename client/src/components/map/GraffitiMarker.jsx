@@ -18,7 +18,12 @@ function GraffitiMarker({ graffiti }) {
           style={{ width: "100px" }}
         />
         <br />
-        {graffiti.artiste} - {graffiti.style}
+        {graffiti.artist}
+        <br />
+        {graffiti.size} / {graffiti.style}
+        <br />
+        {graffiti.verifierBy}
+
       </Popup>
     </Circle>
   );
