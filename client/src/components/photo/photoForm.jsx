@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import tags from "../tagsData";
 import sizeData from "../sizeData";
 import "./styles/PhotoForm.css";
-
 
 // Ce composant permet à l'utilisateur de soumettre des informations sur une photo de graffiti, y compris les détails de l'artiste, le style, et la localisation.
 // eslint-disable-next-line react/prop-types
@@ -14,6 +14,7 @@ function PhotoForm({ selectedImage }) {
   const [graffitiDate, setGraffitiDate] = useState("");  // État pour stocker la date du graffiti.
   const [latitude, setLatitude] = useState("");  // État pour stocker la latitude de l'emplacement du graffiti.
   const [longitude, setLongitude] = useState("");  // État pour stocker la longitude de l'emplacement du graffiti.
+  const navigate = useNavigate();
 
 
   // Fonction pour télécharger l'image sur le serveur.
@@ -61,7 +62,6 @@ function PhotoForm({ selectedImage }) {
     return response.json();
   };
 
-
   // Met à jour les états de latitude, longitude et date du graffiti lorsque l'image sélectionnée change.
   useEffect(() => {
     if (selectedImage) {
@@ -74,7 +74,6 @@ function PhotoForm({ selectedImage }) {
       setGraffitiDate(timestamp.toISOString().split("T")[0]);
     }
   }, [selectedImage]);
-
 
   // Gère la soumission du formulaire.
   const handleSubmit = async (event) => {
@@ -95,10 +94,11 @@ function PhotoForm({ selectedImage }) {
         stillUp: stillUp ? 1 : 0,
         verifierBy: "John Doe",
         graffitiDate,
-        zone: 10,
+        zone: 2,
         image: `${import.meta.env.VITE_API_URL}/uploadsPhotos/${uploadedImageUrl}`, // Lien vers l'image téléchargée.
       };
       await postData(formData);
+      navigate('/map'); // Redirige l'utilisateur vers la carte.
     } catch (error) {
       console.error('Error:', error);
     }
