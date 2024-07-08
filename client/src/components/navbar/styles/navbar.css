@@ -17,3 +17,18 @@ li img {
 li.left-item {
   margin-right: auto;
 }
+.profile-picture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.greeting {
+  display: flex;
+  align-items: center;
+}
+
+.alias {
+  font-weight: bold;
+}

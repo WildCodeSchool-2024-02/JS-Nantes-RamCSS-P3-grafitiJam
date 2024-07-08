@@ -8,13 +8,16 @@ const browse = async (req, res, next) => {
     } else if (req.query.verify === "false") {
       isVerify = 0;
     }
-    const art = await tables.user.readAll(isVerify);
 
-    res.json(art);
+    const users = await tables.user.readAll(isVerify);
+
+    res.json(users);
   } catch (err) {
+    console.error("Error fetching users:", err);
     next(err);
   }
 };
+
 // http://localhost:3310/api/user?verify=true//
 // The R of BREAD - Read operation
 const handleRead = async (req, res, next, fetchFunction) => {

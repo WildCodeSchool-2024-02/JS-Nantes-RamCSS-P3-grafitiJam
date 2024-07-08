@@ -16,16 +16,10 @@ const app = express();
 // You may find the following magic line in forums:
 
 app.use(
-    cors({
-      origin: [
-        process.env.CLIENT_URL,
-
-      ]
-    })
+  cors({
+    origin: [process.env.CLIENT_URL],
+  })
 );
-
-
-
 
 // You should NOT do that: such code uses the `cors` module to allow all origins, which can pose security issues.
 // For this pedagogical template, the CORS code is commented out to show the need for defining specific allowed origins.
@@ -36,20 +30,6 @@ app.use(
 // 3. Uncomment the section `app.use(cors({ origin: [...] }))`
 // 4. Be sure to only have URLs in the array with domains from which you want to allow requests.
 // For example: ["http://mysite.com", "http://another-domain.com"]
-
-/*
-
-
-app.use(
-  cors({
-    origin: [
-      process.env.CLIENT_URL, // keep this one, after checking the value in `server/.env`
-      "http://mysite.com",
-      "http://another-domain.com",
-    ]
-  })
-);
-*/
 
 /* ************************************************************************* */
 
@@ -119,30 +99,28 @@ app.use("/api", apiRouter);
 // 1. Uncomment the lines related to serving static files and redirecting unhandled requests.
 // 2. Ensure that the `reactBuildPath` points to the correct directory where your client's build artifacts are located.
 
-
 // eslint-disable-next-line import/order
 const path = require("path");
 
 const reactBuildPath = path.join(__dirname, "/../../client/dist");
 const publicFolderPath = path.join(__dirname, "/../public");
-const uploadsPhotosPath = path.join(__dirname, '../public/uploadsPhotos');
-
+const uploadsPhotosPath = path.join(__dirname, "../public/uploadsPhotos");
+const uploadsAvatarPath = path.join(__dirname, "/../public/uploadsAvatars");
 // Serve react resources
 
 app.use(express.static(reactBuildPath));
 
- // Serve server resources
+// Serve server resources
 
 app.get("*.*", express.static(publicFolderPath, { maxAge: "1y" }));
 
-app.use('/uploadsPhotos', express.static(uploadsPhotosPath));
-
+app.use("/uploadsPhotos", express.static(uploadsPhotosPath));
+app.use("/uploadsAvatar", express.static(uploadsAvatarPath));
 // Redirect unhandled requests to the react index file
 
 app.get("*", (_, res) => {
   res.sendFile(path.join(reactBuildPath, "/index.html"));
 });
-
 
 /* ************************************************************************* */
 
