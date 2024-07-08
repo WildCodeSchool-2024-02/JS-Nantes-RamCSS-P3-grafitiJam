@@ -1,15 +1,15 @@
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 
-// Options de hachage (voir documentation : https://github.com/ranisalt/node-argon2/wiki/Options)
-// Recommandations **minimales** de l'OWASP : https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+// Options de hachage
 const hashingOptions = {
   type: argon2.argon2id,
-  memoryCost: 19 * 2 ** 10 /* 19 Mio en kio (19 * 1024 kio) */,
+  memoryCost: 19 * 2 ** 10, // 19 Mio en kio (19 * 1024 kio)
   timeCost: 2,
   parallelism: 1,
 };
 
+// Middleware to hash the password
 // eslint-disable-next-line consistent-return
 const hashPassword = async (req, res, next) => {
   try {
@@ -18,22 +18,23 @@ const hashPassword = async (req, res, next) => {
         .status(400)
         .send({ message: "The hashed_password field is required." });
     }
-    // Hachage du mot de passe avec les options spécifiées
+
+    // Hashing the password with the specified options
     const hashedPassword = await argon2.hash(
       req.body.hashed_password,
       hashingOptions
     );
-
-    // Remplacement du mot de passe non haché par le mot de passe haché dans la requête
+    // Replace the plain password field with the hashed password in the request body
     req.body.hashedPassword = hashedPassword;
-    // Suppression du mot de passe non haché de la requête par mesure de sécurité
+
+    // Remove the original plain password field from the request body for security
     delete req.body.hashed_password;
+
     next();
   } catch (err) {
     next(err);
   }
 };
-
 // eslint-disable-next-line consistent-return
 const verifyToken = (req, res, next) => {
   if (req.path === "/api/user/login") {
@@ -69,31 +70,49 @@ const verifyToken = (req, res, next) => {
 
 const tables = require("../../database/tables");
 
+// Login handler
 // eslint-disable-next-line consistent-return
 const login = async (req, res, next) => {
   const { alias, password } = req.body;
 
   try {
-    const user = await tables.user.readByAlias(alias);
+    if (!alias || !password) {
+      return res
+        .status(400)
+        .json({ message: "Alias and password are required" });
+    }
 
+    const user = await tables.user.readByAlias(alias);
     if (!user) {
       return res.status(400).json({ message: "Invalid alias or password" });
     }
 
-    if (!user.hashedPassword) {
-      console.error("Hashed password is empty or undefined", user);
-      return res.status(500).json({ message: "Server error" });
-    }
-
     const isPasswordMatch = await argon2.verify(user.hashedPassword, password);
-
     if (!isPasswordMatch) {
       return res.status(400).json({ message: "Invalid alias or password" });
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.APP_SECRET);
+    // Create JWT token with more user information
+    const tokenPayload = {
+      id: user.id,
+      alias: user.alias,
+      isAdmin: user.isAdmin,
+      isVerify: user.isVerify,
+      profilePicture: user.profilePicture,
+      graffitiGeekLevel: user.graffitiGeekLevel,
+      user: user.email,
+      // Add more fields as needed
+    };
+
+    const token = jwt.sign(tokenPayload, process.env.APP_SECRET);
+
+    // Remove sensitive data from user object before sending it in response
     delete user.hashedPassword;
-    res.json({ token, user });
+
+    res.json({
+      token,
+      ...tokenPayload, // Send additional user info in response
+    });
   } catch (err) {
     console.error(`Error during login: ${err.message}`);
     next(err);

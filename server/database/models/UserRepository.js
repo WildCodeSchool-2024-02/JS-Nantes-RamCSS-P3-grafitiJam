@@ -22,7 +22,7 @@ class UserRepository extends AbstractRepository {
 
   async update(user) {
     const [result] = await this.database.query(
-      `update ${this.table} set alias = ?, email = ?, hashed_password = ?, profile_picture = ?, graffiti_geek_level = ? where id = ?`,
+      `update ${this.table} set alias = ?, email = ?, hashed_password = ?, profile_picture, = ?, graffiti_geek_level = ? where id = ?`,
       [
         user.alias,
         user.email,
@@ -73,7 +73,7 @@ class UserRepository extends AbstractRepository {
 
   async readByAlias(alias) {
     const [rows] = await this.database.query(
-      `SELECT alias, email, hashed_password AS hashedPassword, profile_picture, is_admin AS isAdmin, is_verify AS isVerify, graffiti_geek_level AS graffitiGeekLevel, id FROM ${this.table} WHERE alias = ?`,
+      `SELECT alias, email, hashed_password AS hashedPassword, profile_picture AS profilePicture, is_admin AS isAdmin, is_verify AS isVerify, graffiti_geek_level AS graffitiGeekLevel, id FROM ${this.table} WHERE alias = ?`,
       [alias]
     );
     return rows.length ? rows[0] : null;
