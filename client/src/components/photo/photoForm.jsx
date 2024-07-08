@@ -1,51 +1,54 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import tags from "../tagsData";
 import sizeData from "../sizeData";
 import "./styles/PhotoForm.css";
 
+// Ce composant permet à l'utilisateur de soumettre des informations sur une photo de graffiti, y compris les détails de l'artiste, le style, et la localisation.
 // eslint-disable-next-line react/prop-types
 function PhotoForm({ selectedImage }) {
-  const [artist, setArtist] = useState("");
-  const [style, setStyle] = useState("");
-  const [size, setSize] = useState("");
-  const [stillUp, setStillUp] = useState(false);
-  const [graffitiDate, setGraffitiDate] = useState("");
-  const [zone, setZone] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  const [artist, setArtist] = useState("");  // État pour stocker le nom de l'artiste.
+  const [style, setStyle] = useState("");  // État pour stocker le style du graffiti.
+  const [size, setSize] = useState(""); // État pour stocker la taille du graffiti.
+  const [stillUp, setStillUp] = useState(false);  // État pour indiquer si le graffiti est toujours présent.
+  const [graffitiDate, setGraffitiDate] = useState("");  // État pour stocker la date du graffiti.
+  const [latitude, setLatitude] = useState("");  // État pour stocker la latitude de l'emplacement du graffiti.
+  const [longitude, setLongitude] = useState("");  // État pour stocker la longitude de l'emplacement du graffiti.
+  const navigate = useNavigate();
 
 
+  // Fonction pour télécharger l'image sur le serveur.
   const uploadImage = async () => {
     // eslint-disable-next-line react/prop-types
     let response = await fetch(selectedImage.src);
-    let data = await response.blob();
-    const metadata = {
+    let data = await response.blob(); // Récupère les données de l'image.
+    const metadata = { // Crée un objet de métadonnées pour l'image.
       type: 'image/jpeg'
     };
 
-    const file = new File([data], "Photo.jpg", metadata);
+    const file = new File([data], "Photo.jpg", metadata); // Crée un fichier à partir des données de l'image.
 
     const formData = new FormData();
     formData.append('file', file, file.name);
 
-    response = await fetch(`${import.meta.env.VITE_API_URL}/api/upload`, {
+    response = await fetch(`${import.meta.env.VITE_API_URL}/api/upload`, { // Envoie le fichier au serveur.
       method: 'POST',
       body: formData,
     });
 
     if (!response.ok) {
       const errorMessage = await response.text();
-      throw new Error(`petit souci : ${  errorMessage}`);
+      throw new Error(`message: ${  errorMessage}`); // Gère les erreurs.
     }
 
-    data = await response.json();
+    data = await response.json(); // Récupère les données de l'image téléchargée.
 
-    return data.filename;
+    return data.filename; // Retourne le nom du fichier téléchargé.
   };
 
+
+  // Fonction pour envoyer les données du formulaire au serveur.
   const postData = async (data) => {
-
-
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/art`, {
       method: 'POST',
       headers: {
@@ -53,16 +56,13 @@ function PhotoForm({ selectedImage }) {
       },
       body: JSON.stringify(data),
     });
-
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
     return response.json();
   };
 
-
-
+  // Met à jour les états de latitude, longitude et date du graffiti lorsque l'image sélectionnée change.
   useEffect(() => {
     if (selectedImage) {
       // eslint-disable-next-line react/prop-types
@@ -75,12 +75,11 @@ function PhotoForm({ selectedImage }) {
     }
   }, [selectedImage]);
 
+  // Gère la soumission du formulaire.
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
       const uploadedImageUrl = await uploadImage();
-
       const formData = {
         userId: 2,
         isVerify: 1,
@@ -95,13 +94,11 @@ function PhotoForm({ selectedImage }) {
         stillUp: stillUp ? 1 : 0,
         verifierBy: "John Doe",
         graffitiDate,
-        zone: parseInt(zone, 10),
-        image: `${import.meta.env.VITE_API_URL}/uploadsPhotos/${uploadedImageUrl}`,
+        zone: 2,
+        image: `${import.meta.env.VITE_API_URL}/uploadsPhotos/${uploadedImageUrl}`, // Lien vers l'image téléchargée.
       };
-
-
-
       await postData(formData);
+      navigate('/map'); // Redirige l'utilisateur vers la carte.
     } catch (error) {
       console.error('Error:', error);
     }
@@ -159,14 +156,6 @@ function PhotoForm({ selectedImage }) {
                 type="checkbox"
                 checked={stillUp}
                 onChange={(e) => setStillUp(e.target.checked)}
-            />
-          </label>
-          <label>
-            Zone:
-            <input
-                type="number"
-                value={zone}
-                onChange={(e) => setZone(e.target.value)}
             />
           </label>
           <button type="submit">Submit</button>
