@@ -22,12 +22,9 @@ function GraffitiMarker({ graffiti }) {
         {graffiti.size} / {graffiti.style}
         <br />
         {graffiti.verifierBy}
-
       </Popup>
     </Circle>
   );
 }
 
 export default GraffitiMarker;
-
-

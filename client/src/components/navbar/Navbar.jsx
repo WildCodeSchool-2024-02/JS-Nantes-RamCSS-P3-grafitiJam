@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { ConnexionContext } from "../Contextes/ConnexionContexte";
+import { ConnexionContext } from "../../Contextes/ConnexionContexte";
 
-import "../pages/styles/navbar.css";
+import "./styles/navbar.css";
 
 function Navbar() {
   const { alias } = useContext(ConnexionContext);

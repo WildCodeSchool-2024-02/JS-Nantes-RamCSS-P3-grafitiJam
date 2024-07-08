@@ -17,7 +17,6 @@
 }
 
 .alias-text {
-  font-size: 2em;
   font-weight: bold;
   color: black;
   text-align: center;
@@ -40,7 +39,6 @@
 }
 
 .geek-level-text {
-  font-size: 1.5em;
   font-weight: bold;
   color: black;
 }
@@ -73,7 +71,6 @@
   }
 
   .alias-text {
-    font-size: 3em;
   }
 
   .alias-container {
@@ -87,7 +84,6 @@
   }
 
   .geek-level-text {
-    font-size: 3em;
     margin-right: 1em;
   }
 
