@@ -47,6 +47,16 @@ class UserSeeder extends AbstractSeeder {
         is_verify: 1,
         graffiti_geek_level: 4,
       },
+      {
+        alias: "steven",
+        email: "stevenbachimont@gmail.com",
+        hashed_password:
+            "$argon2id$v=19$m=19456,t=2,p=1$cX8MgcA4iMKrhGQDvjlhAg$mG4VqjY1vonuXmNpMkexBmW3r4V7nsoitrrUpT9vDEc",
+        profile_picture: "http://localhost:3310/uploadsAvatars/steven.jpg",
+        is_admin: 1,
+        is_verify: 1,
+        graffiti_geek_level: 4,
+      },
     ];
 
     users.forEach((user) => {
