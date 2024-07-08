@@ -4,7 +4,7 @@ import { Circle, Popup } from "react-leaflet";
 function GraffitiMarker({ graffiti }) {
   return (
     <Circle
-      center={[graffiti.gps_lat, graffiti.gps_long]}
+      center={[graffiti.gpsLat, graffiti.gpsLong]}
       color="red"
       fillColor="#f03"
       fillOpacity={0.5}
@@ -17,10 +17,17 @@ function GraffitiMarker({ graffiti }) {
           style={{ width: "100px" }}
         />
         <br />
-        {graffiti.artiste} - {graffiti.style}
+        {graffiti.artist}
+        <br />
+        {graffiti.size} / {graffiti.style}
+        <br />
+        {graffiti.verifierBy}
+
       </Popup>
     </Circle>
   );
 }
 
 export default GraffitiMarker;
+
+

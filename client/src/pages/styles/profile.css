@@ -1,0 +1,99 @@
+/* CSS Mobile first */
+
+.profile-picture {
+  width: 60vw;
+  height: 60vw;
+  max-width: 200px;
+  max-height: 200px;
+  border: 2px solid black;
+  margin-top: 1em;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1em;
+}
+
+.alias-text {
+  font-size: 2em;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+}
+
+.alias-container {
+  border: 2px solid black;
+  display: inline-block;
+  padding: 0.5em;
+  margin-top: 1em;
+}
+
+.geek-level-container {
+  border: 2px solid black;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.geek-level-text {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: black;
+}
+
+.level-indicators {
+  display: flex;
+  margin-top: 0.5em;
+}
+
+.level-indicator {
+  width: 20px;
+  height: 30px;
+  border: 2px solid black;
+  margin: 0.25em;
+}
+
+/* Styles for larger screens */
+@media (min-width: 768px) {
+  .profile-container {
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 2em;
+  }
+
+  .profile-picture {
+    width: 25vw;
+    height: 25vw;
+    max-width: 250px;
+    max-height: 250px;
+  }
+
+  .alias-text {
+    font-size: 3em;
+  }
+
+  .alias-container {
+    padding: 1em;
+    margin-top: 0;
+  }
+
+  .geek-level-container {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .geek-level-text {
+    font-size: 3em;
+    margin-right: 1em;
+  }
+
+  .level-indicator {
+    width: 30px;
+    height: 50px;
+    margin: 0.5em;
+  }
+}

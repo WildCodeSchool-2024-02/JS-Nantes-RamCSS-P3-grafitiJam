@@ -1,23 +1,21 @@
 import { Polygon, Popup } from "react-leaflet";
 
 // eslint-disable-next-line react/prop-types
-function ZonePolygon1({ positions }) {
+function ZoneReze({ positions }) {
   const handleClick = () => {
-    // eslint-disable-next-line no-alert
-    alert("Vous avez cliqué sur le polygone");
-  };
+    };
 
   return (
     <Polygon
       positions={positions}
-      color="yellow"
-      fillColor="yellow"
+      color="blue"
+      fillColor="blue"
       fillOpacity={0.1}
       onClick={handleClick}
     >
-      <Popup>Voilà St Sebastien/Loire</Popup>
+      <Popup>Ici c'est Rezé</Popup>
     </Polygon>
   );
 }
 
-export default ZonePolygon1;
+export default ZoneReze;
