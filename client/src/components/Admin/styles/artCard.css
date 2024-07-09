@@ -1,0 +1,21 @@
+.art-card {
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.art-image {
+  width: 200px;
+  height: auto;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.art-info {
+  display: flex;
+  flex-direction: column;
+}
