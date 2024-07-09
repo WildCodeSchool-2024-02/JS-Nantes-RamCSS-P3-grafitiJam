@@ -1,10 +1,9 @@
-import {useState, useEffect, useContext} from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import {ConnexionContext} from "../../Contextes/ConnexionContexte";
+import { ConnexionContext } from "../../Contextes/ConnexionContexte";
 import tags from "../tagsData";
 import sizeData from "../sizeData";
 import "./styles/PhotoForm.css";
-
 
 // Ce composant permet à l'utilisateur de soumettre des informations sur une photo de graffiti, y compris les détails de l'artiste, le style, et la localisation.
 // eslint-disable-next-line react/prop-types
@@ -73,12 +72,12 @@ function PhotoForm({ selectedImage }) {
       // eslint-disable-next-line react/prop-types
       setLongitude(selectedImage.longitude);
       const timestamp =
-          // eslint-disable-next-line react/prop-types
+        // eslint-disable-next-line react/prop-types
         selectedImage.timestamp instanceof Date
-            // eslint-disable-next-line react/prop-types
-          ? selectedImage.timestamp
-            // eslint-disable-next-line react/prop-types
-          : new Date(selectedImage.timestamp);
+          ? // eslint-disable-next-line react/prop-types
+            selectedImage.timestamp
+          : // eslint-disable-next-line react/prop-types
+            new Date(selectedImage.timestamp);
       setGraffitiDate(timestamp.toISOString().split("T")[0]);
     }
   }, [selectedImage]);

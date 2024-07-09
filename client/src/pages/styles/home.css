@@ -7,9 +7,35 @@
   align-items: center;
 }
 
+.pres {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2rem;
+  margin-top: 2vh;
+  width: 50%;
+  gap: 6vh;
+}
+
 .background {
   width: 60vh;
   height: 60vh;
+}
+
+@font-face {
+  font-family: "GANG BANG CRIME";
+  src: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/38816/GANG_BANG_CRIME.ttf);
+}
+
+.titre {
+  font: 12em "GANG BANG CRIME";
+  font-size: 3rem;
+  color: #596dd8;
+  text-shadow:
+    1px -1px #091d97,
+    5px -5px #011a68;
 }
 
 ul li {
@@ -17,6 +43,11 @@ ul li {
   margin-right: 5vh;
 }
 
-ul li a {
-  color: white;
+ul img {
+  width: 5vh;
+  height: 5vh;
+}
+
+ul img:hover {
+  scale: 130%;
 }
