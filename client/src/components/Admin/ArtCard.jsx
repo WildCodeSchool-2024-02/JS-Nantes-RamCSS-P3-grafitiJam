@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
+import "./styles/artCard.css";
 
-import "./styles/artCard.css"; // Define your styles for ArtCard
-
-function ArtCard({ art }) {
+function ArtCard({ art, onVerify }) {
   const {
+    id,
     artist,
     style,
     image,
@@ -15,6 +15,7 @@ function ArtCard({ art }) {
     verifierBy,
     graffitiDate,
     zone,
+    verified,
   } = art;
 
   return (
@@ -31,6 +32,12 @@ function ArtCard({ art }) {
         <p>Verified By: {verifierBy}</p>
         <p>Graffiti Date: {graffitiDate}</p>
         <p>Zone: {zone}</p>
+        <p>Status: {verified ? "Verified" : "Not Verified"}</p>
+        {!verified && (
+          <button type="button" onClick={() => onVerify(id)}>
+            Verify
+          </button>
+        )}
       </div>
     </div>
   );

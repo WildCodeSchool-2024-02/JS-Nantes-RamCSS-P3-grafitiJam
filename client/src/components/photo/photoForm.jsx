@@ -70,12 +70,12 @@ function PhotoForm({ selectedImage }) {
       // eslint-disable-next-line react/prop-types
       setLongitude(selectedImage.longitude);
       const timestamp =
-          // eslint-disable-next-line react/prop-types
+        // eslint-disable-next-line react/prop-types
         selectedImage.timestamp instanceof Date
-            // eslint-disable-next-line react/prop-types
-          ? selectedImage.timestamp
-            // eslint-disable-next-line react/prop-types
-          : new Date(selectedImage.timestamp);
+          ? // eslint-disable-next-line react/prop-types
+            selectedImage.timestamp
+          : // eslint-disable-next-line react/prop-types
+            new Date(selectedImage.timestamp);
       setGraffitiDate(timestamp.toISOString().split("T")[0]);
     }
   }, [selectedImage]);
@@ -87,7 +87,7 @@ function PhotoForm({ selectedImage }) {
       const uploadedImageUrl = await uploadImage();
       const formData = {
         userId: 2,
-        isVerify: 1,
+        isVerify: 0,
         imgDate: graffitiDate,
         artist,
         style,

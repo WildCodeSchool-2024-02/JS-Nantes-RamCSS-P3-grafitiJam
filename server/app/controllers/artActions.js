@@ -58,18 +58,17 @@ const readByStyle = (req, res, next) => {
 };
 
 const edit = async (req, res, next) => {
-  // Extract the item data from the request body
-  const art = req.body;
+  const { isVerify } = req.body;
 
   try {
-    // Update the item in the database
-    await tables.item.update(art);
+    await tables.art.update({
+      id: req.params.id,
+      isVerify,
+    });
 
-    // Respond with HTTP 204 (No Content)
-    res.sendStatus(204);
+    res.sendStatus(204); // Respond with HTTP 204 (No Content) upon successful update
   } catch (err) {
-    // Pass any errors to the error-handling middleware
-    next(err);
+    next(err); // Pass any errors to the error-handling middleware
   }
 };
 
@@ -108,12 +107,9 @@ const post = async (req, res) => {
     res.status(201).json(result);
   } catch (err) {
     console.error(err);
-    res.status(500).send('An error occurred');
+    res.status(500).send("An error occurred");
   }
 };
-
-
-
 
 module.exports = {
   browse,
@@ -125,6 +121,5 @@ module.exports = {
   readByUserId,
   readByArtist,
   readByStyle,
-    post,
-
+  post,
 };

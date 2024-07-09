@@ -7,11 +7,10 @@ import "./styles/admin.css";
 function Admin({ alias }) {
   const [users, setUsers] = useState([]);
   const [artworks, setArtworks] = useState([]);
-  const [showUsersVerified, setShowUsersVerified] = useState("all"); // "all" for all users, "true" for verified, "false" for non-verified
-  const [showArtworksVerified, setShowArtworksVerified] = useState("all"); // "all" for all artworks, "true" for verified, "false" for non-verified
+  const [showUsersVerified, setShowUsersVerified] = useState("all");
+  const [showArtworksVerified, setShowArtworksVerified] = useState("all");
 
-  useEffect(() => {
-    // Fetch users from the API
+  const fetchUsers = () => {
     let userUrl = `${import.meta.env.VITE_API_URL}/api/user`;
     if (showUsersVerified !== "all") {
       userUrl += `?verify=${showUsersVerified}`;
@@ -30,10 +29,9 @@ function Admin({ alias }) {
       .catch((error) => {
         console.error("Error fetching users:", error);
       });
-  }, [showUsersVerified]);
+  };
 
-  useEffect(() => {
-    // Fetch artworks from the API
+  const fetchArtworks = () => {
     let artUrl = `${import.meta.env.VITE_API_URL}/api/art`;
     if (showArtworksVerified !== "all") {
       artUrl += `?verify=${showArtworksVerified}`;
@@ -52,6 +50,16 @@ function Admin({ alias }) {
       .catch((error) => {
         console.error("Error fetching artworks:", error);
       });
+  };
+
+  useEffect(() => {
+    fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showUsersVerified]);
+
+  useEffect(() => {
+    fetchArtworks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showArtworksVerified]);
 
   const handleUsersRadioChange = (event) => {
@@ -60,6 +68,48 @@ function Admin({ alias }) {
 
   const handleArtworksRadioChange = (event) => {
     setShowArtworksVerified(event.target.value);
+  };
+
+  const handleVerifyArt = async (id) => {
+    try {
+      // Fetch current artwork details to get img_date
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/art/${id}`
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch artwork details: ${response.statusText}`
+        );
+      }
+
+      const artDetails = await response.json();
+      const currentImgDate = artDetails.img_date; // Assuming the API returns the img_date
+
+      // PATCH request to update isVerify to true and resend img_date
+      const patchResponse = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/art/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            isVerify: true,
+            img_date: currentImgDate, // Resending the img_date already stored
+          }),
+        }
+      );
+
+      if (!patchResponse.ok) {
+        throw new Error(`Error verifying artwork: ${patchResponse.statusText}`);
+      }
+
+      // After successful verification, fetch updated artworks if needed
+      fetchArtworks();
+    } catch (error) {
+      console.error("Error verifying artwork:", error);
+    }
   };
 
   return (
@@ -126,7 +176,7 @@ function Admin({ alias }) {
 
       <div className="art-cards">
         {artworks.map((art) => (
-          <ArtCard key={art.id} art={art} />
+          <ArtCard key={art.id} art={art} onVerify={handleVerifyArt} />
         ))}
       </div>
     </div>
