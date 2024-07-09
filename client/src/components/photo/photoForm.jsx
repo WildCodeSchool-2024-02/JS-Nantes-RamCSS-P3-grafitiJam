@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect, useContext} from "react";
 import { useNavigate } from "react-router-dom";
+import {ConnexionContext} from "../../Contextes/ConnexionContexte";
 import tags from "../tagsData";
 import sizeData from "../sizeData";
 import "./styles/PhotoForm.css";
+
 
 // Ce composant permet à l'utilisateur de soumettre des informations sur une photo de graffiti, y compris les détails de l'artiste, le style, et la localisation.
 // eslint-disable-next-line react/prop-types
@@ -15,6 +17,7 @@ function PhotoForm({ selectedImage }) {
   const [latitude, setLatitude] = useState(""); // État pour stocker la latitude de l'emplacement du graffiti.
   const [longitude, setLongitude] = useState(""); // État pour stocker la longitude de l'emplacement du graffiti.
   const navigate = useNavigate();
+  const { userId } = useContext(ConnexionContext);
 
   // Fonction pour télécharger l'image sur le serveur.
   const uploadImage = async () => {
@@ -86,8 +89,8 @@ function PhotoForm({ selectedImage }) {
     try {
       const uploadedImageUrl = await uploadImage();
       const formData = {
-        userId: 2,
-        isVerify: 1,
+        userId,
+        isVerify: 0,
         imgDate: graffitiDate,
         artist,
         style,
