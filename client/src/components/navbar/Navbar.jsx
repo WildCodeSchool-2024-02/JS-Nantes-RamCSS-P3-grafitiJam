@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { ConnexionContext } from "../Contextes/ConnexionContexte";
+import { ConnexionContext } from "../../Contextes/ConnexionContexte";
 
-import "../pages/styles/navbar.css";
+import "./styles/navbar.css";
 
 function Navbar() {
   const { alias, isAdmin, isConnected, profilePicture } =
@@ -14,36 +14,51 @@ function Navbar() {
         <li>
           <Link to="/">
             <img
-              src="http://localhost:3310/assets/icones/toHome.svg"
-              alt="Retour à l'accueil"
+                src={`${import.meta.env.VITE_API_URL}/icones/toHome.svg`}
+                alt="Retour à l'accueil"
             />
           </Link>
         </li>
         {isAdmin && (
           <li>
-            <Link to="/admin">Admin</Link>
+            <Link to="/admin">
+              <img
+                  src={`${import.meta.env.VITE_API_URL}/icones/Admin.svg`}
+                  alt="page administrateur"
+              />
+            </Link>
           </li>
         )}
         <li>
-          <Link to="/auth">Auth</Link>
+          <Link to="/auth">
+            <img
+                src={`${import.meta.env.VITE_API_URL}/icones/Auth.svg`}
+                alt="authentification"
+            />
+          </Link>
         </li>
 
         <li>
-          <Link to="/terms">Terms</Link>
+          <Link to="/terms">
+            <img
+                src={`${import.meta.env.VITE_API_URL}/icones/Lexique.svg`}
+                alt="Elements de compréhension"
+            />
+          </Link>
         </li>
         <li>
           <Link to="/map">
             <img
-              src="http://localhost:3310/assets/icones/Map.svg"
-              alt="Carte des oeuvres de street art"
+                src={`${import.meta.env.VITE_API_URL}/icones/Map.svg`}
+                alt="Graffitis autour de moi"
             />
           </Link>
         </li>
         {isConnected && (
-          <li>
-            <Link to="/photo">
-              <img
-                src="http://localhost:3310/assets/icones/Photo.svg"
+            <li>
+              <Link to="/photo">
+                <img
+                    src={`${import.meta.env.VITE_API_URL}/icones/Photo.svg`}
                 alt="Capture une oeuvre de street art"
               />
             </Link>

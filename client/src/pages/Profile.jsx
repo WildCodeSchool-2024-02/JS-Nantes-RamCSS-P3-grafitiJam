@@ -1,4 +1,3 @@
-
 import './styles/profile.css';
 import { useContext } from 'react';
 import { ConnexionContext } from '../Contextes/ConnexionContexte';
@@ -10,11 +9,7 @@ function Profile() {
 
   return (
     <main>
-      <div className='profile-container'>
-      <div className='profile-picture-container' >
-      <img className='profile-picture' src="http://localhost:3310/assets/images/graff1.jpg" alt="Profile" />
-      </div>
-
+      
       <div className='infos-profile-container'>
       
       <div className='alias-container'>
@@ -34,9 +29,6 @@ function Profile() {
 </div>
 
 </div>
-
-</div>
-
 
     </main>
   );

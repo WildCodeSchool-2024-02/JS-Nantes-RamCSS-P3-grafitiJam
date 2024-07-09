@@ -1,0 +1,43 @@
+@font-face {
+  font-family: "GANG BANG CRIME";
+  src: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/38816/GANG_BANG_CRIME.ttf);
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  text-align: center;
+  background-color: #020202;
+}
+
+.error > h1 {
+  font: 8em "GANG BANG CRIME";
+  font-size: 2rem;
+  color: #ab1119;
+  text-shadow:
+    1px -1px #4ea24a,
+    2px -2px #4ea24a,
+    3px -3px #4ea24a,
+    -1px 1px #da505f,
+    -2px 2px #4ea24a,
+    -3px 3px #4ea24a,
+    1px 1px #da505f,
+    2px 2px #061019,
+    3px 3px #061019,
+    -4px 4px #061019,
+    5px 5px #4ea24a,
+    6px 6px #e5e37c,
+    7px 7px #061019,
+    -8px 8px #467b81,
+    -9px 9px #467b81,
+    -10px 10px #467b81,
+    11px 11px #e5e37c,
+    12px 12px #e5e37c,
+    -13px 13px #ab1119,
+    -14px 14px #ab1119,
+    -15px 15px #ab1119;
+}

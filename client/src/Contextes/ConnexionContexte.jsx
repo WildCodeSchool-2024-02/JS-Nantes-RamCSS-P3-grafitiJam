@@ -14,6 +14,7 @@ export function ConnexionProvider({ children }) {
   const [graffitiGeekLevel, setGraffitiGeekLevel] = useState(0);
   const [userId, setUserId] = useState(null);
 
+
   // eslint-disable-next-line no-shadow
   const handleLogin = (alias, password) =>
     fetch(`${apiUrl}/api/user/login`, {
@@ -37,8 +38,12 @@ export function ConnexionProvider({ children }) {
           setIsVerify(data.isVerify === 1);
           setIsAdmin(data.isAdmin === 1);
           setProfilePicture(data.profilePicture);
+
           setGraffitiGeekLevel(data.graffitiGeekLevel || 0); 
           setUserId(data.id);
+
+
+
         } else {
           throw new Error("Authentication failed");
         }
@@ -60,6 +65,7 @@ export function ConnexionProvider({ children }) {
       userId,
     }),
     [isConnected, alias, isVerify, isAdmin, profilePicture, graffitiGeekLevel, userId]
+
   );
 
   return (

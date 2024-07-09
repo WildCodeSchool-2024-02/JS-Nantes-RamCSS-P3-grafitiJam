@@ -1,10 +1,10 @@
-import { useContext } from "react";
-import { ConnexionContext } from "../../Contextes/ConnexionContexte";
 import "./styles/userCard.css";
 
-function UserCard() {
+// eslint-disable-next-line react/prop-types
+function UserCard({ user }) {
+  // eslint-disable-next-line react/prop-types
   const { alias, isAdmin, profilePicture, graffitiGeekLevel, email, isVerify } =
-    useContext(ConnexionContext);
+    user;
   return (
     <div className="user-card">
       <img
@@ -22,4 +22,5 @@ function UserCard() {
     </div>
   );
 }
+
 export default UserCard;

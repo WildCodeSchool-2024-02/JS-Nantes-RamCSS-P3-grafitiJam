@@ -3,8 +3,6 @@ import tags from "../tagsData";
 import "./styles/Tag.css";
 
 function TermsTag() {
-
-
   return (
     <>
       {/* eslint-disable-next-line no-shadow */}
