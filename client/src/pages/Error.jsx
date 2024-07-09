@@ -1,7 +1,10 @@
+import "./styles/error.css";
+
 function Error() {
   return (
-    <main>
-      <h1>YOU FUCKED IT UP</h1>
+    <main className="error">
+      <h1>Error !!</h1>
+      <h1>404</h1>
     </main>
   );
 }

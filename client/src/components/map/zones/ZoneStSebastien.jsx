@@ -2,8 +2,7 @@ import { Polygon, Popup } from "react-leaflet";
 
 // eslint-disable-next-line react/prop-types
 function ZonePolygon1({ positions }) {
-  const handleClick = () => {
-  };
+  const handleClick = () => {};
 
   return (
     <Polygon
