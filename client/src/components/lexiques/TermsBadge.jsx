@@ -3,8 +3,6 @@ import "./styles/Badge.css";
 import badges from "../badgesData";
 
 function TermsBadge() {
-
-
   return (
     <>
       {badges.map((badge, index) => (

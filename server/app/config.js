@@ -106,6 +106,7 @@ const reactBuildPath = path.join(__dirname, "/../../client/dist");
 const publicFolderPath = path.join(__dirname, "/../public");
 const uploadsPhotosPath = path.join(__dirname, "../public/uploadsPhotos");
 const uploadsAvatarPath = path.join(__dirname, "/../public/uploadsAvatars");
+const iconesPath = path.join(__dirname, "/../public/icones");
 // Serve react resources
 
 app.use(express.static(reactBuildPath));
@@ -116,6 +117,7 @@ app.get("*.*", express.static(publicFolderPath, { maxAge: "1y" }));
 
 app.use("/uploadsPhotos", express.static(uploadsPhotosPath));
 app.use("/uploadsAvatar", express.static(uploadsAvatarPath));
+app.use("/icones", express.static(iconesPath));
 // Redirect unhandled requests to the react index file
 
 app.get("*", (_, res) => {
