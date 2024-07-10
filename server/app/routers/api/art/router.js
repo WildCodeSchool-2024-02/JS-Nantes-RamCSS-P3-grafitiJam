@@ -7,6 +7,7 @@ const {
   browse,
   read,
   post,
+  updateVerifiedStatus,
   readByHoodId,
   readByUserId,
   readByArtist,
@@ -25,5 +26,6 @@ router.get("/style/:style", readByStyle);
 
 // Route to add a new item
 router.post("/", post);
+router.patch("/:id", updateVerifiedStatus);
 
 module.exports = router;
