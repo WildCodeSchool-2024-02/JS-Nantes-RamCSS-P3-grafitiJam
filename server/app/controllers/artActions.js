@@ -57,6 +57,20 @@ const readByStyle = (req, res, next) => {
   handleRead(req, res, next, (params) => tables.art.readByStyle(params.style));
 };
 
+const updateVerifiedStatus = async (req, res, next) => {
+  const { isVerify } = req.body;
+
+  try {
+    await tables.art.updateVerifiedStatus({
+      id: req.params.id,
+      isVerify,
+    });
+
+    res.sendStatus(204); // Respond with HTTP 204 (No Content) upon successful update
+  } catch (err) {
+    next(err); // Pass any errors to the error-handling middleware
+  }
+};
 const edit = async (req, res, next) => {
   const { isVerify } = req.body;
 
@@ -114,7 +128,7 @@ const post = async (req, res) => {
 module.exports = {
   browse,
   read,
-  edit,
+  updateVerifiedStatus,
   add,
   destroy,
   readByHoodId,
@@ -122,4 +136,5 @@ module.exports = {
   readByArtist,
   readByStyle,
   post,
+  edit,
 };

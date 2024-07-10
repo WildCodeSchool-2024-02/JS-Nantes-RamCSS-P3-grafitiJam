@@ -15,7 +15,7 @@ function ArtCard({ art, onVerify }) {
     verifierBy,
     graffitiDate,
     zone,
-    verified,
+    isVerify, // Ensure this is the correct property
   } = art;
 
   return (
@@ -32,8 +32,8 @@ function ArtCard({ art, onVerify }) {
         <p>Verified By: {verifierBy}</p>
         <p>Graffiti Date: {graffitiDate}</p>
         <p>Zone: {zone}</p>
-        <p>Status: {verified ? "Verified" : "Not Verified"}</p>
-        {!verified && (
+        <p>Status: {isVerify ? "Verified" : "Not Verified"}</p>
+        {!isVerify && (
           <button type="button" onClick={() => onVerify(id)}>
             Verify
           </button>

@@ -10,6 +10,7 @@ function Admin({ alias }) {
   const [showUsersVerified, setShowUsersVerified] = useState("all");
   const [showArtworksVerified, setShowArtworksVerified] = useState("all");
 
+  // Fetch users from the server based on verification status
   const fetchUsers = () => {
     let userUrl = `${import.meta.env.VITE_API_URL}/api/user`;
     if (showUsersVerified !== "all") {
@@ -31,12 +32,12 @@ function Admin({ alias }) {
       });
   };
 
+  // Fetch artworks from the server based on verification status
   const fetchArtworks = () => {
     let artUrl = `${import.meta.env.VITE_API_URL}/api/art`;
     if (showArtworksVerified !== "all") {
       artUrl += `?verify=${showArtworksVerified}`;
     }
-
     fetch(artUrl)
       .then((response) => {
         if (!response.ok) {
@@ -52,41 +53,31 @@ function Admin({ alias }) {
       });
   };
 
+  // Fetch users when the verification filter changes
   useEffect(() => {
     fetchUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showUsersVerified]);
 
+  // Fetch artworks when the verification filter changes
   useEffect(() => {
     fetchArtworks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showArtworksVerified]);
 
+  // Handle radio button change for users filter
   const handleUsersRadioChange = (event) => {
     setShowUsersVerified(event.target.value);
   };
 
+  // Handle radio button change for artworks filter
   const handleArtworksRadioChange = (event) => {
     setShowArtworksVerified(event.target.value);
   };
 
+  // Handle verification of artwork
   const handleVerifyArt = async (id) => {
     try {
-      // Fetch current artwork details to get img_date
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/art/${id}`
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          `Failed to fetch artwork details: ${response.statusText}`
-        );
-      }
-
-      const artDetails = await response.json();
-      const currentImgDate = artDetails.img_date; // Assuming the API returns the img_date
-
-      // PATCH request to update isVerify to true and resend img_date
       const patchResponse = await fetch(
         `${import.meta.env.VITE_API_URL}/api/art/${id}`,
         {
@@ -95,18 +86,21 @@ function Admin({ alias }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            isVerify: true,
-            img_date: currentImgDate, // Resending the img_date already stored
+            isVerify: 1,
           }),
         }
       );
 
-      if (!patchResponse.ok) {
-        throw new Error(`Error verifying artwork: ${patchResponse.statusText}`);
+      if (patchResponse.status === 204) {
+        fetchArtworks(); // Refresh the artworks list
+      } else {
+        const errorText = await patchResponse.text();
+        console.error(
+          "Error verifying artwork:",
+          patchResponse.statusText,
+          errorText
+        );
       }
-
-      // After successful verification, fetch updated artworks if needed
-      fetchArtworks();
     } catch (error) {
       console.error("Error verifying artwork:", error);
     }
