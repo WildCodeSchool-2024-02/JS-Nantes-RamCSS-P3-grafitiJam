@@ -12,7 +12,7 @@ function Terms() {
 
   return (
     <main className="terms">
-      <h1>Terms Page</h1>
+      <h1>Des Graffitis et des Badges...</h1>
       <div className="slideButton">
         <p className="lun">Tags</p>
         <section title=".slideOne">
