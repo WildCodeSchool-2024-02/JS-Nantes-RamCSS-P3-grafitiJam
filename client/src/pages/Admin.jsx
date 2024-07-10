@@ -7,11 +7,11 @@ import "./styles/admin.css";
 function Admin({ alias }) {
   const [users, setUsers] = useState([]);
   const [artworks, setArtworks] = useState([]);
-  const [showUsersVerified, setShowUsersVerified] = useState("all"); // "all" for all users, "true" for verified, "false" for non-verified
-  const [showArtworksVerified, setShowArtworksVerified] = useState("all"); // "all" for all artworks, "true" for verified, "false" for non-verified
+  const [showUsersVerified, setShowUsersVerified] = useState("all");
+  const [showArtworksVerified, setShowArtworksVerified] = useState("all");
 
-  useEffect(() => {
-    // Fetch users from the API
+  // Fetch users from the server based on verification status
+  const fetchUsers = () => {
     let userUrl = `${import.meta.env.VITE_API_URL}/api/user`;
     if (showUsersVerified !== "all") {
       userUrl += `?verify=${showUsersVerified}`;
@@ -30,15 +30,14 @@ function Admin({ alias }) {
       .catch((error) => {
         console.error("Error fetching users:", error);
       });
-  }, [showUsersVerified]);
+  };
 
-  useEffect(() => {
-    // Fetch artworks from the API
+  // Fetch artworks from the server based on verification status
+  const fetchArtworks = () => {
     let artUrl = `${import.meta.env.VITE_API_URL}/api/art`;
     if (showArtworksVerified !== "all") {
       artUrl += `?verify=${showArtworksVerified}`;
     }
-
     fetch(artUrl)
       .then((response) => {
         if (!response.ok) {
@@ -52,14 +51,59 @@ function Admin({ alias }) {
       .catch((error) => {
         console.error("Error fetching artworks:", error);
       });
+  };
+
+  // Fetch users when the verification filter changes
+  useEffect(() => {
+    fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showUsersVerified]);
+
+  // Fetch artworks when the verification filter changes
+  useEffect(() => {
+    fetchArtworks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showArtworksVerified]);
 
+  // Handle radio button change for users filter
   const handleUsersRadioChange = (event) => {
     setShowUsersVerified(event.target.value);
   };
 
+  // Handle radio button change for artworks filter
   const handleArtworksRadioChange = (event) => {
     setShowArtworksVerified(event.target.value);
+  };
+
+  // Handle verification of artwork
+  const handleVerifyArt = async (id) => {
+    try {
+      const patchResponse = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/art/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            isVerify: 1,
+          }),
+        }
+      );
+
+      if (patchResponse.status === 204) {
+        fetchArtworks(); // Refresh the artworks list
+      } else {
+        const errorText = await patchResponse.text();
+        console.error(
+          "Error verifying artwork:",
+          patchResponse.statusText,
+          errorText
+        );
+      }
+    } catch (error) {
+      console.error("Error verifying artwork:", error);
+    }
   };
 
   return (
@@ -126,7 +170,7 @@ function Admin({ alias }) {
 
       <div className="art-cards">
         {artworks.map((art) => (
-          <ArtCard key={art.id} art={art} />
+          <ArtCard key={art.id} art={art} onVerify={handleVerifyArt} />
         ))}
       </div>
     </div>
