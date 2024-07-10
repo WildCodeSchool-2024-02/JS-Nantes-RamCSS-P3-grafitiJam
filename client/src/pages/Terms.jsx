@@ -11,7 +11,7 @@ function Terms() {
   };
 
   return (
-    <main>
+    <main className="terms">
       <h1>Terms Page</h1>
       <div className="slideButton">
         <p className="lun">Tags</p>

@@ -19,6 +19,12 @@
   gap: 6vh;
 }
 
+.pres p {
+  text-align: center;
+  color: #a1a1f3;
+  font-size: 1rem;
+}
+
 .background {
   width: 60vh;
   height: 60vh;
@@ -32,22 +38,55 @@
 .titre {
   font: 12em "GANG BANG CRIME";
   font-size: 3rem;
-  color: #596dd8;
+  color: #e42e2e;
   text-shadow:
     1px -1px #091d97,
     5px -5px #011a68;
 }
 
-ul li {
+.auth li {
   display: inline-block;
   margin-right: 5vh;
 }
 
-ul img {
-  width: 5vh;
-  height: 5vh;
+.lexique li {
+  display: inline-block;
+  margin-right: 5vh;
 }
 
-ul img:hover {
-  scale: 130%;
+.lexique,
+.auth {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5vh;
+}
+
+.lexique,
+.auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  p {
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+
+.auth,
+.lexique {
+  img {
+    background-color: #7f7f7f;
+    border-radius: 50%;
+    width: 5vh;
+    height: 5vh;
+  }
+
+  img:hover {
+    background-color: #e42e2e;
+    zoom: 120%;
+  }
 }
