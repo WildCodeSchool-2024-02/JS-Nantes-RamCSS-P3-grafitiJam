@@ -1,11 +1,18 @@
 import './styles/profile.css';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ConnexionContext } from '../Contextes/ConnexionContexte';
 
 
-function Profile() {
-  const { isConnected, alias, graffitiGeekLevel, userId } = useContext(ConnexionContext);
 
+function Profile() {
+  const { isConnected, alias, graffitiGeekLevel, userId, handleLogout } = useContext(ConnexionContext);
+const navigate = useNavigate();
+
+const handleDisconnect = () => {
+  handleLogout();
+  navigate('/'); 
+};
 
   return (
     <main>
@@ -27,6 +34,9 @@ function Profile() {
 ))}
   </div>
 </div>
+<div className='disconnect-button-container'>
+<button className='disconnect-button' onClick={handleDisconnect} type='button'>Disconnect</button>
+        </div>
 
 </div>
 

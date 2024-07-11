@@ -53,10 +53,22 @@ export function ConnexionProvider({ children }) {
         throw error;
       });
 
+      const handleLogout = () => {
+        localStorage.removeItem("token");
+        setAlias(null);
+        setIsConnected(false);
+        setIsVerify(false);
+        setIsAdmin(false);
+        setProfilePicture(null);
+        setGraffitiGeekLevel(0);
+        setUserId(null);
+      };
+
   const contextValue = useMemo(
     () => ({
       isConnected,
       handleLogin,
+      handleLogout,
       alias,
       isVerify,
       isAdmin,
