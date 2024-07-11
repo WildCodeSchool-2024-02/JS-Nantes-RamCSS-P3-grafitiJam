@@ -198,7 +198,10 @@ function Register({ showLogin }) {
           checked={acceptedTerms}
         />
         <label htmlFor="terms">
-          I accept the <a href="/terms-of-service">terms of service</a>
+          I accept the{" "}
+          <a href="/conditions" target="_blank" rel="noopener noreferrer">
+            terms of service
+          </a>{" "}
         </label>
         {!acceptedTerms && (
           <p className="error-message" style={{ color: "red" }}>

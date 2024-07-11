@@ -40,7 +40,6 @@ export function ConnexionProvider({ children }) {
 
           setGraffitiGeekLevel(data.graffitiGeekLevel || 0);
           setUserId(data.id);
-
         } else {
           throw new Error("Authentication failed");
         }
@@ -61,8 +60,15 @@ export function ConnexionProvider({ children }) {
       graffitiGeekLevel,
       userId,
     }),
-    [isConnected, alias, isVerify, isAdmin, profilePicture, graffitiGeekLevel, userId]
-
+    [
+      isConnected,
+      alias,
+      isVerify,
+      isAdmin,
+      profilePicture,
+      graffitiGeekLevel,
+      userId,
+    ]
   );
 
   return (
