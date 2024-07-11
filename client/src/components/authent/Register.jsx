@@ -7,6 +7,8 @@ function Register({ showLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isConfirmPasswordTouched, setIsConfirmPasswordTouched] =
+    useState(false);
   const emailRef = useRef();
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
@@ -15,6 +17,7 @@ function Register({ showLogin }) {
   const [hasNumber, setHasNumber] = useState(false);
   const [hasSpecialChar, setHasSpecialChar] = useState(false);
   const [hasAtSymbol, setHasAtSymbol] = useState(false);
+  const [hasMinLength, setHasMinLength] = useState(false);
 
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [validEmail, setValidEmail] = useState(true);
@@ -27,6 +30,7 @@ function Register({ showLogin }) {
     setHasUpperCase(/[A-Z]/.test(password));
     setHasNumber(/\d/.test(password));
     setHasSpecialChar(/[\W_]/.test(password));
+    setHasMinLength(password.length >= 8);
     setPasswordMatch(password === confirmPassword);
     setValidEmail(emailPattern.test(email));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,6 +49,11 @@ function Register({ showLogin }) {
 
   const handleConfirmPasswordChange = (event) => {
     setConfirmPassword(event.target.value);
+    setIsConfirmPasswordTouched(true);
+  };
+
+  const handleTermsChange = (event) => {
+    setAcceptedTerms(event.target.checked);
   };
 
   const handleSubmit = async (event) => {
@@ -57,7 +66,8 @@ function Register({ showLogin }) {
       !hasLowerCase ||
       !hasUpperCase ||
       !hasNumber ||
-      !hasSpecialChar
+      !hasSpecialChar ||
+      !hasMinLength
     ) {
       setErrorMessage("Please correct the errors in the form.");
       return;
@@ -152,7 +162,11 @@ function Register({ showLogin }) {
             <span style={{ color: hasNumber ? "green" : "red" }}> number,</span>
             <span style={{ color: hasSpecialChar ? "green" : "red" }}>
               {" "}
-              special character.
+              special character,
+            </span>
+            <span style={{ color: hasMinLength ? "green" : "red" }}>
+              {" "}
+              at least 8 characters.
             </span>
           </p>
         </div>
@@ -166,23 +180,29 @@ function Register({ showLogin }) {
         onChange={handleConfirmPasswordChange}
         required
       />
-      <p>
-        {passwordMatch ? (
-          <span style={{ color: "green" }}>✅ Passwords match</span>
-        ) : (
-          <span style={{ color: "red" }}>❌ Passwords do not match</span>
-        )}
-      </p>
+      {isConfirmPasswordTouched && (
+        <p>
+          {passwordMatch ? (
+            <span style={{ color: "green" }}>✅ Passwords match</span>
+          ) : (
+            <span style={{ color: "red" }}>❌ Passwords do not match</span>
+          )}
+        </p>
+      )}
       <div className="form-group">
         <input
           type="checkbox"
           id="terms"
           name="terms"
-          onChange={(e) => setAcceptedTerms(e.target.checked)}
+          onChange={handleTermsChange}
+          checked={acceptedTerms}
         />
         <label htmlFor="terms">
           I accept the <a href="/terms-of-service">terms of service</a>
         </label>
+        {!acceptedTerms && (
+          <p className="error-message">You must accept the terms of service.</p>
+        )}
       </div>
       <div className="form-buttons">
         <button
@@ -195,7 +215,8 @@ function Register({ showLogin }) {
             !hasSpecialChar ||
             !passwordMatch ||
             !acceptedTerms ||
-            !validEmail
+            !validEmail ||
+            !hasMinLength
           }
         >
           Register
