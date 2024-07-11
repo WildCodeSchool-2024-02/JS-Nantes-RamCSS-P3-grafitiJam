@@ -11,8 +11,8 @@ function Terms() {
   };
 
   return (
-    <main>
-      <h1>Terms Page</h1>
+    <main className="terms">
+      <h1>Des Graffitis et des Badges...</h1>
       <div className="slideButton">
         <p className="lun">Tags</p>
         <section title=".slideOne">

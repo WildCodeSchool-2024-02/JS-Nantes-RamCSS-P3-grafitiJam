@@ -1,10 +1,21 @@
+.badges {
+  background-color: #111111;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
 .terms-badge-container {
   display: flex;
   flex-direction: row;
   color: black;
-  width: 400px;
   background-color: #535252;
   border-radius: 10px;
+  width: 50%;
 }
 
 .scrollable-div {
@@ -14,7 +25,7 @@
 
 .title-image {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: start;
   align-items: center;
   margin: 0;
@@ -22,7 +33,7 @@
 }
 
 .terms-badge-container title {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .terms-badge-container img {
@@ -32,5 +43,5 @@
 
 .terms-badge-container p {
   color: #ffffff;
-  font-size: 16px;
+  font-size: 1rem;
 }
