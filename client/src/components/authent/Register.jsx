@@ -201,7 +201,9 @@ function Register({ showLogin }) {
           I accept the <a href="/terms-of-service">terms of service</a>
         </label>
         {!acceptedTerms && (
-          <p className="error-message">You must accept the terms of service.</p>
+          <p className="error-message" style={{ color: "red" }}>
+            You must accept the terms of service.
+          </p>
         )}
       </div>
       <div className="form-buttons">
