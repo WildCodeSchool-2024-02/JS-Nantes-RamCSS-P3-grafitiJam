@@ -4,45 +4,56 @@ import "./styles/Register.css";
 
 // eslint-disable-next-line react/prop-types
 function Register({ showLogin }) {
+  // State variables to hold form data and validation states
   const [alias, setAlias] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isConfirmPasswordTouched, setIsConfirmPasswordTouched] =
     useState(false);
-  const emailRef = useRef();
+  const emailRef = useRef(); // Reference for email input field
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const validEmail = emailPattern.test(email);
-  const hasAtSymbol = /@/.test(email);
-  const hasLowerCase = /[a-z]/.test(password);
-  const hasUpperCase = /[A-Z]/.test(password);
-  const hasNumber = /\d/.test(password);
-  const hasSpecialChar = /[\W_]/.test(password);
-  const hasMinLength = password.length >= 8;
-  const passwordMatch = password === confirmPassword;
 
+  // Regular expression pattern for validating email format
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Derived validation states
+  const validEmail = emailPattern.test(email); // Check if email matches the pattern
+  const hasAtSymbol = /@/.test(email); // Check if email contains '@' symbol
+  const hasLowerCase = /[a-z]/.test(password); // Check if password contains a lowercase letter
+  const hasUpperCase = /[A-Z]/.test(password); // Check if password contains an uppercase letter
+  const hasNumber = /\d/.test(password); // Check if password contains a number
+  const hasSpecialChar = /[\W_]/.test(password); // Check if password contains a special character
+  const hasMinLength = password.length >= 8; // Check if password has at least 8 characters
+  const passwordMatch = password === confirmPassword; // Check if password and confirm password match
+
+  // Event handler for email input change
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
+  // Event handler for password input change
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
+  // Event handler for confirm password input change
   const handleConfirmPasswordChange = (event) => {
     setConfirmPassword(event.target.value);
     setIsConfirmPasswordTouched(true);
   };
 
+  // Event handler for terms checkbox change
   const handleTermsChange = (event) => {
     setAcceptedTerms(event.target.checked);
   };
 
+  // Event handler for form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Check if form data is valid before submitting
     if (
       !validEmail ||
       !passwordMatch ||
@@ -63,7 +74,6 @@ function Register({ showLogin }) {
         email: emailRef.current.value,
         hashed_password: password,
       };
-
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user`, {
         method: "post",
         headers: { "Content-Type": "application/json" },
@@ -75,7 +85,7 @@ function Register({ showLogin }) {
         console.error("Registration error:", errorData);
         setErrorMessage(errorData.message);
       } else {
-        showLogin();
+        showLogin(); // Show login form on successful registration
       }
     } catch (err) {
       console.error("Registration failed:", err);
