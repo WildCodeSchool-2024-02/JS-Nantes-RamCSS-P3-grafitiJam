@@ -20,7 +20,7 @@ class ArtSeeder extends AbstractSeeder {
         artist: "manksy",
         style: "Stencil",
         image:
-          "https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/images/graff1.JPG",
+          "http://localhost:3310/uploadsPhotos/graff1.JPG",
         image_alt: "Banksy",
         gps_lat: 47.21143906584468,
         gps_long: -1.5493089178134056,
@@ -39,7 +39,7 @@ class ArtSeeder extends AbstractSeeder {
         artist: "Banksy",
         style: "Stencil",
         image:
-          "https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/images/graff2.png",
+          "http://localhost:3310/uploadsPhotos/graff2.png",
         image_alt: "Banksy",
         gps_lat: 47.20429090583255,
         gps_long: -1.5569432888086854,
@@ -58,7 +58,7 @@ class ArtSeeder extends AbstractSeeder {
         artist: "Banksy",
         style: "Stencil",
         image:
-          "https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/images/graff3.jpg",
+          "http://localhost:3310/uploadsPhotos/graff3.jpg",
         image_alt: "Banksy",
         gps_lat: 47.19981142590736,
         gps_long: -1.5509831165335841,
@@ -77,7 +77,7 @@ class ArtSeeder extends AbstractSeeder {
         artist: "Banksy",
         style: "Stencil",
         image:
-          "https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/images/graff4.jpg",
+          "http://localhost:3310/uploadsPhotos/graff4.jpg",
         image_alt: "Banksy",
         gps_lat: 47.20620325272429,
         gps_long: -1.573223977969005,

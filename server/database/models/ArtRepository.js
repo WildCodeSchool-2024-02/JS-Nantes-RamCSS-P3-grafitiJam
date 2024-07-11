@@ -56,6 +56,15 @@ class ArtRepository extends AbstractRepository {
     return result.affectedRows;
   }
 
+  async updateVerifiedStatus(art) {
+    const [result] = await this.database.query(
+      `update ${this.table} SET is_verify = ? where id = ?`,
+      [art.isVerify, art.id]
+    );
+
+    return result.affectedRows;
+  }
+
   async readAll(isVerify) {
     let sqlVerify = "";
     if (isVerify !== undefined) {

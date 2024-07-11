@@ -1,3 +1,4 @@
+
 import './styles/profile.css';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,17 +15,15 @@ const handleDisconnect = () => {
   navigate('/'); 
 };
 
+
   return (
     <main>
-      
-      <div className='infos-profile-container'>
-      
-      <div className='alias-container'>
-        {isConnected && (
-          <p className='alias-text'>Alias : {alias}</p>
-        )}
+      <div className="infos-profile-container">
+        <div className="alias-container">
+          {isConnected && <p className="alias-text">Alias : {alias}</p>}
+        </div>
 
-      </div>
+
 
 <div className='geek-level-container'>
   <p className='geek-level-text'>Geek level</p>

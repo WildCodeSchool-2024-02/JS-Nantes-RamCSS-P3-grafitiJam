@@ -13,6 +13,7 @@ import Map from "./pages/Map";
 import Photo from "./pages/Photo";
 import Galerie from "./pages/Galerie";
 import Admin from "./pages/Admin";
+import Conditions from "./pages/Conditions";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/galerie",
         element: <Galerie />,
+      },
+      {
+        path: "/conditions",
+        element: <Conditions />,
       },
     ],
   },

@@ -14,8 +14,8 @@ function Navbar() {
         <li>
           <Link to="/">
             <img
-                src={`${import.meta.env.VITE_API_URL}/icones/toHome.svg`}
-                alt="Retour à l'accueil"
+              src={`${import.meta.env.VITE_API_URL}/icones/toHome.svg`}
+              alt="Retour à l'accueil"
             />
           </Link>
         </li>
@@ -23,8 +23,8 @@ function Navbar() {
           <li>
             <Link to="/admin">
               <img
-                  src={`${import.meta.env.VITE_API_URL}/icones/Admin.svg`}
-                  alt="page administrateur"
+                src={`${import.meta.env.VITE_API_URL}/icones/Admin.svg`}
+                alt="page administrateur"
               />
             </Link>
           </li>
@@ -32,8 +32,8 @@ function Navbar() {
         <li>
           <Link to="/auth">
             <img
-                src={`${import.meta.env.VITE_API_URL}/icones/Auth.svg`}
-                alt="authentification"
+              src={`${import.meta.env.VITE_API_URL}/icones/Auth.svg`}
+              alt="authentification"
             />
           </Link>
         </li>
@@ -41,24 +41,24 @@ function Navbar() {
         <li>
           <Link to="/terms">
             <img
-                src={`${import.meta.env.VITE_API_URL}/icones/Lexique.svg`}
-                alt="Elements de compréhension"
+              src={`${import.meta.env.VITE_API_URL}/icones/Lexique.svg`}
+              alt="Elements de compréhension"
             />
           </Link>
         </li>
         <li>
           <Link to="/map">
             <img
-                src={`${import.meta.env.VITE_API_URL}/icones/Map.svg`}
-                alt="Graffitis autour de moi"
+              src={`${import.meta.env.VITE_API_URL}/icones/Map.svg`}
+              alt="Graffitis autour de moi"
             />
           </Link>
         </li>
         {isConnected && (
-            <li>
-              <Link to="/photo">
-                <img
-                    src={`${import.meta.env.VITE_API_URL}/icones/Photo.svg`}
+          <li>
+            <Link to="/photo">
+              <img
+                src={`${import.meta.env.VITE_API_URL}/icones/Photo.svg`}
                 alt="Capture une oeuvre de street art"
               />
             </Link>

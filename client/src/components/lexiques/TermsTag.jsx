@@ -4,11 +4,11 @@ import "./styles/Tag.css";
 
 function TermsTag() {
   return (
-    <>
+    <main className="tags">
       {/* eslint-disable-next-line no-shadow */}
       {tags.map((tags, index) => (
         // eslint-disable-next-line react/no-array-index-key
-        <div key={index} className="terms-badge-container">
+        <div key={index} className="terms-tags-container">
           <div className="title-image">
             <h2>{tags.title}</h2>
             <img src={tags.image} alt={tags.alt} />
@@ -18,7 +18,7 @@ function TermsTag() {
           </div>
         </div>
       ))}
-    </>
+    </main>
   );
 }
 

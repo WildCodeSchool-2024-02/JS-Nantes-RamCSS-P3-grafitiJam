@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./styles/Register.css";
 
 // eslint-disable-next-line react/prop-types
@@ -7,6 +7,8 @@ function Register({ showLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isConfirmPasswordTouched, setIsConfirmPasswordTouched] =
+    useState(false);
   const emailRef = useRef();
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
@@ -14,35 +16,64 @@ function Register({ showLogin }) {
   const [hasUpperCase, setHasUpperCase] = useState(false);
   const [hasNumber, setHasNumber] = useState(false);
   const [hasSpecialChar, setHasSpecialChar] = useState(false);
+  const [hasAtSymbol, setHasAtSymbol] = useState(false);
+  const [hasMinLength, setHasMinLength] = useState(false);
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [validEmail, setValidEmail] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(""); // Define errorMessage state
 
-  const handlePasswordChange = (event) => {
-    // eslint-disable-next-line no-shadow
-    const password = event.target.value;
-    setPassword(password);
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Update password validation states
+  useEffect(() => {
     setHasLowerCase(/[a-z]/.test(password));
     setHasUpperCase(/[A-Z]/.test(password));
     setHasNumber(/\d/.test(password));
     setHasSpecialChar(/[\W_]/.test(password));
+    setHasMinLength(password.length >= 8);
+    setPasswordMatch(password === confirmPassword);
+    setValidEmail(emailPattern.test(email));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [password, confirmPassword, email]);
+
+  const handleEmailChange = (event) => {
+    const emailValue = event.target.value;
+    setEmail(emailValue);
+    setHasAtSymbol(/@/.test(emailValue));
+  };
+
+  const handlePasswordChange = (event) => {
+    const newPassword = event.target.value;
+    setPassword(newPassword);
   };
 
   const handleConfirmPasswordChange = (event) => {
     setConfirmPassword(event.target.value);
+    setIsConfirmPasswordTouched(true);
+  };
+
+  const handleTermsChange = (event) => {
+    setAcceptedTerms(event.target.checked);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      if (password !== confirmPassword) {
-        setErrorMessage("Passwords do not match.");
-        return;
-      }
+    if (
+      !validEmail ||
+      !passwordMatch ||
+      !acceptedTerms ||
+      !hasLowerCase ||
+      !hasUpperCase ||
+      !hasNumber ||
+      !hasSpecialChar ||
+      !hasMinLength
+    ) {
+      setErrorMessage("Please correct the errors in the form.");
+      return;
+    }
 
-      // Prepare the data to be sent
+    try {
       const data = {
         alias,
         email: emailRef.current.value,
@@ -65,10 +96,6 @@ function Register({ showLogin }) {
     } catch (err) {
       console.error("Registration failed:", err);
       setErrorMessage("Failed to register. Please try again later.");
-    }
-
-    if (!acceptedTerms) {
-      setErrorMessage("You must accept the terms of service.");
     }
   };
 
@@ -94,9 +121,21 @@ function Register({ showLogin }) {
           name="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleEmailChange}
           required
         />
+        <div id="emailCriteria">
+          <p>
+            Email must contain:
+            <span style={{ color: hasAtSymbol ? "green" : "red" }}>
+              {" "}
+              @ symbol
+            </span>
+          </p>
+        </div>
+        {!validEmail && email !== "" && (
+          <p className="error-message">Invalid email format.</p>
+        )}
       </div>
       <div className="form-group">
         <input
@@ -123,7 +162,11 @@ function Register({ showLogin }) {
             <span style={{ color: hasNumber ? "green" : "red" }}> number,</span>
             <span style={{ color: hasSpecialChar ? "green" : "red" }}>
               {" "}
-              special character.
+              special character,
+            </span>
+            <span style={{ color: hasMinLength ? "green" : "red" }}>
+              {" "}
+              at least 8 characters.
             </span>
           </p>
         </div>
@@ -137,21 +180,50 @@ function Register({ showLogin }) {
         onChange={handleConfirmPasswordChange}
         required
       />
-
-      {password === confirmPassword ? "✅" : "❌"}
+      {isConfirmPasswordTouched && (
+        <p>
+          {passwordMatch ? (
+            <span style={{ color: "green" }}>✅ Passwords match</span>
+          ) : (
+            <span style={{ color: "red" }}>❌ Passwords do not match</span>
+          )}
+        </p>
+      )}
       <div className="form-group">
         <input
           type="checkbox"
           id="terms"
           name="terms"
-          onChange={(e) => setAcceptedTerms(e.target.checked)}
+          onChange={handleTermsChange}
+          checked={acceptedTerms}
         />
         <label htmlFor="terms">
-          I accept the <a href="/terms-of-service">terms of service</a>
+          I accept the{" "}
+          <a href="/conditions" target="_blank" rel="noopener noreferrer">
+            terms of service
+          </a>{" "}
         </label>
+        {!acceptedTerms && (
+          <p className="error-message" style={{ color: "red" }}>
+            You must accept the terms of service.
+          </p>
+        )}
       </div>
       <div className="form-buttons">
-        <button type="submit" id="registerButton">
+        <button
+          type="submit"
+          id="registerButton"
+          disabled={
+            !hasLowerCase ||
+            !hasUpperCase ||
+            !hasNumber ||
+            !hasSpecialChar ||
+            !passwordMatch ||
+            !acceptedTerms ||
+            !validEmail ||
+            !hasMinLength
+          }
+        >
           Register
         </button>
       </div>
