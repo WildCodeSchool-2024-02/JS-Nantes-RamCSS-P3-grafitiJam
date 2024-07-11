@@ -14,7 +14,7 @@ function GraffitiMap() {
   useEffect(() => {
     const fetchGraffitiData = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/art`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/art?verify=true`);
         const data = await response.json();
         // eslint-disable-next-line no-use-before-define
         const adjustedData = adjustGraffitiPositions(data);
