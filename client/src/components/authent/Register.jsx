@@ -1,7 +1,6 @@
-import { useRef, useState} from "react";
+import { useRef, useState } from "react";
 import "./styles/Register.css";
-import {NavLink} from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 function Register({ showLogin }) {
@@ -199,9 +198,9 @@ function Register({ showLogin }) {
           </NavLink>{" "}
         </label>
         {!acceptedTerms && (
-            <p className="error-message" style={{color: "red"}}>
-              You must accept the terms of service.
-            </p>
+          <p className="error-message" style={{ color: "red" }}>
+            You must accept the terms of service.
+          </p>
         )}
       </div>
       <div className="form-buttons">

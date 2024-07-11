@@ -90,3 +90,40 @@
     zoom: 120%;
   }
 }
+
+@media (max-width: 668px) {
+  .homepage {
+    margin: 0;
+  }
+
+  .pres {
+    width: 80%;
+  }
+
+  .background {
+    width: 40vh;
+    height: 40vh;
+  }
+
+  .titre {
+    font-size: 2rem;
+  }
+
+  .auth,
+  .lexique {
+    width: 80%;
+  }
+
+  .auth li,
+  .lexique li {
+    margin-right: 2vh;
+  }
+
+  .auth,
+  .lexique {
+    img {
+      width: 3vh;
+      height: 3vh;
+    }
+  }
+}

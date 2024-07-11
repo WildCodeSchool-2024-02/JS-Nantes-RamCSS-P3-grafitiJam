@@ -1,9 +1,6 @@
-nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #b5aeb4;
-  padding: 10px 0;
+ul {
+  flex-direction: row;
+  gap: 10px;
 }
 
 nav ul {
@@ -53,8 +50,12 @@ img.profile-picture:hover {
   color: #333;
 }
 
-/* Responsive adjustments */
 @media (max-width: 468px) {
+  ul {
+    flex-direction: row;
+    gap: 20px;
+  }
+
   nav li {
     margin: 1px 0;
   }
