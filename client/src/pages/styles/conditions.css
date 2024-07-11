@@ -1,0 +1,47 @@
+.conditions {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.conditions h1 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.conditions h2 {
+  color: #555;
+  font-size: 20px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.conditions p,
+.conditions li {
+  color: #666;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.conditions ul {
+  margin-left: 20px;
+}
+
+.conditions a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.conditions a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #ff0000;
+  font-weight: bold;
+}
