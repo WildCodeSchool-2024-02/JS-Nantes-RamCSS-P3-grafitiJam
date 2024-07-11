@@ -1,4 +1,6 @@
 import { useRef, useState, useEffect } from "react";
+import { NavLink } from 'react-router-dom';
+
 import "./styles/Register.css";
 
 // eslint-disable-next-line react/prop-types
@@ -199,14 +201,14 @@ function Register({ showLogin }) {
         />
         <label htmlFor="terms">
           I accept the{" "}
-          <a href="/conditions" target="_blank" rel="noopener noreferrer">
+          <NavLink to="/conditions" target="_blank" rel="noopener noreferrer">
             terms of service
-          </a>{" "}
+          </NavLink>{" "}
         </label>
         {!acceptedTerms && (
-          <p className="error-message" style={{ color: "red" }}>
-            You must accept the terms of service.
-          </p>
+            <p className="error-message" style={{color: "red"}}>
+              You must accept the terms of service.
+            </p>
         )}
       </div>
       <div className="form-buttons">
