@@ -1,4 +1,5 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./styles/Register.css";
 
 // eslint-disable-next-line react/prop-types
@@ -11,40 +12,23 @@ function Register({ showLogin }) {
     useState(false);
   const emailRef = useRef();
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-
-  const [hasLowerCase, setHasLowerCase] = useState(false);
-  const [hasUpperCase, setHasUpperCase] = useState(false);
-  const [hasNumber, setHasNumber] = useState(false);
-  const [hasSpecialChar, setHasSpecialChar] = useState(false);
-  const [hasAtSymbol, setHasAtSymbol] = useState(false);
-  const [hasMinLength, setHasMinLength] = useState(false);
-
-  const [passwordMatch, setPasswordMatch] = useState(true);
-  const [validEmail, setValidEmail] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(""); // Define errorMessage state
-
+  const [errorMessage, setErrorMessage] = useState("");
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  useEffect(() => {
-    setHasLowerCase(/[a-z]/.test(password));
-    setHasUpperCase(/[A-Z]/.test(password));
-    setHasNumber(/\d/.test(password));
-    setHasSpecialChar(/[\W_]/.test(password));
-    setHasMinLength(password.length >= 8);
-    setPasswordMatch(password === confirmPassword);
-    setValidEmail(emailPattern.test(email));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [password, confirmPassword, email]);
+  const validEmail = emailPattern.test(email);
+  const hasAtSymbol = /@/.test(email);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasNumber = /\d/.test(password);
+  const hasSpecialChar = /[\W_]/.test(password);
+  const hasMinLength = password.length >= 8;
+  const passwordMatch = password === confirmPassword;
 
   const handleEmailChange = (event) => {
-    const emailValue = event.target.value;
-    setEmail(emailValue);
-    setHasAtSymbol(/@/.test(emailValue));
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
-    const newPassword = event.target.value;
-    setPassword(newPassword);
+    setPassword(event.target.value);
   };
 
   const handleConfirmPasswordChange = (event) => {
@@ -198,7 +182,7 @@ function Register({ showLogin }) {
           checked={acceptedTerms}
         />
         <label htmlFor="terms">
-          I accept the <a href="/terms-of-service">terms of service</a>
+          I accept the <Link to="/terms-of-service">terms of service</Link>
         </label>
         {!acceptedTerms && (
           <p className="error-message" style={{ color: "red" }}>
