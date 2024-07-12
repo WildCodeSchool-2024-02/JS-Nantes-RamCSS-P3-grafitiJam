@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import "./styles/Register.css";
+import { NavLink } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 function Register({ showLogin }) {
@@ -192,7 +192,10 @@ function Register({ showLogin }) {
           checked={acceptedTerms}
         />
         <label htmlFor="terms">
-          I accept the <Link to="/terms-of-service">terms of service</Link>
+          I accept the{" "}
+          <NavLink to="/conditions" target="_blank" rel="noopener noreferrer">
+            terms of service
+          </NavLink>{" "}
         </label>
         {!acceptedTerms && (
           <p className="error-message" style={{ color: "red" }}>

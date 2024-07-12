@@ -99,7 +99,7 @@ function PhotoForm({ selectedImage }) {
         hoodId: 1,
         size,
         stillUp: stillUp ? 1 : 0,
-        verifierBy: "John Doe",
+        verifierBy: "moi",
         graffitiDate,
         zone: 2,
         image: `${import.meta.env.VITE_API_URL}/uploadsPhotos/${uploadedImageUrl}`, // Lien vers l'image téléchargée.
