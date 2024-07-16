@@ -49,6 +49,7 @@
   border: 2px solid #2c3e50;
   margin: 0.25em;
 }
+
 .disconnect-button {
   padding: 12px 24px; /* Agrandir légèrement le bouton */
   border: none;
@@ -68,6 +69,52 @@
 .disconnect-button:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.badges-container {
+  margin-top: 20px;
+  border: 2px solid #2c3e50;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+/* Heading for the badges */
+.badges-heading {
+  margin-bottom: 10px;
+}
+
+/* List of badges */
+.badges-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Individual badge item */
+.badge-item {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #2c3e50;
+  border-radius: 5px;
+}
+
+/* Badge name */
+.badge-item p {
+  margin: 0;
+}
+
+/* Badge image */
+.badge-img {
+  max-width: 100px; /* Adjust as per your badge image dimensions */
+  margin-top: 10px;
+}
+
+/* Badge scenario or description */
+.badge-item p:nth-child(3) {
+  margin-top: 5px;
+}
+
+/* Badge level */
+.badge-item p:nth-child(4) {
+  margin-top: 5px;
 }
 
 /* Styles for larger screens */
