@@ -110,15 +110,6 @@ export function ConnexionProvider({ children }) {
     }
   };
 
-  // Check localStorage after rerender to automatically log in if token exists
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token && !isConnected) {
-      fetchUserData(token);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected]); // Rerun if isConnected changes
-
   // Memoized context value
   const contextValue = useMemo(
     () => ({
