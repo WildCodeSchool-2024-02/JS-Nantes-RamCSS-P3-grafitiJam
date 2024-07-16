@@ -16,6 +16,7 @@
   background-color: #535252;
   border-radius: 10px;
   width: 50%;
+  padding: 10px;
 }
 
 .scrollable-div {
@@ -30,6 +31,7 @@
   align-items: center;
   margin: 0;
   padding: 0;
+  margin-right: 10px;
 }
 
 .terms-badge-container title {

@@ -17,11 +17,11 @@ function Profile() {
     <main>
       <div className="infos-profile-container">
         <div className="alias-container">
-          {isConnected && <p className="alias-text">Alias : {alias}</p>}
+          {isConnected && <h2 className="alias-text">Alias : {alias}</h2>}
         </div>
 
         <div className="geek-level-container">
-          <p className="geek-level-text">Geek level</p>
+          <h2 className="geek-level-text">Geek level</h2>
           <div className="level-indicators">
             {Array.from({ length: graffitiGeekLevel }).map(() => (
               <div key={`level-${userId}`} className="level-indicator" />
