@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { ConnexionContext } from "../Contextes/ConnexionContexte";
 import UserCard from "../components/Admin/UserCard";
 import ArtCard from "../components/Admin/ArtCard";
 import "./styles/admin.css";
@@ -9,6 +11,22 @@ function Admin({ alias }) {
   const [artworks, setArtworks] = useState([]);
   const [showUsersVerified, setShowUsersVerified] = useState("all");
   const [showArtworksVerified, setShowArtworksVerified] = useState("all");
+  // eslint-disable-next-line no-unused-vars
+  const { isAdmin, handleLogin } = useContext(ConnexionContext);
+  const navigate = useNavigate();
+
+  // Check if user is admin on component mount
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate("/"); // Redirect to home if not admin
+    }
+  }, [isAdmin, navigate]);
+
+  // Check if token exists on component mount
+  useEffect(() => {
+    // eslint-disable-next-line no-unused-vars
+    const token = localStorage.getItem("token");
+  }, []);
 
   // Fetch users from the server based on verification status
   const fetchUsers = () => {

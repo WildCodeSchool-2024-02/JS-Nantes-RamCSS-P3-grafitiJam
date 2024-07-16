@@ -1,5 +1,6 @@
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
+const tables = require("../../database/tables");
 
 // Options de hachage
 const hashingOptions = {
@@ -35,41 +36,43 @@ const hashPassword = async (req, res, next) => {
     next(err);
   }
 };
+
+// Middleware function to verify JWT token
 // eslint-disable-next-line consistent-return
-const verifyToken = (req, res, next) => {
-  if (req.path === "/api/user/login") {
-    return next();
+const verifyToken = (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ valid: false, message: "No token provided" });
   }
 
-  try {
-    // Vérifier la présence de l'en-tête "Authorization" dans la requête
-    const authorizationHeader = req.get("Authorization");
-
-    if (authorizationHeader == null) {
-      throw new Error("Authorization header is missing");
+  // eslint-disable-next-line consistent-return
+  jwt.verify(token, process.env.APP_SECRET, (err, decoded) => {
+    if (err) {
+      if (err.name === "TokenExpiredError") {
+        return res
+          .status(401)
+          .json({ valid: false, message: "Token has expired" });
+      }
+      return res
+        .status(401)
+        .json({ valid: false, message: "Failed to authenticate token" });
     }
 
-    // Vérifier que l'en-tête a la forme "Bearer <token>"
-    const [type, token] = authorizationHeader.split(" ");
-
-    if (type !== "Bearer") {
-      throw new Error("Authorization header has not the 'Bearer' type");
-    }
-
-    // Vérifier la validité du token (son authenticité et sa date d'expériation)
-    // En cas de succès, le payload est extrait et décodé
-    req.auth = jwt.verify(token, process.env.APP_SECRET);
-
-    next();
-  } catch (err) {
-    console.error(err);
-
-    res.sendStatus(401);
-  }
+    // Assuming user details are available in decoded token
+    res.status(200).json({
+      valid: true,
+      id: decoded.id,
+      alias: decoded.alias,
+      isAdmin: decoded.isAdmin,
+      isVerify: decoded.isVerify,
+      profilePicture: decoded.profilePicture,
+      graffitiGeekLevel: decoded.graffitiGeekLevel,
+      user: decoded.email,
+      // Add more fields if necessary
+    });
+  });
 };
-
-const tables = require("../../database/tables");
-
 // Login handler
 // eslint-disable-next-line consistent-return
 const login = async (req, res, next) => {
@@ -101,7 +104,6 @@ const login = async (req, res, next) => {
       profilePicture: user.profilePicture,
       graffitiGeekLevel: user.graffitiGeekLevel,
       user: user.email,
-      // Add more fields as needed
     };
 
     const token = jwt.sign(tokenPayload, process.env.APP_SECRET);
