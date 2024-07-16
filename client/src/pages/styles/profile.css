@@ -16,29 +16,26 @@
   margin: 1em;
 }
 
-/*
-
-.alias-text {
-  font-weight: bold;
-  text-align: center;
-}
-
-*/
-
 .alias-container {
-  border: 2px solid #2c3e50;
-  display: inline-block;
-  padding: 0.5em;
-  margin-top: 1em;
+  background-color: #fefefe;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  margin: auto;
 }
 
 .geek-level-container {
-  border: 2px solid #2c3e50;
-  padding: 0.5em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1em;
+  background-color: #fefefe;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 .level-indicators {
@@ -51,6 +48,27 @@
   height: 30px;
   border: 2px solid #2c3e50;
   margin: 0.25em;
+}
+
+.disconnect-button {
+  padding: 12px 24px; /* Agrandir légèrement le bouton */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  font-size: 14px;
+  margin-top: 1em;
+  display: block; /* Pour centrer horizontalement */
+  margin: auto;
+}
+
+.disconnect-button:hover {
+  background-color: #e42e2e;
+}
+.disconnect-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 .badges-container {
   margin-top: 20px;
