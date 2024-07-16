@@ -1,7 +1,9 @@
-import "./styles/profile.css";
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ConnexionContext } from "../Contextes/ConnexionContexte";
+import "./styles/profile.css";
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function Profile() {
   const {
@@ -12,7 +14,29 @@ function Profile() {
     handleLogout,
     profilePicture,
   } = useContext(ConnexionContext);
+
   const navigate = useNavigate();
+  const [badges, setBadges] = useState([]);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-shadow
+    const fetchUserBadges = async (userId) => {
+      try {
+        const response = await fetch(`${apiUrl}/api/user/badge/${userId}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setBadges(data); // Update badges state
+      } catch (error) {
+        console.error("Error fetching badges:", error);
+      }
+    };
+
+    if (isConnected) {
+      fetchUserBadges(userId);
+    }
+  }, [isConnected, userId]);
 
   const handleDisconnect = () => {
     handleLogout();
@@ -47,6 +71,21 @@ function Profile() {
             ))}
           </div>
         </div>
+
+        <div className="badges-container">
+          <p className="badges-heading">Badges</p>
+          <ul className="badges-list">
+            {badges.map((badge) => (
+              <li key={badge.name} className="badge-item">
+                <p>{badge.name}</p>
+                <img src={badge.img} alt={badge.name} className="badge-img" />
+                <p>{badge.scenario}</p>
+                <p>Level: {badge.level}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <div className="disconnect-button-container">
           <button
             className="disconnect-button"
