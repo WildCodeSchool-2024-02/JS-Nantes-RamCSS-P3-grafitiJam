@@ -85,8 +85,8 @@ INSERT INTO `style` (`name`, `style_tag`) VALUES
 
 INSERT INTO `badge` (`name`, `img`, `scenario`, `level`) VALUES
 ('Gold', 'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/badges/golden.png', 'vous avez trouvé 100 graffiti', 3),
-('Silver', 'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/badges/golden.png', 'vous avez trouvé 50 graffiti', 2),
-('Bronze', 'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/badges/golden.png', 'vous avez trouvé 10 graffiti', 1);
+('Silver', 'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/badges/silver.png', 'vous avez trouvé 50 graffiti', 2),
+('Bronze', 'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/badges/bronze.png', 'vous avez trouvé 10 graffiti', 1);
 
 
 
