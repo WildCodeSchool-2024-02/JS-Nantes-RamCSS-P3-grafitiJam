@@ -122,6 +122,29 @@ VALUES (
     );
 
 INSERT INTO
+    `style` (`name`, `style_tag`)
+VALUES (
+        'Buble',
+        'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/tags/Buble.png'
+    ),
+    (
+        'Cubic',
+        'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/tags/Cubic.png'
+    ),
+    (
+        'Figure',
+        'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/tags/Figure.png'
+    ),
+    (
+        'Tag',
+        'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/tags/Tag.png'
+    ),
+    (
+        'Letter',
+        'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/tags/Letter.png'
+    );
+
+INSERT INTO
     `badge` (
         `name`,
         `img`,
@@ -136,16 +159,61 @@ VALUES (
     ),
     (
         'Silver',
-        'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/badges/golden.png',
+        'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/badges/silver.png',
         'vous avez trouvé 50 graffiti',
         2
     ),
     (
         'Bronze',
-        'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/badges/golden.png',
+        'https://raw.githubusercontent.com/WildCodeSchool-2024-02/JS-Nantes-RamCSS-P3-grafitiJam/main/server/public/assets/badges/bronze.png',
         'vous avez trouvé 10 graffiti',
         1
     );
+
+INSERT INTO
+    `art` (
+        `user_id`,
+        `is_verify`,
+        `img_date`,
+        `artist`,
+        `style`,
+        `image`,
+        `image_alt`,
+        `gps_lat`,
+        `gps_long`,
+        `hood_id`,
+        `size`,
+        `still_up`,
+        `verifier_by`,
+        `graffiti_date`,
+        `zone`
+    )
+VALUES (
+        1,
+        false,
+        '2020-07-01',
+        'manksy',
+        (
+            SELECT `id`
+            FROM `style`
+            WHERE
+                `name` = 'Stencil'
+        ),
+        'http://localhost:3310/uploadsPhotos/graff1.JPG',
+        'Banksy',
+        47.21143906584468,
+        -1.5493089178134056,
+        1,
+        'M',
+        true,
+        'John Doe',
+        '2020-07-01',
+        10
+    );
+
+INSERT INTO `art_style` (`art_id`, `style_id`) VALUES (1, 2);
+
+INSERT INTO `user_badge` (`user_id`, `badge_id`) VALUES (1, 2);
 
 INSERT INTO
     `art` (
