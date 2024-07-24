@@ -15,7 +15,6 @@ function Auth() {
 
   return (
     <main>
-      <h1>Connect you</h1>
       {isRegister ? (
         <Register showLogin={showLogin} />
       ) : (
