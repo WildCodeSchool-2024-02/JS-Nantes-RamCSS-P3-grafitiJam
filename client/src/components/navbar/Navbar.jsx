@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ConnexionContext } from "../../Contextes/ConnexionContexte";
-
 import "./styles/navbar.css";
 
 function Navbar() {
@@ -37,7 +36,6 @@ function Navbar() {
             />
           </Link>
         </li>
-
         <li>
           <Link to="/terms">
             <img
@@ -71,7 +69,7 @@ function Navbar() {
               <img
                 src={profilePicture}
                 alt={`${alias}'s avatar`}
-                className="profile-picture"
+                className="nav-profile-picture"
               />
             </Link>
             <span className="alias">{alias}</span>
@@ -81,5 +79,4 @@ function Navbar() {
     </nav>
   );
 }
-
 export default Navbar;

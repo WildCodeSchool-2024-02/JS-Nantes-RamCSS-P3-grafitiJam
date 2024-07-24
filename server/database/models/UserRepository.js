@@ -22,7 +22,7 @@ class UserRepository extends AbstractRepository {
 
   async update(user) {
     const [result] = await this.database.query(
-      `update ${this.table} set alias = ?, email = ?, hashed_password = ?, profile_picture, = ?, graffiti_geek_level = ? where id = ?`,
+      `update ${this.table} set alias = ?, email = ?, hashed_password = ?, profile_picture = ?, graffiti_geek_level = ? where id = ?`,
       [
         user.alias,
         user.email,
@@ -36,6 +36,22 @@ class UserRepository extends AbstractRepository {
     );
 
     return result.affectedRows;
+  }
+
+  async updateAvatar(user) {
+    try {
+      // Perform the database update
+      const [result] = await this.database.query(
+        `UPDATE ${this.table} SET profile_picture = ? WHERE alias = ?`,
+        [user.profile_picture, user.alias]
+      );
+
+      // Return the number of affected rows
+      return result.affectedRows;
+    } catch (err) {
+      console.error("Error in updateAvatar:", err);
+      throw err; // Re-throw error to be caught by the controller
+    }
   }
 
   async readAll(isVerify) {

@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 const tables = require("../../database/tables");
@@ -11,7 +12,7 @@ const hashingOptions = {
 };
 
 // Middleware to hash the password
-// eslint-disable-next-line consistent-return
+
 const hashPassword = async (req, res, next) => {
   try {
     if (!req.body.hashed_password) {
@@ -38,15 +39,16 @@ const hashPassword = async (req, res, next) => {
 };
 
 // Middleware function to verify JWT token
-// eslint-disable-next-line consistent-return
-const verifyToken = (req, res) => {
-  const token = req.headers.authorization.split(" ")[1];
+
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization
+    ? req.headers.authorization.split(" ")[1]
+    : null;
 
   if (!token) {
     return res.status(401).json({ valid: false, message: "No token provided" });
   }
 
-  // eslint-disable-next-line consistent-return
   jwt.verify(token, process.env.APP_SECRET, (err, decoded) => {
     if (err) {
       if (err.name === "TokenExpiredError") {
@@ -59,22 +61,12 @@ const verifyToken = (req, res) => {
         .json({ valid: false, message: "Failed to authenticate token" });
     }
 
-    // Assuming user details are available in decoded token
-    res.status(200).json({
-      valid: true,
-      id: decoded.id,
-      alias: decoded.alias,
-      isAdmin: decoded.isAdmin,
-      isVerify: decoded.isVerify,
-      profilePicture: decoded.profilePicture,
-      graffitiGeekLevel: decoded.graffitiGeekLevel,
-      user: decoded.email,
-      // Add more fields if necessary
-    });
+    req.user = decoded; // Attach user info to request
+    next();
   });
 };
 // Login handler
-// eslint-disable-next-line consistent-return
+
 const login = async (req, res, next) => {
   const { alias, password } = req.body;
 
