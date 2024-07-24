@@ -1,30 +1,22 @@
 .tags {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  margin: 0;
-  padding: 0;
   gap: 20px;
 }
 
 .terms-tags-container {
   display: flex;
-  flex-direction: row;
-  color: black;
+  flex-direction: column;
   background-color: #535252;
   border-radius: 10px;
   width: 50%;
+  padding: 0 20px;
 }
 
-.title-image {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  width: 10em;
-  margin: 0;
-  padding: 0;
+.terms-tags-container p {
+  color: #ffffff;
+  font-size: 1rem;
 }
 
 .scrollable-div {
@@ -32,16 +24,6 @@
   overflow: auto;
 }
 
-.terms-tag-container title {
-  font-size: 1rem;
-}
-
-.terms-tag-container img {
-  width: 100px;
-  height: auto;
-}
-
-.terms-tag-container p {
-  color: #dedddd;
-  font-size: 1rem;
+.terms-badge-container img {
+  margin-bottom: 20px;
 }
