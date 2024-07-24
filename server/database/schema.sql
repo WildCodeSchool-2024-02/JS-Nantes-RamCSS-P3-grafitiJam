@@ -88,6 +88,37 @@ VALUES (
     );
 
 INSERT INTO
+    `user` (
+        `alias`,
+        `email`,
+        `hashed_password`,
+        `profile_picture`,
+        `is_admin`,
+        `is_verify`,
+        `graffiti_geek_level`
+    )
+VALUES (
+        'steven',
+        'stevenbachimont@gmail.com',
+        '$argon2id$v=19$m=19456,t=2,p=1$cX8MgcA4iMKrhGQDvjlhAg$mG4VqjY1vonuXmNpMkexBmW3r4V7nsoitrrUpT9vDEc',
+        'http://localhost:3310/uploadsAvatars/steven.jpg',
+        1,
+        1,
+        4
+    );
+
+INSERT INTO
+    `hood` (
+        `hood_name`,
+        `city`,
+        `suburbs`
+    )
+VALUES ('Reze', true, false),
+    ('Olivettes', false, true),
+    ('Republique', true, false),
+    ('50 Otages', true, false);
+
+INSERT INTO
     `hood` (
         `hood_name`,
         `city`,

@@ -28,19 +28,19 @@ nav img {
   text-align: center;
 }
 
-.profile-picture {
+.nav-profile-picture {
   border-radius: 50%;
   width: 40px;
   height: auto;
   margin: 0;
 }
 
-img.profile-picture {
+img.nav-profile-picture {
   border: 2px solid #fff;
   margin: 0;
 }
 
-img.profile-picture:hover {
+img.nav-profile-picture:hover {
   cursor: pointer;
 }
 
@@ -60,7 +60,7 @@ img.profile-picture:hover {
     margin: 1px 0;
   }
 
-  img.profile-picture {
+  img.nav-profile-picture {
     border-radius: 50%;
     width: 20px;
     height: auto;

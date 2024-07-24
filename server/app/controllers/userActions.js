@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const tables = require("../../database/tables");
 
 const browse = async (req, res, next) => {
@@ -47,18 +48,43 @@ const readByAlias = (req, res, next) => {
   handleRead(req, res, next, (params) => tables.user.readByAlias(params.alias));
 };
 
+const updateProfilePicture = async (req, res, next) => {
+  try {
+    const { alias, profilePicture } = req.body;
+    if (!alias || !profilePicture) {
+      return res
+        .status(400)
+        .json({ message: "Alias and profilePicture are required" });
+    }
+
+    // Assuming `profilePicture` is a full URL now
+    const affectedRows = await tables.user.updateAvatar({
+      alias,
+      profile_picture: profilePicture,
+    });
+    if (affectedRows > 0) {
+      res.sendStatus(204); // No Content
+    } else {
+      res.sendStatus(404); // Not Found
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const edit = async (req, res, next) => {
-  // Extract the item data from the request body
   const user = req.body;
 
   try {
-    // Update the item in the database
-    await tables.style.update(user);
+    const affectedRows = await tables.user.update(user);
 
-    // Respond with HTTP 204 (No Content)
-    res.sendStatus(204);
+    if (affectedRows > 0) {
+      res.sendStatus(204); // No Content
+    } else {
+      res.sendStatus(404); // Not Found
+    }
   } catch (err) {
-    // Pass any errors to the error-handling middleware
+    console.error("Error updating user:", err);
     next(err);
   }
 };
@@ -95,6 +121,22 @@ const destroy = async (req, res, next) => {
     next(err);
   }
 };
+const validateToken = (req, res) => {
+  if (req.user) {
+    // Check if req.user is set by verifyToken middleware
+    res.json({
+      valid: true,
+      alias: req.user.alias,
+      isVerify: req.user.isVerify,
+      isAdmin: req.user.isAdmin,
+      profilePicture: req.user.profilePicture,
+      graffitiGeekLevel: req.user.graffitiGeekLevel,
+      id: req.user.id,
+    });
+  } else {
+    res.status(401).json({ valid: false, message: "Invalid token" });
+  }
+};
 
 module.exports = {
   browse,
@@ -104,4 +146,6 @@ module.exports = {
   destroy,
   readByUserId,
   readByAlias,
+  updateProfilePicture,
+  validateToken,
 };

@@ -28,8 +28,8 @@ class UserSeeder extends AbstractSeeder {
         graffiti_geek_level: 3,
       },
       {
-        alias: "Jin Doe",
-        email: "jin.doe@example.com",
+        alias: "Jack Doe",
+        email: "jack.doe@example.com",
         hashed_password:
           "$argon2id$v=19$m=19456,t=2,p=1$D9RrXKfUcXN+5ZKyVjQLpQ$7u94IgpE83O0wmvO4YjDSUdvGuzgS3mDbj/p3rkoxb4",
         profile_picture: "http://localhost:3310/uploadsAvatars/Five.jpg",
@@ -38,8 +38,8 @@ class UserSeeder extends AbstractSeeder {
         graffiti_geek_level: 4,
       },
       {
-        alias: "Jong Doe",
-        email: "jong.doe@example.com",
+        alias: "Jo Doe",
+        email: "jo.doe@example.com",
         hashed_password:
           "$argon2id$v=19$m=19456,t=2,p=1$gKGWPh8Xu0P/Xz+mQw/yhg$p8YLM/76HvjqkctgURCinjNKKnj1U3I4Z2K8r0QRprU",
         profile_picture: "http://localhost:3310/uploadsAvatars/Twelve.jpg",
@@ -51,7 +51,7 @@ class UserSeeder extends AbstractSeeder {
         alias: "steven",
         email: "stev.bach@example.com",
         hashed_password:
-            "$argon2id$v=19$m=19456,t=2,p=1$cX8MgcA4iMKrhGQDvjlhAg$mG4VqjY1vonuXmNpMkexBmW3r4V7nsoitrrUpT9vDEc",
+          "$argon2id$v=19$m=19456,t=2,p=1$cX8MgcA4iMKrhGQDvjlhAg$mG4VqjY1vonuXmNpMkexBmW3r4V7nsoitrrUpT9vDEc",
         profile_picture: "http://localhost:3310/uploadsAvatars/steven.jpg",
         is_admin: 1,
         is_verify: 1,
