@@ -1,11 +1,11 @@
 .user-card {
   border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 16px;
-  margin: 16px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* .profile-picture {
@@ -18,4 +18,16 @@
 .user-info {
   display: flex;
   flex-direction: column;
+}
+
+.user-profile-picture {
+  width: 133px; /* Taille fixe pour les images */
+  height: 200px; /* Taille fixe pour les images */
+  object-fit: cover; /* Ajustement pour que l'image s'adapte à la taille définie */
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+h3 {
+  color: white;
 }

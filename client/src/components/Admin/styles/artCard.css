@@ -9,8 +9,9 @@
 }
 
 .art-image {
-  width: 200px;
-  height: auto;
+  width: 133px; /* Taille fixe pour les images */
+  height: 200px; /* Taille fixe pour les images */
+  object-fit: cover; /* Ajustement pour que l'image s'adapte à la taille définie */
   border-radius: 5px;
   margin-right: 10px;
 }

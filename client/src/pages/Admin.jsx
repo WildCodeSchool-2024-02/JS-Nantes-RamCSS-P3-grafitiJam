@@ -126,63 +126,67 @@ function Admin({ alias }) {
 
   return (
     <div>
-      <h1>Admin Dashboard</h1>
-      <p>Welcome, {alias}! You have admin privileges.</p>
-      <div>
+      <h1 className="admin-title">Espace Admin</h1>
+      <h2 className="admin-welcome">
+        Bienvenue {alias}, vous avez tous les pouvoirs !
+      </h2>
+      <div className="user-container">
         <label>
-          Show Users:
+          Afficher les utilisateurs :
           <input
             type="radio"
             value="all"
             checked={showUsersVerified === "all"}
             onChange={handleUsersRadioChange}
           />{" "}
-          All Users
+          Tous les utilisateurs
           <input
             type="radio"
             value="true"
             checked={showUsersVerified === "true"}
             onChange={handleUsersRadioChange}
           />{" "}
-          Verified Users
+          Utilisateurs vérifiés
           <input
             type="radio"
             value="false"
             checked={showUsersVerified === "false"}
             onChange={handleUsersRadioChange}
           />{" "}
-          Non-Verified Users
+          Utilisateurs non vérifiés
         </label>
       </div>
+
       <div className="user-cards">
         {users.map((user) => (
           <UserCard key={user.id} user={user} />
         ))}
       </div>
-      <div>
+
+      <div className="art-container">
         <label>
-          Show Artworks:
+          Afficher les oeuvres :
           <input
             type="radio"
             value="all"
             checked={showArtworksVerified === "all"}
             onChange={handleArtworksRadioChange}
           />{" "}
-          All Artworks
+          Toutes les oeuvres
           <input
             type="radio"
             value="true"
             checked={showArtworksVerified === "true"}
             onChange={handleArtworksRadioChange}
           />{" "}
-          Verified Artworks
+          Oeuvres vérifiées
           <input
             type="radio"
             value="false"
             checked={showArtworksVerified === "false"}
             onChange={handleArtworksRadioChange}
           />{" "}
-          Non-Verified Artworks
+          Oeuvres non vérifiées
         </label>
       </div>
 

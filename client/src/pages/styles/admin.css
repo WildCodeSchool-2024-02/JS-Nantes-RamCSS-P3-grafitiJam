@@ -1,10 +1,32 @@
-.user-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
+.user-cards,
 .art-cards {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.admin-title {
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.admin-welcome {
+  margin-bottom: 50px;
+  color: white;
+  text-align: center;
+}
+
+.user-container {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.art-container {
+  margin-bottom: 50px;
+  text-align: center;
 }
