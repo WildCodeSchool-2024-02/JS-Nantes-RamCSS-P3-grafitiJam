@@ -1,14 +1,18 @@
 /* CSS Mobile first */
 
+/* Profile Picture Styling */
 .profile-picture {
-  width: 60vw;
-  height: 60vw;
-  max-width: 200px;
-  max-height: 200px;
+  width: 80vw; /* Increase width for a larger profile picture */
+  height: 50vw; /* Adjust height to make it rectangular */
+  max-width: 300px; /* Maximum width */
+  max-height: 200px; /* Maximum height */
   border: 2px solid black;
+  border-radius: 15px; /* Rounded corners */
+  object-fit: cover; /* Ensure the image fits well */
   margin-top: 1em;
 }
 
+/* Container for Profile Picture and Information */
 .profile-container {
   display: flex;
   flex-direction: column;
@@ -16,6 +20,7 @@
   margin: 1em;
 }
 
+/* Styling for Alias Container */
 .alias-container {
   background-color: #535252;
   padding: 20px;
@@ -47,11 +52,13 @@
   margin-top: 15px;
 }
 
+/* Indicators for Geek Level */
 .level-indicators {
   display: flex;
   margin-top: 0.5em;
 }
 
+/* Individual Geek Level Indicator */
 .level-indicator {
   width: 20px;
   height: 30px;
@@ -60,6 +67,7 @@
   background-color: #3498db;
 }
 
+/* Disconnect Button Styling */
 .disconnect-button {
   padding: 12px 12px; /* Agrandir légèrement le bouton */
   border: none;
@@ -77,10 +85,13 @@
 .disconnect-button:hover {
   background-color: #e42e2e;
 }
+
 .disconnect-button:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
+
+/* Badges Container Styling */
 .badges-container {
   background-color: #535252;
   margin-top: 20px;
@@ -88,44 +99,63 @@
   border-radius: 5px;
 }
 
-/* Heading for the badges */
+/* Heading for Badges */
 .badges-heading {
   margin-bottom: 10px;
   text-align: center;
 }
 
-/* List of badges */
+/* List of Badges */
 .badges-list {
   list-style-type: none;
   padding: 0;
 }
 
-/* Individual badge item */
+/* Individual Badge Item */
 .badge-item {
   margin-bottom: 15px;
   text-align: center;
 }
 
-/* Badge name */
+/* Badge Name */
 .badge-item p {
   margin: 0;
   font-size: 1rem;
 }
 
-/* Badge image */
+/* Badge Image */
 .badge-img {
-  max-width: 100px; /* Adjust as per your badge image dimensions */
+  max-width: 100px; /* Adjust as needed */
   margin-top: 10px;
 }
 
-/* Badge scenario or description */
+/* Badge Scenario or Description */
 .badge-item p:nth-child(3) {
   margin-top: 5px;
 }
 
-/* Badge level */
+/* Badge Level */
 .badge-item p:nth-child(4) {
   margin-top: 5px;
+}
+
+/* Drop Area Styling */
+.profile-picture-container {
+  width: 80vw; /* Match the width of the profile picture */
+  height: 50vw; /* Match the height of the profile picture */
+  max-width: 300px; /* Maximum width */
+  max-height: 200px; /* Maximum height */
+  border: 2px dashed #2c3e50; /* Dashed border for the drop area */
+  border-radius: 15px; /* Rounded corners */
+  transition: border-color 0.3s; /* Smooth border color transition */
+  display: flex; /* Center profile picture */
+  align-items: center;
+  justify-content: center;
+  margin-top: 1em;
+}
+
+.profile-picture-container.drag-over {
+  border-color: #e42e2e; /* Change border color when dragging over */
 }
 
 /* Styles for larger screens */
@@ -138,9 +168,16 @@
 
   .profile-picture {
     width: 25vw;
-    height: 25vw;
+    height: 15vw; /* Adjust height to maintain rectangular shape */
     max-width: 250px;
-    max-height: 250px;
+    max-height: 150px;
+  }
+
+  .profile-picture-container {
+    width: 25vw;
+    height: 15vw; /* Adjust height to match profile picture size */
+    max-width: 250px;
+    max-height: 150px;
   }
 
   .alias-container {

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ConnexionContext } from "../Contextes/ConnexionContexte";
@@ -12,31 +13,143 @@ function Profile() {
     graffitiGeekLevel,
     userId,
     handleLogout,
-    profilePicture,
+    profilePicture: initialProfilePicture,
+    updateProfilePicture, // Use this method from context
   } = useContext(ConnexionContext);
 
   const navigate = useNavigate();
   const [badges, setBadges] = useState([]);
+  const [profilePicture, setProfilePicture] = useState(initialProfilePicture);
+  const [dragOver, setDragOver] = useState(false);
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    // eslint-disable-next-line no-shadow
-    const fetchUserBadges = async (userId) => {
-      try {
-        const response = await fetch(`${apiUrl}/api/user/badge/${userId}`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+    setProfilePicture(initialProfilePicture);
+  }, [initialProfilePicture]);
+
+  useEffect(() => {
+    const fetchUserBadges = async () => {
+      if (isConnected && userId) {
+        try {
+          const response = await fetch(`${apiUrl}/api/user/badge/${userId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          setBadges(data);
+        } catch (error) {
+          console.error("Error fetching badges:", error);
         }
-        const data = await response.json();
-        setBadges(data); // Update badges state
-      } catch (error) {
-        console.error("Error fetching badges:", error);
       }
     };
 
-    if (isConnected) {
-      fetchUserBadges(userId);
+    fetchUserBadges();
+  }, [isConnected, userId, token]);
+
+  const uploadAvatar = async (file) => {
+    if (!token) {
+      console.error("No token found.");
+      return null;
     }
-  }, [isConnected, userId]);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch(`${apiUrl}/api/upload/avatars`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message);
+      }
+
+      return result.filename;
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+      throw error;
+    }
+  };
+
+  const updateUserData = async (data) => {
+    if (!token) {
+      console.error("No token found.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${apiUrl}/api/user/update`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text(); // Use text() to handle non-JSON responses
+        console.error("Error updating user data:", errorText);
+        throw new Error(errorText);
+      }
+    } catch (error) {
+      console.error("Error updating user data:", error);
+      throw error;
+    }
+  };
+
+  const handleDrop = async (event) => {
+    event.preventDefault();
+    setDragOver(false);
+    const file = event.dataTransfer.files[0];
+
+    if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+      try {
+        const filename = await uploadAvatar(file);
+
+        if (filename) {
+          const newProfilePictureUrl = `${apiUrl}/uploadsAvatars/${filename}?v=${new Date().getTime()}`;
+
+          setProfilePicture(newProfilePictureUrl);
+
+          const userData = {
+            profilePicture: newProfilePictureUrl,
+            alias,
+          };
+
+          await updateUserData(userData);
+          updateProfilePicture(newProfilePictureUrl); // Update the context
+        }
+      } catch (error) {
+        console.error(
+          "Error uploading profile picture or updating user data:",
+          error
+        );
+      }
+    } else {
+      console.error("Invalid file type. Only PNG and JPEG are allowed.");
+    }
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    setDragOver(true);
+  };
+
+  const handleDragLeave = () => {
+    setDragOver(false);
+  };
 
   const handleDisconnect = () => {
     handleLogout();
@@ -44,8 +157,13 @@ function Profile() {
   };
 
   return (
-    <main className="profile-container">
-      <div className="profile-picture-container">
+    <main>
+      <div
+        className={`profile-picture-container ${dragOver ? "drag-over" : ""}`}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+      >
         {profilePicture && (
           <img
             src={profilePicture}
@@ -56,15 +174,14 @@ function Profile() {
       </div>
       <div className="infos-profile-container">
         <div className="alias-container">
-          {isConnected && <h2 className="alias-text">Alias : {alias}</h2>}
+          {isConnected && <h2 className="alias-text">Alias: {alias}</h2>}
         </div>
 
         <div className="geek-level-container">
-          <h2 className="geek-level-text">Geek level</h2>
+          <h2 className="geek-level-text">Geek Level</h2>
           <div className="level-indicators">
             {Array.from({ length: graffitiGeekLevel }).map((_, index) => (
               <div
-                // eslint-disable-next-line react/no-array-index-key
                 key={`level-${userId}-${index}`}
                 className="level-indicator"
               />
