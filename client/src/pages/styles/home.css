@@ -5,6 +5,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 50px;
+  padding-top: 50px;
 }
 
 .pres {
@@ -38,6 +40,7 @@
 .titre {
   font: 12em "GANG BANG CRIME";
   font-size: 3rem;
+  text-align: center;
   color: #e42e2e;
   text-shadow:
     1px -1px #091d97,
@@ -73,6 +76,7 @@
     color: white;
     font-size: 1rem;
     text-align: center;
+    margin-bottom: 2vh;
   }
 }
 
