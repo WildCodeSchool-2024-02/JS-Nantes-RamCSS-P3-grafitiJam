@@ -1,0 +1,17 @@
+/* client/src/components/map/styles/map.css */
+.map {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.map .map-container {
+  margin-top: 40px;
+  width: 80%;
+  position: relative;
+  border-radius: 20px;
+}

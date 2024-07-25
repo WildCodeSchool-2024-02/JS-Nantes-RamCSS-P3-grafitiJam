@@ -74,10 +74,12 @@ p {
   margin: 0;
 }
 
-h1 {
+h1,
+h2 {
   color: #1391d5;
   font-size: 20px;
   margin: 0;
+  text-align: center;
 }
 
 @media (max-width: 600px) {
