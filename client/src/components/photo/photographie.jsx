@@ -56,48 +56,70 @@ function Photographie(props) {
   };
 
   return (
-    <card>
-      <Webcam
-        className="webcam"
-        audio={false}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        videoConstraints={videoConstraints}
-      />
-      {/* eslint-disable-next-line react/button-has-type */}
-      <button className="capture" onClick={capture}>
-        CLICK !
-      </button>
+      <main>
+        <h1>Photographiez les graffitis </h1>
+        <h2>Selectionnez une photo et partagez-la avec la communauté</h2>
+        <card>
+          <Webcam
+              className="webcam"
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              videoConstraints={videoConstraints}
+          />
+          <button className="capture" onClick={capture} type="button">
+            CLICK !
+          </button>
 
-      {selectedImage ? (
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-        <div className="reçu" onClick={() => selectImage(null)}>
-          <img className="prise" src={selectedImage.src} alt="Captured" />
-          <div className="mapOuter">
-            <p>Latitude: {selectedImage.latitude}</p>
-            <p>Longitude: {selectedImage.longitude}</p>
-            <p>{selectedImage.timestamp.toLocaleString()}</p>
-          </div>
-        </div>
-      ) : (
-        capturedImages.map((image, index) => (
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions,react/no-array-index-key
-          <div className="reçu" key={index} onClick={() => selectImage(image)}>
-            <img
-              className="prise"
-              src={image.src}
-              alt="Captured"
-              style={{ width: "100px" }}
-            />
-            <div className="mapOuter">
-              <p>Latitude: {image.latitude}</p>
-              <p>Longitude: {image.longitude}</p>
-              <p>{image.timestamp.toLocaleString()}</p>
-            </div>
-          </div>
-        ))
-      )}
-    </card>
+          {selectedImage ? (
+              <div
+                  className="reçu"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => selectImage(null)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      selectImage(null);
+                    }
+                  }}
+              >
+                <img className="prise" src={selectedImage.src} alt="Captured" />
+                <div className="mapOuter">
+                  <p>Latitude: {selectedImage.latitude}</p>
+                  <p>Longitude: {selectedImage.longitude}</p>
+                  <p>{selectedImage.timestamp.toLocaleString()}</p>
+                </div>
+              </div>
+          ) : (
+              capturedImages.map((image) => (
+                  <div
+                      className="reçu"
+                      key={image.id}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => selectImage(image)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          selectImage(image);
+                        }
+                      }}
+                  >
+                    <img
+                        className="prise"
+                        src={image.src}
+                        alt="Captured"
+                        style={{ width: "60%" }}
+                    />
+                    <div className="mapOuter">
+                      <p>Latitude: {image.latitude}</p>
+                      <p>Longitude: {image.longitude}</p>
+                      <p>{image.timestamp.toLocaleString()}</p>
+                    </div>
+                  </div>
+              ))
+          )}
+        </card>
+      </main>
   );
 }
 
