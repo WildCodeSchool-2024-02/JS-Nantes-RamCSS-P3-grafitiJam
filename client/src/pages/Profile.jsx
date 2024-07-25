@@ -190,7 +190,7 @@ function Profile() {
         </div>
 
         <div className="badges-container">
-          <p className="badges-heading">Badges</p>
+          <h2 className="badges-heading">Badges</h2>
           <ul className="badges-list">
             {badges.map((badge) => (
               <li key={badge.name} className="badge-item">
