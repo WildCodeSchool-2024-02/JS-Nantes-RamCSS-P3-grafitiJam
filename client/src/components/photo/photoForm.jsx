@@ -72,12 +72,12 @@ function PhotoForm({ selectedImage }) {
       // eslint-disable-next-line react/prop-types
       setLongitude(selectedImage.longitude);
       const timestamp =
-        // eslint-disable-next-line react/prop-types
-        selectedImage.timestamp instanceof Date
-          ? // eslint-disable-next-line react/prop-types
-            selectedImage.timestamp
-          : // eslint-disable-next-line react/prop-types
-            new Date(selectedImage.timestamp);
+          // eslint-disable-next-line react/prop-types
+          selectedImage.timestamp instanceof Date
+              ? // eslint-disable-next-line react/prop-types
+              selectedImage.timestamp
+              : // eslint-disable-next-line react/prop-types
+              new Date(selectedImage.timestamp);
       setGraffitiDate(timestamp.toISOString().split("T")[0]);
     }
   }, [selectedImage]);
@@ -112,62 +112,62 @@ function PhotoForm({ selectedImage }) {
   };
 
   return (
-    <card>
-      <form className="Vignette" onSubmit={handleSubmit}>
-        {/* eslint-disable-next-line react/prop-types */}
-        {selectedImage && <img src={selectedImage.src} alt="Selected" />}
+      <card>
+        <form className="Vignette" onSubmit={handleSubmit}>
+          {/* eslint-disable-next-line react/prop-types */}
+          {selectedImage && <img src={selectedImage.src} alt="Selected" />}
 
-        <label>
-          Latitude:
-          <input type="text" value={latitude} readOnly />
-        </label>
-        <label>
-          Longitude:
-          <input type="text" value={longitude} readOnly />
-        </label>
-        <label>
-          Graffiti Date:
-          <input type="date" value={graffitiDate} readOnly />
-        </label>
-        <label>
-          Artist:
-          <input
-            type="text"
-            value={artist}
-            onChange={(e) => setArtist(e.target.value)}
-          />
-        </label>
-        <label>
-          Style:
-          <select value={style} onChange={(e) => setStyle(e.target.value)}>
-            {tags.map((tag) => (
-              <option key={tag.title} value={tag.title}>
-                {tag.title}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Size:
-          <select value={size} onChange={(e) => setSize(e.target.value)}>
-            {sizeData.map((sizeOption) => (
-              <option key={sizeOption.title} value={sizeOption.title}>
-                {sizeOption.title}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Still Up:
-          <input
-            type="checkbox"
-            checked={stillUp}
-            onChange={(e) => setStillUp(e.target.checked)}
-          />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-    </card>
+          <label>
+            Latitude:
+            <input type="text" value={latitude} readOnly />
+          </label>
+          <label>
+            Longitude:
+            <input type="text" value={longitude} readOnly />
+          </label>
+          <label>
+            Graffiti Date:
+            <input type="date" value={graffitiDate} readOnly />
+          </label>
+          <label>
+            Artist:
+            <input
+                type="text"
+                value={artist}
+                onChange={(e) => setArtist(e.target.value)}
+            />
+          </label>
+          <label>
+            Style:
+            <select value={style} onChange={(e) => setStyle(e.target.value)}>
+              {tags.map((tag) => (
+                  <option key={tag.title} value={tag.title}>
+                    {tag.title}
+                  </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Size:
+            <select value={size} onChange={(e) => setSize(e.target.value)}>
+              {sizeData.map((sizeOption) => (
+                  <option key={sizeOption.title} value={sizeOption.title}>
+                    {sizeOption.title}
+                  </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Still Up:
+            <input
+                type="checkbox"
+                checked={stillUp}
+                onChange={(e) => setStillUp(e.target.checked)}
+            />
+          </label>
+          <button type="submit">Submit</button>
+        </form>
+      </card>
   );
 }
 
